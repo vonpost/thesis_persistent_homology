@@ -4,7 +4,7 @@
 *log
 *.run*
 *.sync*
-.aucex-auto/
+.aucex-auto/*
 *.bcf
 *.blg
 *.toc
