@@ -1,0 +1,11 @@
+*.save*
+*.fdb*
+*.fls
+*log
+*.run*
+*.sync*
+.aucex-auto/
+*.bcf
+*.blg
+*.toc
+*.aux
