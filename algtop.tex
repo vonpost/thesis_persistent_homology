@@ -1,11 +1,73 @@
 \chapter{Homology}
-Before go into what \textit{persistent} homology it is well worth our time to clearly state what we mean by homology. (Why? Can this be skipped by experienced readers or are our definitions non-standard? Do we mostly follow hatcher?)
+Before go into what \textit{persistent} homology it is well worth our time to clearly state what we mean by homology. (Why? Can this be skipped by experienced readers or are our definitions non-standard? Do we mostly follow hatcher?). In a general sense, homology is a particular of invariant of topological spaces. This has categorical reasons and others.
+Importantly we need to define simplicial complexes. There are other ways of defining this, notably singular homology, but for the computational aspect of persistent homology we do not have to dwell on this. For completion, we refer the reader to Hatcher for a more traditional treatment of homology.
 
 \section{Simplicial complexes}
+First we start with the simplex.
+The $n$-simplex is the smallest possible convex set in $\mathbb{R}^{m}$ containing the $n+1$ points $v_{0},\dots,v_{n}$ such that the vectors $v_{1}-v_{0}, \dots, v_{n} - v_{0}$ are linearily independent. The points $v_{0},\dots,v_{n}$ are known as the \textit{vertices} of the simplex.
+By $[v_{0},\dots,v_{n}]$ we denote the simplex given by those very vertices. The \textit{standard} $n$-simplex with vertices being the unit vectors along coordinate axes is defined as
+\[ \Delta^{n} := \{ (t_{0}, \dots, t_{n}) \in R^{n+1} \mid \sum_{i} t_{i} = 1, t_{i} \geq 0 \quad \forall i \}
 
-\section{Homology groups}
+\]
+More to come.. Do we need orientations, for example?
 
-\section{Probably something more?}
+Definition. A face is the $n-1$-simplex you get after removing a vertex from a $n$-simplex??
+
+\section{Simplicial complex}
+A $\Delta$-complex on a given space $X$ is a collection of maps $\sigma_{alpha}: \delta^{n} \to X$ such that:
+\begin{enumerate}
+  \item Someting
+  \item Something
+        \item Something
+\end{enumerate}
+
+Other definition. A simplicial complex $X$ is a collection of simplices such that for every simplex $\Delta_{1}, \Delta_{2}$:
+\begin{enumerate}
+        \item $\Delta_{1}, \Delta_{2} \subseteq X$
+  \item $\Delta_{1} \cap \Delta_{2}$ is either a face of both or the empty set.
+  \item $\Delta_{1} \subseteq \Delta_{2} \subset X \implies \Delta_{1} \subset X $
+\end{enumerate}
+So a pair of simplices in the complex can only touch at subsimplex, and all of the faces of a simplex is also in the complex.
+
+This is the geometric definition of a simplicial complex. However, since we are working with topological spaces it is advantageous to think of an abstract simplicial complex without concerning ourselves with the geometric connotations:
+
+Definition. An abstract simplicial complex is a consists of a set $K$ and a collection of subsets $\Delta \subset K$ called simplices such that:
+\begin{enumerate}
+        \item $v \in K$ then $\{v\} \in \Delta$
+        \item $\sigma \in \Delta$ and $\tau \subset \sigma$ then $\tau \in \Delta$
+\end{enumerate}
+
+Definition (nlab). An abstract simplicial complex consists of
+\begin{enumerate}
+  \item a set of objects $V(K)$ called the vertices
+        \item a set $S(K)$ of finite non-empty subsets of $V(K)$ called the simplices
+\end{enumerate}
+such that the following holds:
+\begin{enumerate}
+  \item if $\sigma \subset V(K)$ is a simplex, in other words $\sigma \in S(K)$, and $\tau \subset \sigma, \tau \neq \emptyset$ then $\tau \in S(K)$
+        \item For $v \in V(K)$ the singleton $\{v\}$ is a simplex.
+\end{enumerate}
+Note how $\tau$ in this definition coincides with the geometric definition of a face of $\sigma$. Basically this abstract definition tells us that it is enough to define a simplicial complex and its corresponding simplices by the vertices alone and how they group together. If we want to recover an actual geometric simplex we look at the geometric realization of the simplicial complex.
+
+Definition. Geometric Realization. A geometric realization $|K|$ of the abstract simplicial complex $K$ is given by..
+
+Since all simplices of same dimension are homeomorphic this concludes what we wanted etc.
+\section{Simplicial homology}
+For a simplicial complex $K$ of dimension $n$ we define a free abelian group $C_{k}$ on the oriented $k-simplices$ of $K$.
+The elements of $C_{k}$ are called $k$-chains and are formal sums of the type
+$\sum \alpha_{i} \sigma_{i}$
+where $\alpha_{i}$ are coefficients in some ring $R$. Furthermore, we have a collection of homomorphisms, known as boundary maps, which together with the chain groups form a chain complex. The $k$th boundary map
+\[ \partial_{k}: C_{k} \to C_{k-1}\]
+takes a $k$-simplex $\sigma$
+\[ \partial_{k} \sigma = \sum^{k}_{{i=0}} (-1)^{i} [v_{0},\dots,\hat v_{i}, \dots, v_{k}]\]
+where $\hat v_{i}$ signifies that this vertex has been omitted. This is a linear map so
+\[\delta_{k} \sum \alpha_{i}\sigma_{i} = \sum \alpha_{i} \delta_{k} \sigma_{i}\]
+
+Now a simplicial chain complex is a collection of chain groups together with their corresponding boundary maps as a sequence:
+Tikzcd diagrams.
+
+Note that the boundary maps compose to become the zero map. From this definition we know that from every simplicial complex $K$ we can associate a simplicial chain complex (this is a functor). We then define the homology group of $K$ as the kernel quotioned by the image in the previous. What does this mean? Well, it's simply that we quotient cycles with boundaries. Note that the structure of $H_{k}$ is in part dependent on the choice of ring $R$.
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "thesis.tex"

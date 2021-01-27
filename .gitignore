@@ -5,6 +5,7 @@
 *.run*
 *.sync*
 .aucex-auto/
+.ref-pdfs/
 *.el
 *.bcf
 *.blg
