@@ -1,20 +1,34 @@
 \chapter{Persistent}
-What is persistent homology? What kind of spaces can we compute it in? What does computation entail?
+In the world of data we rarely have access to perfect information. In the view of homology, perfect information would be knowing exactly what our topological space is and so we could calculate the homology group of that space. We could endow our the space which our data lives in with a topology, but if we give it the discrete topology the homology of that space will be trivial. What we are interested is what if there is an underlying topological space with a non trivial topology? Consider for example points sampled from a torus. If we know our space is a torus we know what the homology is of this space, but what if we do not? This is where persistent homology comes in, a way of gaining information about the homological structure of the data space.
+
+The basic idea is quite simple. We let our data points be vertices in a simplicial complex and grow balls of radius $\epsilon$ around each vertex. If any two balls intersect we say that they are part of the same simplex.
+
+Figure of this here.
+
+However, a problem occurs here. How large do we want $\epsilon$ to be? If we grow $\epsilon$ too large we end up with all balls intersecting each other and with no homological information and if we let the balls grow too little then with a bunch of unconnected vertices and no interesting structure. Persistent homology addresses this by simply considering \textit{all} of them and encoding the lifetime of homological features occuring in something called a barcode diagram.
+
+Figure of barcode.
+
 
 \section{Views}
+We said that we put balls around each point, but this is just inuition. There are multiple ways of doing this which have different advantages and disadvantages.
 
-\subsection{$\alpha$ Complex}
+(Explain the different complexes.)
+Cech complex more expensive to compute.
+\subsection{Cech complex}
+Definition. For a given selection of points $\{x_{\alpha}\}$ in some Euclidean space $\mathbb{R}^{n}$ the Cech complex $C_{\epsilon}$ is given by the abstract simplicial complex whose $k$-simplices are given by $k+1$ points in the collection of points whose closed balls of radius $\epsilon/2$ have a point in common.
 \subsection{Vietoris-Rips Complex}
+Definition. For a given selection of points $\{x_{\alpha}\}$ in some Euclidean space $\mathbb{R}^{n}$ the Vietoris-Rips complex $R_{\epsilon}$ is the abstract simplicial complex whose $k$-simplices are given by $k+1$ points which are pairwise at most $\epsilon$ apart.
+\subsection{Witness complex}
+\subsection{Cubical complex}
 \begin{thm}
 hehe
 \end{thm}
-
-\subsection{Something Complex}
-\section{Metrics}
 \section{Persistence Diagrams}
 \section{Barcodes}
-
+\section{Metrics}
 \section{Computation of }
+Some aspects of the computational part of this. How is it done in practice?
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "thesis.tex"
