@@ -1,8 +1,15 @@
 \documentclass[oneside]{scrbook}
-\usepackage{amsmath,amsfonts,amssymb,amsthm, tikz-cd}
+\usepackage{amsmath,amsfonts,amssymb,amsthm, tikz-cd, graphicx}
+\usepackage[labelfont={bf},textfont=it]{caption}
+\usepackage{subcaption}
 \author{Daniel Collin}
 \title{Persistent}
-\newtheorem{thm}{Theorem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{plain}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+
 \begin{document}
 \maketitle
 \tableofcontents

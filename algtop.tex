@@ -4,33 +4,59 @@ Importantly we need to define simplicial complexes. There are other ways of defi
 
 \section{Simplices}
 First we start with the simplex.
+
+\begin{figure}
+  \centering
+  \includegraphics[]{simplex.pdf}
+  \label{simplices}
+  \caption{0-simplex (left), 1-simplex (middle left), 2-simplex (middle right) and 3-simplex (right).}
+  \end{figure}
+\begin{definition}
 An $n$-simplex is the smallest possible convex set in $\mathbb{R}^{m}$ containing $n+1$ points $v_{0},\dots,v_{n}$ such that the vectors $v_{1}-v_{0}, \dots, v_{n} - v_{0}$ are linearily independent. The points $v_{0},\dots,v_{n}$ are known as the \textit{vertices} of the simplex.
-The \textit{standard} $n$-simplex is defined as the $n$-simplex with vertices being the unit vectors along coordinate axes
+\end{definition}
+\begin{definition}
+The \textit{standard} $n$-simplex is the $n$-simplex with vertices being the unit vectors along coordinate axes
 \[ \Delta^{n} := \{ (t_{0}, \dots, t_{n}) \in R^{n+1} \mid \sum_{i} t_{i} = 1, t_{i} \geq 0 \quad \forall i \}
 \]
+\end{definition}
 
-Definition. A face of a simplex is the convex hull of a subset of its vertices.
-
-(orientations?)
+\begin{definition}
+A face of a simplex is the convex hull of a subset of its vertices.
+\end{definition}
 \section{Simplicial complex}
 
-Definition. A simplicial complex $K$ is a finite collection of simplices such that
+\begin{definition}
+A simplicial complex $K$ is a finite collection of simplices such that
+
 \begin{enumerate}
     \item $\sigma \in K$ and $\tau \subset \sigma$ implies that $\tau \in K$
     \item $\sigma_{1}, \sigma_{2} \in K$ implies that $\sigma_{1} \cap \sigma_{2}$ is either empty or a face of both.
 \end{enumerate}
+
+\end{definition}
 This is the geometric definition of a simplicial complex. However, since we are working with topological spaces it is advantageous to think of an abstract simplicial complex without concerning ourselves with the geometric connotations:
 
-Definition (book). An abstract simplicial complex $A$ is a finite collection of sets such that $\alpha \in A$ and $\beta \subseteq \alpha$ implies that $\beta \in A$
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.7]{complex.pdf}
+  \label{complex}
+  \caption{Example of a simplicial complex consisting of two 2-simplices glued together with an attached 1-simplex.}
+\end{figure}
+
+\begin{definition}[book]
+An abstract simplicial complex $A$ is a finite collection of sets such that $\alpha \in A$ and $\beta \subseteq \alpha$ implies that $\beta \in A$.
+\end{definition}
 
 This abstract definition coincides with the geometric definition by calling the elements of $A$ its simplices. The simplices of $A$ are no longer geometric objects in Euclidean space, but simply combinatorial objects consisting of vertex sets.
 
 It is easy to see how one can go from a geometric simplicial complex to an abstract simplicial complex simply by forgetting everything but the vertices themselves. However, most of the time our interest lies in the opposite direction: how do we go from an abstract simplicial complex to a geometric one? This is done by the geoemtric realization of $A$.
 
-Theorem. Every abstract simplicial complex of dimension $d$ has a geometric realization in $\mathbb{R}^{2d+1}$.
-
-Proof. See 12312424.
-
+\begin{theorem}
+Every abstract simplicial complex of dimension $d$ has a geometric realization in $\mathbb{R}^{2d+1}$.
+\end{theorem}
+\begin{proof}
+See ?.
+\end{proof}%
 From here on we will simply refer to abstract simplicial complexes as a simplicial complex unless stated otherwise.
 \section{Simplicial homology}
 For a simplicial complex $K$ of dimension $n$ we define a free abelian group $C_{k}$ on the oriented $k-$simplices of $K$.
@@ -49,8 +75,19 @@ Now a simplicial chain complex is a collection of chain groups together with the
   \dots \arrow[]{r}{\partial_{k+1}} & C_k \arrow[]{r}{\partial_{k}} & C_{k-1} \arrow[]{r}{\partial_{k-1}} & C_{k-2} \arrow[]{r}{\partial_{k-2}} & \dots
 \end{tikzcd}
 \end{center}
-Note that the boundary maps compose to become the zero map. From this definition we know that from every simplicial complex $K$ we can associate a simplicial chain complex (this is a functor). We then define the $k$th homology group of $K$ as the quotient group
+Note that the boundary maps compose to become the zero map.
+\begin{theorem}
+The composed boundary map $\partial_{k+1} \circ \partial_{k}$ is the zero map.
+\end{theorem}
+\begin{proof}
+(Proof is in Hatcher)
+\end{proof}
+From this definition we know that from every simplicial complex $K$ we can associate a simplicial chain complex (this is a functor). We then define the $k$th homology group of $K$ as the quotient group
 \[H_{k}(K) = Ker(\partial_{k})/Im(\partial_{k+1})\]
+
+This is also a functor, so any simplicial map $K_{1} \to K_{2}$ induces a map on homology $H_{*}(K_{1}) \to H_{*}(K_{2})$.
+
+TODO: Something about the coefficients. Expand on the sections above with examples of what cycles are etc.
 
 %%% Local Variables:
 %%% mode: latex
