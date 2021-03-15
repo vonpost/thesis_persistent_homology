@@ -1,0 +1,24 @@
+\frametitle{}
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{.32 \linewidth}
+    \includegraphics[scale=0.2]{persistence_diagrams/distances/heatmaps/bottleneck_h0.npy.pdf}
+  \end{subfigure}%
+  \begin{subfigure}{.32 \linewidth}
+    \includegraphics[scale=0.2]{persistence_diagrams/distances/heatmaps/bottleneck_h1.npy.pdf}
+  \end{subfigure}%
+  \begin{subfigure}{.32 \linewidth}
+    \includegraphics[scale=0.2]{persistence_diagrams/distances/heatmaps/bottleneck_h2.npy.pdf}
+  \end{subfigure}
+
+  \begin{subfigure}{.32 \linewidth}
+    \includegraphics[scale=0.2]{persistence_diagrams/distances/heatmaps/wasserstein_h0.npy.pdf}
+  \end{subfigure}%
+  \begin{subfigure}{.32 \linewidth}
+    \includegraphics[scale=0.2]{persistence_diagrams/distances/heatmaps/wasserstein_h1.npy.pdf}
+  \end{subfigure}%
+  \begin{subfigure}{.32 \linewidth}
+    \includegraphics[scale=0.2]{persistence_diagrams/distances/heatmaps/wasserstein_h2.npy.pdf}
+  \end{subfigure}%
+\end{figure}

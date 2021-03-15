@@ -1,11 +1,11 @@
 \chapter{Introduction}
 Ordinary statistical analysis and machine learning are often used tools to understand and explore the increasing amounts of data that are present in the modern digital landscape. While these approaches continue to see great success, there is perhaps some value in exploring other avenues in mathematics that could prove useful in understanding data.
 
-Persistent homology, being a tool of topological data analysis, provides a way of quantifying and measuring the global shape of the data, rather than local geometries or patterns. While homology initially might be seen as something esoteric relegated to the realms of abstract mathematics, it can in fact be a useful tool in exploring data. It is coarse enough to withstand noise that is often present in data (cite), while at the same time sophisticated enough to capture features which are particular to that dataset (cite).
+Persistent homology, being a tool of topological data analysis, provides a way of quantifying and measuring the global shape of the data, rather than local geometries or patterns. While homology initially might be seen as something esoteric relegated to the realms of abstract mathematics, attempts have been made to use it as a tool for understanding data. Persistent homology is coarse enough to withstand noise that is often present in data (cite), while at the same time sophisticated enough to capture features which are particular to that dataset (cite).
 
 The basic principle is actually quite intuitive. We impose a simplicial complex on the dataset, that in some suitable sense should approximate a reasonable underlying topology in which the dataset lives, and then we compute the homology of this space. However, since there are many ways of approximating a simplicial complex on a set of points we consider not only one simplicial complex but rather a filtration of simplicial complexes parametrized by a given distance.
 
-While the high-level idea is not very complicated, the devil is in the details when it comes to persistent homology. The homology of these filtrations takes us to graded modules and the Structure Theorem for PIDs and the stability guarantees that we give requires us to dwell on a bit of Morse theory.
+While the high-level idea is not very complicated, the devil is in the details when it comes to persistent homology. The homology of the filtrations takes us to graded modules and the Structure Theorem for Principal Ideal Domains.
 
 This thesis will serve as both an introduction the workings of persistent homology as well as an example of persistent homology applied to a real dataset (what dataset? TBA. Perhaps something with the insects).
 

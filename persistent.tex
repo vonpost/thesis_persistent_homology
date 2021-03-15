@@ -38,11 +38,11 @@ The perhaps most natural way to impose an abstract simplicial complex on a set o
 For a given selection of points $\{x_{\alpha}\}$ in some Euclidean space $\mathbb{R}^{n}$ the Cech complex $C_{\epsilon}$ is given by the abstract simplicial complex whose $k$-simplices are given by $k+1$ points in the collection of points whose closed balls of radius $\epsilon/2$ have a point in common.
 \end{definition}
 
-The Cech complex is a special case of something called the nerve of a topological space. Through the Nerve theorem (cite) this guarantees that the Cech complex has the same homotopy type as the underlying space given some assumptions (what are they?). A well known result in algebraic topology is that if two spaces have the same homotopy type, they in particular have the same homology groups (really? cite, not sure about this).
+The Cech complex is a special case of something called the nerve of a topological space. Through the Nerve theorem (cite) this guarantees that the Cech complex has the same homotopy type as the underlying space given some assumptions (what are they?). A well known result in algebraic topology is that if two spaces have the same homotopy type, they in particular have the same homology groups (cite).
 
 However, the Cech complex is for practical purposes not feasible to compute (cite). The reason being that we need to keep the entire simplicial complex in memory and this can be quite expensive (elaborate this).
 
-A sort of compromise is the Vietoris-Rips complex as seen in Figure \ref{manyrips}. This complex is a simplification where we do not look for points in common, but rather say that if the closed nbh around $k+1$ vertices intersect they form a $k$-simplex.
+A sort of compromise is the Vietoris-Rips complex as seen in Figure \ref{manyrips}. This complex is a simplification where we do not look for points in common, but rather say that if $k+1$ vertices intersect pairwise they form a $k$-simplex.
 
 \begin{figure}
   \centering
@@ -156,9 +156,34 @@ This is a visual depiction of $H_{*}(C; \mathbb{F})$ where each bar depicts the 
 \caption{\label{annulus_barcode} Persistence barcode showing the birth and death of generators in the homology groups of a Vietoris-Rips complex approximated from points sampled from an annulus at different $\epsilon$. }
 \end{figure}
   \section{Persistence Diagrams}
-  Another way of illustrating is the persistence diagram which consists of..
+  Another way of illustrating persistent homology is the persistence diagram as seen in Figure \ref{pdiagram}. This is an alternative to the barcode in Figure \ref{annulus_barcode} where we instead plot the $\epsilon$-value on both axises and the further a point is from the diagonal line the longer the generator in the homology group survived. When we have a lot of birth-death pairs this is a preferable way of visualizing the persistent homology, since unlike the barcode it does not grow vertically with the number of generators.
+
+  Just like in the barcode in Figure \ref{annulus_barcode} we can see that the only two generators that live for a considerable amount of time is a single connected component in $H_{0}$ and a single hole in $H_{1}$. This is consistent with the topology that we expect from an annulus.
+
+  At around $\epsilon=0$ we see a lot of $H_{0}$ generators being born and dying after another. Since the number of generators of $H_{0}$ tells us the number of connected components in the topology this clearly illustrates how the sampled points go from being isolated islands to being incorporated in a larger simplex.
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[scale=0.7]{diagram.pdf}
+    \caption{\label{pdiagram} A persistence diagram over the birth and death of generators in the homology groups of a Vietoris-Rips complex approximated from points sampled from an annulus. The closer a point is to the diagonal line the shorter it lived. The diagram is truncated towards infinity, so generators that lived for a long enough time are considered to be at infinity.}
+  \end{figure}
+
   \section{Metrics}
-  If we compute two barcodes, how do we compare them? There are two suitable metrics for this.. Wasserstein and Bottleneck.
+Given that we compute the persistent homology between two spaces, how can we compare them? There are two suitable metrics that are often used for doing this, namely the \textbf{q-Wasserstein distance} and the \textbf{Bottleneck distance}.
+  \begin{definition}
+    The Bottleneck distance between two persistence diagrams $X,Y$ is
+    \[W_{\infty}(X,Y) = \inf_{\beta: X \to Y} \sup_{x \in X} ||x-\beta(x)||\]
+  \end{definition}
+
+  \begin{definition}
+    The q-Wasserstein distance between two persistence diagrams $X,Y$ is
+    \[W_{q}(X,Y) = (\inf_{\beta: X \to Y} \sum_{x \in X}  ||x-\beta(x)||^{q})^{\frac{1}{q}}\]
+  \end{definition}
+The Bottleneck distance is of particular interest since it gives a stability guarantee through the following theorem
+  \begin{theorem}
+    Given two filtering functions $f,g$ and a simplicial complex $K$ we have that
+    \[W_{\infty}(f,g) \leq ||f-g||_{\infty}\]
+  \end{theorem}
+  In other words, any small perturbations of the filtering functions will at most be as large as the difference between the functions themselves.
 \section{Computation of }
 Some aspects of the computational part of this. How is it done in practice? Mention an example but do not dwell too much on this. Perhaps go into smith normal form and how it all translates to linear algebra?
 %%% Local Variables:

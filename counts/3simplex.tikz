@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=new style 0] (0) at (-2.25, 0) {$v_0$};
+		\node [style=new style 0] (1) at (6, 0) {};
+		\node [style=new style 0] (2) at (6, 0) {$v_3$};
+		\node [style=new style 0] (3) at (2, 2) {$v_2$};
+		\node [style=new style 0] (4) at (2, -1.75) {$v_1$};
+		\node [style=none] (5) at (-2.25, 1) {Source};
+		\node [style=none] (6) at (6, 1) {Sink};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=new edge style 0] (0) to (3);
+		\draw [style=new edge style 0] (0) to (4);
+		\draw [style=new edge style 0] (0) to (2);
+		\draw [style=new edge style 0] (4) to (2);
+		\draw [style=new edge style 0] (4) to (3);
+		\draw [style=new edge style 0] (3) to (2);
+	\end{pgfonlayer}
+\end{tikzpicture}
