@@ -1,0 +1,27 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (0, 1.75) {};
+		\node [style=none] (1) at (-1, 0) {};
+		\node [style=none] (2) at (1, 0) {};
+		\node [style=none] (3) at (-1, -2) {};
+		\node [style=none] (4) at (1, -2) {};
+		\node [style=none] (5) at (-1.5, -2.25) {$v_3$};
+		\node [style=none] (6) at (1.5, -2.25) {$v_4$};
+		\node [style=none] (7) at (1.5, 0) {$v_1$};
+		\node [style=none] (8) at (0, 2.25) {$v_0$};
+		\node [style=none] (9) at (-1.5, 0) {$v_2$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=new edge style 1] (2.center)
+			 to (1.center)
+			 to (0.center)
+			 to cycle;
+		\draw (1.center) to (3.center);
+		\draw (3.center) to (4.center);
+		\draw (4.center) to (2.center);
+		\draw [style=new edge style 3] (4.center) to (2.center);
+		\draw [style=new edge style 3] (4.center) to (3.center);
+		\draw [style=new edge style 3] (3.center) to (1.center);
+		\draw [style=new edge style 3] (1.center) to (2.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

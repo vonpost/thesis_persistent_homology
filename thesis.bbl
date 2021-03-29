@@ -1,0 +1,70 @@
+\begin{thebibliography}{10}
+
+\bibitem{delgadofriedrichs2014}
+Olaf {Delgado-Friedrichs}, Vanessa {Robins}, and Adrian {Sheppard}.
+\newblock Morse theory and persistent homology for topological analysis of 3d
+  images of complex materials.
+\newblock In {\em 2014 IEEE International Conference on Image Processing
+  (ICIP)}, pages 4872--4876, 2014.
+
+\bibitem{gutierrez2014}
+Antonio Gutierrez, Maria~Jose Jimenez, David Monaghan, and Noel~E. O’Connor.
+\newblock Topological evaluation of volume reconstructions by voxel carving.
+\newblock {\em Computer Vision and Image Understanding}, 121:27--35, 2014.
+
+\bibitem{gutierrez2012}
+Antonio Gutierrez, David Monaghan, Mar{\'i}a~Jos{\'e} Jim{\'e}nez, and Noel~E.
+  O'Connor.
+\newblock Persistent homology for 3d reconstruction evaluation.
+\newblock In Massimo Ferri, Patrizio Frosini, Claudia Landi, Andrea Cerri, and
+  Barbara Di~Fabio, editors, {\em Computational Topology in Image Context},
+  pages 139--147, Berlin, Heidelberg, 2012. Springer Berlin Heidelberg.
+
+\bibitem{hatcher2002}
+Allen Hatcher.
+\newblock {\em Algebraic topology}.
+\newblock Cambridge University Press, Cambridge New York, 2002.
+
+\bibitem{kaczynski2004}
+{Tomasz} Kaczynski, {Konstantin} Mischaikow, and {Marian} Mrozek.
+\newblock {\em Computational homology}, volume 157.
+\newblock Springer, New York, 2004.
+
+\bibitem{luetdigraph}
+Daniel Luetgehetmann, Dejan Govc, Jason Smith, and Ran Levi.
+\newblock Computing persistent homology of directed flag complexes.
+\newblock {\em Algorithms}, 13(1), January 2020.
+
+\bibitem{moon2019}
+Chul Moon, Scott~A. Mitchell, Jason~E. Heath, and Matthew Andrew.
+\newblock Statistical inference over persistent homology predicts fluid flow in
+  porous media.
+\newblock {\em Water Resources Research}, 55(11):9592--9603, 2019.
+
+\bibitem{reimann}
+Michael~W. Reimann, Max Nolte, Martina Scolamiero, Katharine Turner, Rodrigo
+  Perin, Giuseppe Chindemi, Paweł Dłotko, Ran Levi, Kathryn Hess, and Henry
+  Markram.
+\newblock Cliques of neurons bound into cavities provide a missing link between
+  structure and function.
+\newblock {\em Frontiers in Computational Neuroscience}, 11:48, 2017.
+
+\bibitem{emily}
+{Gavin J.} Taylor, Pierre Tichit, {Marie D.} Schmidt, {Andrew J.} Bodey,
+  Christoph Rau, and Emily Baird.
+\newblock Bumblebee visual allometry results in locally improved resolution and
+  globally improved sensitivity.
+\newblock {\em eLife}, 8, February 2019.
+
+\bibitem{weibel1994}
+Charles Weibel.
+\newblock {\em An introduction to homological algebra}.
+\newblock Cambridge University Press, Cambridge England New York, 1994.
+
+\bibitem{Zomorodian2005}
+Afra Zomorodian and Gunnar Carlsson.
+\newblock Computing persistent homology.
+\newblock {\em Discrete {\&} Computational Geometry}, 33(2):249--274, February
+  2005.
+
+\end{thebibliography}

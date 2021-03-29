@@ -1,4 +1,5 @@
 \documentclass[oneside]{scrbook}
+%\documentclass{article}
 \usepackage{amsmath,amsfonts,amssymb,amsthm, tikz-cd, graphicx}
 \usepackage[labelfont={bf},textfont=it]{caption}
 \usepackage{subcaption}
@@ -6,15 +7,26 @@
 \title{Persistent}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
-\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[theorem]
+\theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{example}{Example}[section]
 
 \begin{document}
+\bibliographystyle{plain}
 \maketitle
+\pagenumbering{roman}
+\include{abstract}
+\include{acknowledge}
 \tableofcontents
+\thispagestyle{empty}
+\clearpage
+\pagenumbering{arabic}
 \include{introduction}
 \include{algtop}
 \include{persistent}
 \include{analysis}
+\include{conclusion}
+
+\bibliography{thesis}
 \end{document}
