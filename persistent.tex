@@ -32,7 +32,7 @@ However, there is a problem with the idea in its naive form. How large is ``suff
 A data-set can often be considered as a set of points in Euclidean space. A natural way of endowing a space of points in $\mathbb{R}^{n}$ with a simplicial structure is the following construction.
 \begin{definition}[{\cite[p. ~72]{edels}}]
 For a family of points $X=\{x_{\alpha}\}_{\alpha}$ in some Euclidean space $\mathbb{R}^{n}$ the \textbf{Čech complex}
-$Č_{\epsilon}$ is given by the abstract simplicial complex whose $k$-simplices are given by a subfamily of $k+1$ points $\{x_{\alpha_{i}}\}$ such that \[\bigcap^{k}_{i=0} B_{\epsilon/2}(x_{\alpha_{i}}) \neq \emptyset\] where $B_{r}(x)$ is the closed ball of radius $r$ centered at $x$.
+$\text{Č}_{\epsilon}$ is given by the abstract simplicial complex whose $k$-simplices are given by a subfamily of $k+1$ points $\{x_{\alpha_{i}}\}$ such that \[\bigcap^{k}_{i=0} B_{\epsilon/2}(x_{\alpha_{i}}) \neq \emptyset\] where $B_{r}(x)$ is the closed ball of radius $r$ centered at $x$.
 \end{definition}
 The Čech complex is a special case of something called the nerve of a topological space, which guarantees that it has the same homology modules as the union of balls centered at the points \cite[p. ~71]{edels}.
 
@@ -78,7 +78,7 @@ For $i<j$ the inclusion $\iota: R_{\epsilon_i} \to R_{\epsilon_{j}}$ induces a m
   Given $\epsilon > 0$ there is a chain of inclusions
   \[R_{\epsilon} \hookrightarrow C_{\epsilon \sqrt{2}} \hookrightarrow R_{\epsilon \sqrt{2}}\]
 \end{lemma}
-Hence, any cycle that persists through the induced map $H_{k}(R_{\epsilon}) \to H_{k}(R_{\epsilon'})$ for $\epsilon'  \geq \sqrt{2} \epsilon$ is also present in the Čech complex $Č_{\epsilon}'$.
+Hence, any cycle that persists through the induced map $H_{k}(R_{\epsilon}) \to H_{k}(R_{\epsilon'})$ for $\epsilon'  \geq \sqrt{2} \epsilon$ is also present in the Čech complex $\text{Č}_{\epsilon}'$.
 
 The insight that the homological features that persist tell us more than the individual homology groups themselves are central to the idea of persistent homology. Before we give the formal definition of persistent homology we must first generalize the concept of endowing a space with a complex.
 
@@ -146,7 +146,7 @@ Let $\iota^{i,p}_k: H^{i}_{k} \to H^{p}_{k}$ be the module homomorphism that tak
 We say a persistence module $(M^{k}, \phi^{k})$ is of \textbf{finite type} if each component $M^{k}_{n}$ is a finitely generated $R$-module and the maps $\phi^{k}$ are isomorphisms for $k \geq N$ for some integer $N$.
 \end{definition}
 
-When we start with a finite simplicial complex $K$ we get that $C_{*}(K)$ is consists of finitely generated $R$-modules, since the number of simplices in each dimension is finite, and so the resuling persistence complex and persistence modules are of finite type.
+When we start with a finite simplicial complex $K$ we get that $C_{*}(K)$ is consists of finitely generated $R$-modules, since the number of simplices in each dimension is finite, and so the resulting persistence complex and persistence modules are of finite type.
 
 The most important theoretic result is just around the corner, but before that we need to recall some definitions regarding graded rings and modules.
 
@@ -157,17 +157,17 @@ The most important theoretic result is just around the corner, but before that w
 Note that given a ring $R$ the polynomial ring $R[x]$ is always a graded ring, since it can be decomposed into $R[x] = Rx^{0} \oplus Rx^{1} \oplus \dots$
 
 \begin{definition}
-A non-zero element $r$ in a graded ring $R$ is said to be homogenous of degree $n$ if $r \in R_{n}$ and $r \not \in R_{j}$ for all $j \neq n$.
+A non-zero element $r$ in a graded ring $R$ is said to be homogeneous of degree $n$ if $r \in R_{n}$ and $r \not \in R_{j}$ for all $j \neq n$.
 \end{definition}
 
-In other words, the homogenous elements of a graded ring are those elements that are contained to a single component. Adding elements from different components give us elements that are not homogenous.
+In other words, the homogeneous elements of a graded ring are those elements that are contained to a single component. Adding elements from different components give us elements that are not homogeneous.
 \begin{definition}
   Let $R = \bigoplus_{{i}} R_{i}$ be a graded ring and $M$ a left $R-module$. We say that $M$ is a \textbf{graded $R$-module} if
   \[M = \bigoplus_{i} M_{i} \]
   where $M_{i}$ are submodules of $M$, such that $R_{i}M_{j} \subseteq M_{i+j}$.
 \end{definition}
 
-Most of the ordinary algebraic constructions on modules hold for graded modules as well. The only additional requirement is that they preserve homogenous elements in the obvious way. For example, a morphism of graded modules is a morphism of modules such that it preserves degree. In other words, a morphism takes an element in a graded module of degree $n$ to an element in another graded module of degree $n$. Similarly, a graded submodule of a module is simply a graded module such that each component is a submodule of the corresponding module.
+Most of the ordinary algebraic constructions on modules hold for graded modules as well. The only additional requirement is that they preserve homogeneous elements in the obvious way. For example, a morphism of graded modules is a morphism of modules such that it preserves degree. In other words, a morphism takes an element in a graded module of degree $n$ to an element in another graded module of degree $n$. Similarly, a graded submodule of a module is simply a graded module such that each component is a submodule of the corresponding module.
 
 We can now see that if we have a persistence module $M$ over some ring $R$ and we give $R$ a graded structure by considering $R[t]$ then a graded module structure on $M$ is given by
 \[ \alpha(M) = \bigoplus^{\infty}_{k=0} M^{k}\]
@@ -221,7 +221,7 @@ When $K,G$ are free the map $f$ is a map $\mathbb{F}[t]^{n} \to \mathbb{F}[t]^{m
 A matrix with coefficients in $\mathbb{F}[t]$ is in \textbf{graded Smith normal} if its only non-zero entries are on the (possibly permuted) diagonal and these entries are homogeneous elements.
 \end{definition}
 
-We will now describe an algorithm for computing the graded Smith normal form. Since the resulting matrix will consist of linearily independent columns and rows they define a basis for the column and row space.
+We will now describe an algorithm for computing the graded Smith normal form. Since the resulting matrix will consist of linearly independent columns and rows they define a basis for the column and row space.
 
 \begin{algorithm}
 \caption{Reduction to graded Smith normal form \cite{skraba, Zomorodian2005}}\label{smith}
@@ -231,10 +231,11 @@ We will now describe an algorithm for computing the graded Smith normal form. Si
   \For{$i < m, j < n$}
   \State Eliminate all entries \textit{rightwards} by column additions in row $i$.
   \State Eliminate all entries \textit{upwards} by row additions in column $j$.
+  \EndFor
 \end{algorithmic}
 \end{algorithm}
 \begin{proof}(\textbf{Correctness of Algorithm 1.})
-  To show the correctness of the algorithm it suffices to show that we can eliminate entries and that such elimination does not change the degrees of the homogenous basis elements given by the rows and columns.
+  To show the correctness of the algorithm it suffices to show that we can eliminate entries and that such elimination does not change the degrees of the homogeneous basis elements given by the rows and columns.
 
   Suppose we wish to eliminate some entry in row $j$ with an element in row $i$. This implies that $ i > j$ by the algorithm itself. Let the entries be denoted $a_{i}= c \cdot t^{r_{i}}$ and $b_{j} = d \cdot t^{s_{j}}$ respectively. Since the columns and rows are chosen to be homogeneous, we know that they can be written this way. The matrix is sorted in ascending degree order in both rows and columns, which implies that $\deg(a_{i}) \leq \deg(b_{j})$, hence we can always eliminate $b_{j}$ by adding $t^{s_{j}-r_{i}} \frac{-d}{c} \cdot a_{i}$. Furthermore, if $\gamma_{i},\gamma_{j}$ are the basis elements of rows $i,j$ then we know from linear algebra that the addition causes a change of basis $\gamma'_{i}:=\gamma_{i}-t^{s_{j}-r_{i}} \frac{-d}{c} \cdot \gamma_{j}$. We get that $\deg(\gamma'_{i})=\max\{\deg(\gamma_{i}), (s_{j}-r_{i}+\deg(\gamma_{j})\}$, but since $a_{i},b_{j}$ are entries of the same homogeneous column this implies that $r_{i} + \deg(\gamma_{i}) = s_{j} + \deg(\gamma_{j})$, hence $\deg(\gamma'_{i}) = \deg(\gamma_{i})$. An identical argument holds for if we wish to eliminate by column additions, with the exception that it is $\gamma_{j}$ that changes basis.
 \end{proof}
@@ -469,7 +470,7 @@ In Figure \ref{annulus_barcode} we see a barcode diagram generated from points s
   \end{definition}
 In other words, it is the set of \textit{(birth,death)} pairs given by the intervals associated with the decomposition of $M$ together with all points on the diagonal.
 
-When visualized as in Figure \ref{pdiagram} it serves alternative to the barcode in Figure \ref{annulus_barcode} where we instead plot the $\epsilon$-value on both axises and for each generator we draw a point given by its corresponding interval. When we have a lot of intervals this is a preferable way of visualizing the persistent homology, since unlike the barcode it does not grow vertically with the number of intervals. Generators that never die are mapped at a line representing infinity.
+When visualized as in Figure \ref{pdiagram} it serves alternative to the barcode in Figure \ref{annulus_barcode} where we instead plot the $\epsilon$-value on both axes and for each generator we draw a point given by its corresponding interval. When we have a lot of intervals this is a preferable way of visualizing the persistent homology, since unlike the barcode it does not grow vertically with the number of intervals. Generators that never die are mapped at a line representing infinity.
 
 Just like in the barcode in Figure \ref{annulus_barcode} we can see in Figure \ref{pdiagram} that the only two generators that live for a considerable amount of time is a single connected component in $H_{0}$ and a single hole in $H_{1}$. This is consistent with the topology that we expect from an annulus. At around $\epsilon=0$ we see a lot of $H_{0}$ generators being born and dying at almost the same time. Since the number of generators of $H_{0}$ tells us the number of connected components in the topology this clearly illustrates how the sampled points go from being isolated islands to being incorporated in a larger simplex.
 \begin{figure}[ht]
@@ -479,7 +480,7 @@ Just like in the barcode in Figure \ref{annulus_barcode} we can see in Figure \r
 \end{figure}
 
   \section{Metrics}
-  As persistent homology is often used as a topological summary of some data, it can be benefitial to be able to compare two different data samples with respect to their persistent homology. There are two commonly used metrics for doing this, the bottleneck distance and the Wasserstein distance.
+  As persistent homology is often used as a topological summary of some data, it can be beneficial to be able to compare two different data samples with respect to their persistent homology. There are two commonly used metrics for doing this, the bottleneck distance and the Wasserstein distance.
   \begin{definition}
     The \textbf{bottleneck distance} between two persistence diagrams $X,Y$ is
     \[W_{\infty}(X,Y) = \inf_{\beta: X \to Y} \sup_{x \in X} ||x-\beta(x)||_{\infty}\]

@@ -23,6 +23,11 @@ Herbert Edelsbrunner and John~L. Harer.
 \newblock {\em Computational topology : an introduction}.
 \newblock American Mathematical Society, Providence, R.I, 2010.
 
+\bibitem{edelszom}
+Herbert Edelsbrunner, David Letscher, and Afra Zomorodian.
+\newblock Topological persistence and simplification.
+\newblock {\em Discrete Computational Geometry}, 28(4):511--533, 2002.
+
 \bibitem{erdos}
 Paul Erdos and Alfred Renyi.
 \newblock On the evolution of random graphs.
@@ -69,6 +74,11 @@ Nathan Jacobson.
 {Tomasz} Kaczynski, {Konstantin} Mischaikow, and {Marian} Mrozek.
 \newblock {\em Computational homology}, volume 157.
 \newblock Springer, New York, 2004.
+
+\bibitem{plants}
+Mao Li, Keith Duncan, Christopher Topp, and Daniel Chitwood.
+\newblock Persistent homology and the branching topologies of plants.
+\newblock {\em American Journal of Botany}, 104, 03 2017.
 
 \bibitem{luetdigraph}
 Daniel Luetgehetmann, Dejan Govc, Jason Smith, and Ran Levi.

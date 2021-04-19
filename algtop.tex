@@ -1,11 +1,11 @@
 \chapter{Homology}
-Before go into what \textit{persistent} homology it is well worth our time to clearly state what we mean by homology. Broadly speaking, homology is an invariant of topological spaces which is concerned with cycles in the space which are not boundaries. Or more abstractly, homology captures the notion $n$-dimensional holes in the space. In \textit{persistent} homology we generally work without predefined topological spaces and start with a basic data-set which at most contains some metric structure. Therefore the classical definitions involving singular homology are not something we will dwell on, but rather we refer the reader to Hatcher's excellent exposition in \cite{hatcher2002}.
+Before go into what \textit{persistent} homology is, it is well worth our time to clearly state what we mean by homology. Broadly speaking, homology is an invariant of topological spaces which is concerned with cycles in the space which are not boundaries. Or more abstractly, homology captures the notion $n$-dimensional holes in the space. In \textit{persistent} homology we generally work without predefined topological spaces and start with a basic data-set which at most contains some metric structure which we endow with some form of complex. The main complex we will be working with is the simplicial complex, since computationally we can approximate a such a complex on a set of data-points. We will also review homology of cubical complexes as this relates to one of the case studies. Therefore the classical definitions involving concepts such as singular homology are not something we will dwell on, but rather we refer the reader to Hatcher's excellent exposition in \cite{hatcher2002}.
 
-The main concept we will be working with is simplicial homology since computationally we can approximate a simplicial complex on our topological spaces. We will also review homology of cubical complexes as this relates to one of the case studies.
+
 \section{Simplices}
 We start with what will constitute our atoms in simplicial homology, namely the simplices.
 \begin{definition}[{\cite[p. ~62]{edels}}]
-An \textbf{$n$-simplex} is the smallest possible convex set in $\mathbb{R}^{m}$ containing $n+1$ points $v_{0},\dots,v_{n}$ such that the vectors $v_{1}-v_{0}, \dots, v_{n} - v_{0}$ are linearily independent. The points $v_{0},\dots,v_{n}$ are known as the \textbf{vertices} of the simplex. The number $n$ is the \textbf{dimension} of a simplex.
+An \textbf{$n$-simplex} is the smallest possible convex set in $\mathbb{R}^{m}$ containing $n+1$ points $v_{0},\dots,v_{n}$ such that the vectors $v_{1}-v_{0}, \dots, v_{n} - v_{0}$ are linearly independent. The points $v_{0},\dots,v_{n}$ are known as the \textbf{vertices} of the simplex. The number $n$ is the \textbf{dimension} of a simplex.
 \end{definition}
 As seen in Figure \ref{simplices} the $0,1,2$ and $3$-dimensional simplices are familiar shapes consisting of vertices, edges, triangles and tetrahedrons.
 
@@ -34,7 +34,7 @@ A \textbf{simplicial complex} $K$ is a finite collection of simplices such that
 The first requirement tells us that a simplicial complex contains the faces of all its simplices. The second requirement tells us that the simplices are only glued together at common faces, in other words we do not allow simplices to intersect other than at their boundary.
 
 
-We will refer to the construction in Definition \ref{defsimcomp} as a \textit{geometric} simplicial complex. This is to distinguish it from a simplicial complex where we discard the geometric connotations. It is possible to define a combinatorial simplicial complex by only considering the ordering of the vertices and what higher-dimensional simplices they make up.
+We will refer to the construction in Definition \ref{defsimcomp} as a \textbf{geometric simplicial complex}. This is to distinguish it from a simplicial complex where we discard the geometric connotations. It is possible to define a combinatorial simplicial complex by only considering the ordering of the vertices and what higher-dimensional simplices they make up.
 
 \begin{figure}
   \centering
@@ -49,7 +49,7 @@ An \textbf{abstract simplicial complex} $K$ is a finite collection of ordered se
 This abstract definition coincides with the geometric definition by calling the elements of $K$ its simplices. The simplices of $K$ are no longer geometric objects in metric space, but simply combinatorial objects consisting of vertex sets.
 
 \begin{definition}
-Given a geometric simplicial complex $K$, we can construct an abstract simplicial complex $A$ by translating each simplex $\sigma_{i} \in K$ to the ordered set $[v_{0},\dots,v_{n}]$ where each $v_{i}$ is an algebraic object simply denoting the presence of a vertex. We call $A$ the \textbf{geometric realization} of $K$.
+Given a geometric simplicial complex $K$, we can construct an abstract simplicial complex $A$ by translating each simplex $\sigma_{i} \in K$ to the ordered set $[v_{0},\dots,v_{n}]$ where each $v_{i}$ is an algebraic object simply denoting the presence of a vertex. We call $K$ the \textbf{geometric realization} of $A$.
 \end{definition}
 Hence, we can always transition from a geometric simplicial complex to an abstract simplicial complex. There is an elementary result which allows for the construction in other direction.
 \begin{theorem}[{\cite[Geometric Realization Theorem, p. ~64]{edels}}]\label{geometricthm}
@@ -148,10 +148,7 @@ Consider the chain complex over $\mathbb{Z}_{2}$ resulting from the simplicial c
 \end{figure}
 There are two 1-cycles, the boundary of the filled triangle and the square. Since the boundary of the filled triangle is in $\text{im} (\partial_{2})$ we get that this element belongs to the trivial class in $H_{1}$. But there is one non-trivial element given by the square without interior. So $H_{1}$ contains one non-trivial element generated by the cycle in green.
 
-% \begin{definition}
-% The $k$th Betti number is the rank of the module $H_{k}$.
-% \end{definition}
-% \end{example}
+To quantify the number of linearly independent generators in a homology module $H_{k}$ we say that the \textbf{$k$th Betti number} is denoted $\beta_{k}$ where $\beta_{k} = \text{rank }(H_{k})$.
 
 \section{Cubical Homology}
 The definition we gave of a chain complex is general enough that we need not limit ourselves to chain complexes arising from simplicial complexes. Another type of complex which we can define chain complexes on, and so by extension homology, are cubical complexes. As the atoms of simplicial complexes are simplices, the atoms of cubical complexes are cubes.
@@ -199,7 +196,7 @@ Furthermore, since elementary cubes consist of finite cartesian products of elem
 Given two elementary cubes $P,Q$ The cubical product is defined as \[\hat P \diamond \hat Q:= \widehat{P \times Q}\]
 \end{definition}
 Fix some ring $\mathcal{R}$ with additive unit $0$ and multiplicative unit $1$ and then we can proceed as for the simplicial case.
-\begin{definition}[{\cite[Definition 2.27, p. ~53]
+\begin{definition}[{\cite[Definition 2.27, p. ~53]{kaczynski2004}}]
   The \textbf{$k$th chain module} of a cubical complex $\mathcal{K}(X)$ is the free $R$-module $C_{k}(\mathcal{K}(X))$ whose elements are formal sums
   \[ \sum \alpha_{i} Q_{i}\]
   known as \textbf{$k$-chains} where $\alpha_{i} \in \mathcal{R}$ and $Q_{i} \in K_{k}(X)$.
@@ -220,12 +217,10 @@ All we need to do in order for the machinery of homology to be applicable is to 
     \begin{cases}
       0 & Q = [k,k] \\
       \widehat{[k+1,k+1]} - \widehat{[k,k]} & Q = [k,k+1] \\
-      % \sum^{n}_{i=1} (I_{1} \times \dots \partial I_{i} \times \dots I_{n})  & emb(Q) = n \geq 2
       \partial \hat I \diamond \hat P +(-1)^{\dim \hat I} \hat I \diamond \partial \hat P & Q=I \times P, emb(Q) \geq 2
-
     \end{cases}
   \]
-  which extends linearily on $k$-chains.
+  which extends linearly on $k$-chains.
 \end{definition}
 \begin{theorem}[{\cite[Proposition 2.37, p. ~58]{kaczynski2004}}]
 The composed boundary map $\partial \partial$ is the zero map.
@@ -260,6 +255,7 @@ where $\partial \partial \hat P = 0$ follows from the induction hypothesis since
 where $\dim \partial \hat I = 0$ since $ I$ is an elementary interval. Since we have now shown the induction hypothesis holds for $n+1$ given it holds for $n$, this concludes the proof by induction.
 \end{proof}
 We now have everything we need to construct a chain complex on cubical complexes: a sequence of $\mathcal{R}$-modules, the $k$-chain modules on cubical complexes, and module homomorphisms $\partial$ which have the property of $\partial \partial = 0$. Since our prior definitions with regards to \textit{homology} were entirely stated in terms of chain complexes we can be assured that homology on chain complexes given by cubical complexes is well-defined.
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "thesis.tex"

@@ -3,7 +3,7 @@ Since our purpose with thesis is not only to give an introduction to persistent 
 
 In the first case we quantify differences in morphology between different-sized individuals of the bumblebee \textit{Bombus terrestris} by computing the persistent homology of 3D volumes of their corneas. To our knowledge this is the first use of persistent homology in data pertaining to insects, although in \cite{moon2019, delgadofriedrichs2014} materials and in \cite{gutierrez2012, gutierrez2014} reconstructions of 3D volumes are investigated with approaches that are similar in spirit.
 
-In the second case we try to understand the network structure of the striatum, a part of the basal ganglia in the brain. Due to the sheer computational power needed to compute persistent homology for this data our analysis is more of a holistic summary of the resulting simplicial structure rather than focusing solely on persistent homology. Our approach is largely inspired by \cite{reimann}, in which a similiar analysis is done but for a different part of the brain.
+In the second case we try to understand the network structure of the striatum, a part of the basal ganglia in the brain. Due to the sheer computational power needed to compute persistent homology for this data our analysis is more of a holistic summary of the resulting simplicial structure rather than focusing solely on persistent homology. Our approach is largely inspired by \cite{reimann}, in which a similar analysis is done but for a different part of the brain.
 
 \section{Corneas of Bombus terrestris}
 It has been found that the size of individuals of the species \textit{Bombus terrestris} affects aspects of their visual capabilities \cite{emily}. By applying persistent homology we can investigate whether this difference in size also translates to a difference in persistent homology, and so by proxy a difference in topology. If so, this could serve to strengthen the hypothesis that larger individuals have superior, or at the very least different, visual capabilities than smaller individuals. Persistent homology is a good candidate for this purpose as metrics on persistence diagrams are indifferent to differences in scale but rather measures differences in shape.
@@ -140,7 +140,7 @@ Group  & Metric  & $H_{1} \rho $  & $H_{1}$ p-value  & $H_{2} \rho$ & $H_{2}$ p-
 
 The $1$-Wasserstein metric does not provide a low enough $p$-value for us to draw any conclusions from the tests when it comes to \textit{Bombus terrestris}, this perhaps indicates that the sample size of the \textit{Bombus terrestris} submatrix is too small. It is possible that the more sensitive nature in the $1$-Wasserstein metric, since it records not only the largest differences in the persistence diagrams but all of them, makes it less robust to a smaller sample size.
 
-Since the bottleneck distance on $H_{2}$ has a strong correlation with the ITW distance matrix we proceed with a hierarchical clustering on its distance matrix as seen in Figure \ref{h2b}. We see that there are two groups formed where one of the groups contains an additional cluster. The first group, which does not contain a subgroup, consists of two samples BT\_77967 and BT\_77976. These are the largest samples in terms of ITW and the remaining group contains two subgroups both in which the samples are grouped with the least difference in ITW. It is worth repeating that this clustering is done without knowledge of the actual ITW, these clusterings are purely based on the theory of persistent homology which in turn is based on topology and is indifferent to things such as scale. Any differences here indicate differences based solely on the fact that their pesistence diagrams differ.
+Since the bottleneck distance on $H_{2}$ has a strong correlation with the ITW distance matrix we proceed with a hierarchical clustering on its distance matrix as seen in Figure \ref{h2b}. We see that there are two groups formed where one of the groups contains an additional cluster. The first group, which does not contain a subgroup, consists of two samples BT\_77967 and BT\_77976. These are the largest samples in terms of ITW and the remaining group contains two subgroups both in which the samples are grouped with the least difference in ITW. It is worth repeating that this clustering is done without knowledge of the actual ITW, these clusterings are purely based on the theory of persistent homology which in turn is based on topology and is indifferent to things such as scale. Any differences here indicate differences based solely on the fact that their persistence diagrams differ.
 
 \begin{figure}[ht]
   \centering
@@ -152,7 +152,7 @@ In order to further clarify in what way the persistence diagrams of the \textit{
 
 In Figure \ref{ingroup-matching} we see the matchings produced for the elements \textit{within} each of the identified clusters. We see that within the group the optimal matching always gives the largest distance as a matching between a point and the diagonal.
 
-On the other hand, if we look at the distances from samples \textit{between} groups in Figure \ref{outgroup-matching} we see that there is one generator that is responsible for the bottleneck distance in all of these matchings. That is the longest living generator which is born at filtration value $0$. At filtration value $0$ the only voxels in the volume are the empty voxels consituting the background, which means that the void is left by the space where the cornea will be at a higher filtration value. As the filtration value increases the volume gets filled in with denser and denser parts of the cornea, but as seen in Figures \ref{ingroup-matching} and \ref{outgroup-matching} it lives for a long time before the cornea is entirely filled out. This difference in lifetime, which can somewhat be translated to the density of the cornea, appears to be the distinguishing factor between the three identified clusters of samples.
+On the other hand, if we look at the distances from samples \textit{between} groups in Figure \ref{outgroup-matching} we see that there is one generator that is responsible for the bottleneck distance in all of these matchings. That is the longest living generator which is born at filtration value $0$. At filtration value $0$ the only voxels in the volume are the empty voxels constituting the background, which means that the void is left by the space where the cornea will be at a higher filtration value. As the filtration value increases the volume gets filled in with denser and denser parts of the cornea, but as seen in Figures \ref{ingroup-matching} and \ref{outgroup-matching} it lives for a long time before the cornea is entirely filled out. This difference in lifetime, which can somewhat be translated to the density of the cornea, appears to be the distinguishing factor between the three identified clusters of samples.
 
 \begin{figure}[ht]
   \centering
@@ -211,30 +211,30 @@ In this analysis we follow \cite{reimann} by observing the high-dimensional simp
 Recall that a directed graph $G=\{V,E\}$ consists of a set of \textbf{vertices} $V$ and a set of \textbf{edges} $E$, where an edge is an ordered set $\{v_{i},v_{j}\}$ for some vertices $v_{i},v_{j} \in V$. The \textbf{degree} of a vertex in a directed graph is the sum of the number of outgoing and incoming edges from and to the vertex.
 
 
-In this case analysis our main object of study is a synthetic network of generated based on empirical findings regarding the microcircuitry of the striatum realized as a directed graph, see \cite{Hjorth202000671} for further details. We compare this network to a three different models of directed graphs that all have different qualities common to networks of the brain.
+In this case analysis our main object of study is a synthetic network of generated based on empirical findings regarding the micro-circuitry of the striatum realized as a directed graph, see \cite{Hjorth202000671} for further details. We compare this network to a three different models of directed graphs that all have different qualities common to networks of the brain.
 
 \begin{definition}[{\cite{erdos}}]
 The \textbf{Erdős–Rényi (ER) model} generates a directed graph through the choice of two parameters: the number of vertices $n$ and the number of edges $m$. The graph is then selected uniformly from the set of all graphs with $n$ vertices and $m$ edges.
 \end{definition}
 
 \begin{definition}[{\cite{strogatz}}]
-The \textbf{Watts-Strogatz (WS)} model is parametrized by the number of vertices $n$, the average out-degree $m$ and a rewiring probability $p$. A directed graph is constructed by first creating a graph of $n$ vertices, such that for every vertex there is an outgoing edge to its $m$ closest neighbours modulo $n$, meaning that the graph is circular. Then finally each edge has a probability $p$ of being rewired to a different, uniformly selected, endpoint.
+The \textbf{Watts-Strogatz (WS)} model is parameterized by the number of vertices $n$, the average out-degree $m$ and a rewiring probability $p$. A directed graph is constructed by first creating a graph of $n$ vertices, such that for every vertex there is an outgoing edge to its $m$ closest neighbours modulo $n$, meaning that the graph is circular. Then finally each edge has a probability $p$ of being rewired to a different, uniformly selected, endpoint.
 \end{definition}
 
 \begin{definition}[{\cite{barabasi}}]
-  The \textbf{Barabási–Albert (BA) model} is parametrized by the number of vertices $n$ and $m$, the average out-degree of each vertex. It is constructed by first adding $m$ vertices and succesively adding vertices until there are $n$ vertices. For each new vertex $v_{i}$ we add an edge $\{v_{i},v_{j}\}$  with a probability of
+  The \textbf{Barabási–Albert (BA) model} is parameterized by the number of vertices $n$ and $m$, the average out-degree of each vertex. It is constructed by first adding $m$ vertices and successively adding vertices until there are $n$ vertices. For each new vertex $v_{i}$ we add an edge $\{v_{i},v_{j}\}$  with a probability of
   \[
     \frac{\deg(v_{j})}{\sum_{k} \deg(v_{k})}
   \]
 \end{definition}
-ER can be considered the baseline null model, since it is an abitrary random graph among all possible graphs. WS is said to have \textit{small-world properties}, which means that there are clusters of highly connected nodes and that the average path between two vertices is short. BA is said to be \textit{scale-free} which means that most vertices have a low degree, but some ``hubs'' have a high degree. Both \sextit{scale-free} and \textit{small-world} properties have been observed in brain networks \cite{SPORNS2004418}. Figure \ref{graphexamples} gives an example of each model generated with $100$ vertices.
+ER can be considered the baseline null model, since it is an arbitrary random graph among all possible graphs. WS is said to have \textbf{small-world properties}, which means that there are clusters of highly connected nodes and that the average path between two vertices is short. BA is said to be \textbf{scale-free} which means that most vertices have a low degree, but some ``hubs'' have a high degree. Both scale-free and small-world properties have been observed in brain networks \cite{SPORNS2004418}. Figure \ref{graphexamples} gives an example of each model generated with $100$ vertices.
 
 In this analysis we compare we will compare the three models above with the synthetic network generated from the striatum, which we will refer to as ST. In Table \ref{graphmodels} we can see our choice parameters for the models and the resulting number of edges and vertices. For ER and WS our parameter choices were made to match the number of edges in ST. However, for the BA model we instead choose parameters in order to match the number of dimensions in the simplicial complex on ST as seen in Figure \ref{count50k}.
 \begin{figure}[ht]
   \centering
   \begin{subfigure}{.3 \linewidth}
     \includegraphics[scale=0.2]{random_graphs/erdos100v500e.pdf}
-    \caption{Erdos-Renyi}
+    \caption{Erdos-Rényi}
   \end{subfigure}%
   \begin{subfigure}{.3 \linewidth}
 
@@ -244,7 +244,7 @@ In this analysis we compare we will compare the three models above with the synt
   \begin{subfigure}{.3 \linewidth}
 
     \includegraphics[scale=0.2]{random_graphs/barabasi100em5.pdf}
-    \caption{Barabasi-Albert}
+    \caption{Barabási-Albert}
   \end{subfigure}
   \caption{\label{graphexamples} An example of the ER, WS and BA models on 100 vertices.}
 \end{figure}
@@ -258,14 +258,14 @@ In this analysis we compare we will compare the three models above with the synt
   WS & $50000$ & $12300000$  & $n=50000, m=247, p=0.5$  \\
   BA & $50000$ & $849864$ & $n=500000, m=17$
   \midrule
-  \\
+  \cr
   \bottomrule
 \end{tabular}
 \caption{\label{graphmodels} Breakdown of the ST, ER, WS and BA graphs compared in the analysis.}
 \end{table}
 
 \subsection{Methodology}
-It is not entirely clear how we should define a simplicial complex on a directed graph. The assymetry is important as connections between neurons in the brain do not necessarily go both ways. While we could simply consider the network as a undirected graph by adding missing edges it is likely that important qualities of the network might be lost. There are a number of different ways to go about defining a similar complex on a directed graph . In our case we follow \cite{reimann} and construct something called the \textit{directed flag complex} of a directed graph.
+It is not entirely clear how we should define a simplicial complex on a directed graph. The asymmetry is important as connections between neurons in the brain do not necessarily go both ways. While we could simply consider the network as a undirected graph by adding missing edges it is likely that important qualities of the network might be lost. There are a number of different ways to go about defining a similar complex on a directed graph . In our case we follow \cite{reimann} and construct something called the \textit{directed flag complex} of a directed graph.
 
 \begin{definition}[\cite{luetdigraph}]
   A \textbf{directed clique} is a directed graph $G=(V,E)$ such that every vertex has at least an outgoing or incoming edge to every other vertex in the graph. \end{definition}
@@ -300,7 +300,7 @@ We use a simple filtration function
 \subsection{Results}
 First we note the large number of simplices in ST as seen in Figure \ref{count50k}, where we find as much as over a hundred billion simplices in dimension $7,8$ and $9$. This phenomena was also observed in \cite{reimann}, however not of the same magnitude.  Furthermore, we see that the number of dimensions is significantly larger in ST compared to ER and WS. The graph BA was chosen so that its directed flag complex had the same dimension as ST's, but we see that the number of simplices in each dimension is notably lower. So while the BA model seems to capture the complexity of connectivity in ST it does not capture the magnitude. ER and WS present a lot fewer simplices and a lot fewer dimensions than ST. In this sense ER is the simplest model, but this is to be expected since it is a random graph we expect there to be less of simplicial complexity.
 
-One thing that has to be mentioned is that the computation of homology and even more so persistent homology becomes extremly computationally expensive due to the number of simplices in ST. As seen in Section 3.3 reducing the boundary matrix in a dimension is at worst case given by a cubical amount of field operations in proportion to the number of simplices in one dimension above. Hence, computing something like $\beta_{7}$ for ST would involve a computation of the magnitude $10^{3 \cdot 11}$ field operations. Even worse, persistent homology is not only affected by the number of simplices in the resulting simplicial complex, but also the number of simplicial complexes in the filtration. For this reason we only present persistence diagrams and Betti numbers for $H_{0},H_{1}$ and additionally the Betti number for $H_{2}$.
+One thing that has to be mentioned is that the computation of homology and even more so persistent homology becomes extremely computationally expensive due to the number of simplices in ST. As seen in Section 3.3 reducing the boundary matrix in a dimension is at worst case given by a cubical amount of field operations in proportion to the number of simplices in one dimension above. Hence, computing something like $\beta_{7}$ for ST would involve a computation of the magnitude $10^{3 \cdot 11}$ field operations. Even worse, persistent homology is not only affected by the number of simplices in the resulting simplicial complex, but also the number of simplicial complexes in the filtration. For this reason we only present persistence diagrams and Betti numbers for $H_{0},H_{1}$ and additionally the Betti number for $H_{2}$.
 
 In Table \ref{bettis} we see that ST has a lower $\beta_{1}$ than any of the other graphs. Curiously, even though BA has a lot fewer edges it still has a higher Betti number in dimension 1. It is possible that the low amount of $1$-cycles is a feature that distinguishes brain networks from other types of networks, but no such result is presented in \cite{reimann} since $\beta_{1}$ was never computed due to computational limitations. If we turn to $\beta_{2}$ we see that $ST$ has the largest change from $\beta_{1}$, while the other graphs are pretty close to their $\beta_{1}$ however with a larger error. This dramatic increase from dimension 1 to dimension 2, both in Betti number and number of simplices, could also be seen as a feature of $ST$ compared to the other models. The distribution of simplices in Figure \ref{count50k} indicates that this dramatic increase continues for several dimensions.
 
