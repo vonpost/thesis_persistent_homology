@@ -7,6 +7,13 @@ In the second case we try to understand the network structure of the striatum, a
 
 \section{Corneas of Bombus terrestris}
 It has been found that the size of individuals of the species \textit{Bombus terrestris} affects aspects of their visual capabilities \cite{emily}. By applying persistent homology we can investigate whether this difference in size also translates to a difference in persistent homology, and so by proxy a difference in topology. If so, this could serve to strengthen the hypothesis that larger individuals have superior, or at the very least different, visual capabilities than smaller individuals. Persistent homology is a good candidate for this purpose as metrics on persistence diagrams are indifferent to differences in scale but rather measures differences in shape.
+
+Our questions we wish to investigate in this case study are
+\begin{enumerate}
+  \item Is there a correlation between the size of the bumblebees and their persistent homology?
+  \item Can we with persistent homology identify subgroups of bumblebees, and if so are these subgroups related to their size?
+
+\end{enumerate}
 \subsection{Data}
 The data consists of binary 3-dimensional volumes (see Figure \ref{corneas} for renderings of some of the samples) of the corneas acquired by micro-CT scans of the samples described in Table \ref{bees}. The main focus of the analysis will be on samples from the bumblebee \textit{Bombus terrestris}, but in total there are 20 samples belonging to 8 different species of insects. The additional samples from other species will be used to verify our topological findings.
 \begin{figure}[h]
@@ -28,12 +35,11 @@ The data consists of binary 3-dimensional volumes (see Figure \ref{corneas} for 
   \end{subfigure}
   \caption{\label{corneas} Example renderings of cornea volumes.}
 \end{figure}
-\begin{table}[htb]
+\begin{table}[h]
 \begin{center}
-\begin{tabular}{ | c | c | c | }
-\hline
-  ID & ITW & Species \\
-\hline
+\begin{tabular}{*6l}
+\toprule
+  ID & ITW & Species  \\ \midrule
 AM\_60185 & 2.90 & Apis mellifera \\
 AM\_60186 & 2.95 & Apis mellifera \\
 BT\_77967 & 5.42 & Bombus terrestris \\
@@ -54,58 +60,36 @@ TC\_60166 & 1.94 & Tetragona clavipes \\
 TC\_60167 & 1.94 & Tetragona clavipes \\
 TS\_60163 & 2.10 & Trigona spinipes \\
 TS\_60203 & 2.10 & Trigona spinipes \\
-  \hline
+  \bottomrule
 \end{tabular}
 \caption{Table over the data samples used in the analysis. The ID column gives a unique ID to each sample and the ITW column gives the intertegular width of each sample.}
 \label{bees}
 \end{center}
 \end{table}
 \subsection{Methodology}
-Since our samples consist of binary 3-dimensional volumes each voxel\footnote{A voxel is the 3-dimensional equivalent of a pixel.} can be considered as cube in a 3-dimensional grid, where a value of $1$ indicates the presence of a cube and a value of $0$ indicates the absence of one. We can exploit this inherent structure in the data and instead of considering simplicial complexes as described in Chapter 2, we can instead impose the structure of a \textit{cubical complex} on the data samples.
+Since the data we are working with are 3-dimensional volumes a natural choice is to endow it with the structure of a cubical complex. Our strategy is similar to the Vietoris-Rips complex, but instead of working with distances between points we work with adjacent cubes. Each voxel can be considered as a degenerate interval (or vertex) in a cubical complex, where $4$ pairwise adjacent voxels give rise to a square and $8$ pairwise adjacent voxels give rise to a cube.
 
-\subsubsection{Cubical complexes}
-We follow \cite{kaczynski2004} in defining the cubical complex.
+In order to compute persistent homology we need a filtration which defines subcomplexes of the cubical complex. Since the volumes are binary, we give the volume a bit more structure by giving each voxel the distance to the closest point on the boundary of the volume.
 \begin{definition}
-An elementary interval is a unit interval $[k,k+1]$ or a degenerate interval $[k,k]$ for $k \in \mathbb{N}$.
-\end{definition}
-
-\begin{definition}
-In an $n$-dimensional space a cube is the cartesian product of $n$ elementary intervals. The dimension of the cube is exactly the number of intervals in the product which are not degenerate.
-\end{definition}
-Hence, analoguous to simplices a 0-cube is a vertex, a 1-cube is an edge, a 2-cube is a square and a 3-cube is an actual cube in the geometric sense.
-
-From here on the same construction as in simplicial homology holds \footnote{For computational reasons we can also consider the dual cubical complex where we let voxels be the vertices. See \cite{dualcomplex} for a thorough explanation of this.}. We can in the entirely same way as for simplicial homology define a cubical complex and homology on cubical chain complexes.
-
-\begin{example}
-  Just like in a simplicial complex the hole highlighted in green in Figure \ref{cubecomplex} is indeed a non-trivial generator of $H_{1}$.
-  \begin{figure}[htb]
-    \centering
-    \includegraphics[scale=2]{cubecomplex.pdf}
-    \caption{\label{cubecomplex} A cubical complex consisting of two 2-cubes, a 2-cube without the interor and two 1-cubes. }
-  \end{figure}
-\end{example}
-
-We also need to impose a metric structure on the space given by each sample. Computing the persistent homology of a binary volume will just lead to all cubes in the complex appearing at a threshold of $1$. Instead, we consider the Euclidean Distance Transform (EDT) as a way of imposing a metric structure on the binary volume.
-
-\begin{definition}
-  Given a subset $Y \subset \mathbb{R}^{n}$ we define
+  Given a subset $Y \subset \mathbb{R}^{n}$ we define the Euclidean Distance Transform, or EDT, as
    \[EDT(x) = \inf_{y \in \partial Y} ||x - y||_2\]
    where $\partial Y$ is the boundary of $Y$.
 \end{definition}
-So for a given binary volume we embed it in $\mathbb{R}^{n}$ and apply the Euclidean distance transform to get a distance metric between voxels.
 
+Our filtration is a sequence of cubical complexes $K_{i}$ given by including voxels of at most value $\epsilon_{i}$ as degenerate intervals. Higher dimensional cubes such as edges, squares and geometric cubes are, similarly to the Vietorix-Rips complex, included whenever there is a sufficient amount of pairwise adjacent voxels.
 
 \begin{example}
-  To calculate the EDT of the binary image in Figre \ref{edt} we simply calculate the difference vector from a cell of value $1$ to the closest cell with value $0$. For example, to get $\sqrt 5$ in the top left corner we need to walk one step in to the left and two steps upwards which translates to the vector $(-1,2)$ which has Euclidean norm $\sqrt{1+4}=\sqrt{5}$.
+  To calculate the EDT of the binary image in Figure \ref{edt} we simply calculate the difference vector from a pixel of value $1$ to the closest pixel with value $0$. For example, to get $\sqrt 5$ in the top left corner we need to walk one step in to the left and two steps upwards which translates to the vector $(-1,2)$ which has Euclidean norm $\sqrt{1+4}=\sqrt{5}$. We then compute the filtration of the transformed image, which gives us cubical complexes for each value of $\epsilon$. Since there are five distinct values of the pixels, we find  five subsequent cubical complexes ordered by inclusion.
+
   \begin{figure}[ht]
     \centering
-    \includegraphics[scale=1.5]{edttransform.pdf}
-    \caption{\label{edt} }
+    \includegraphics[scale=1]{cubicalfiltration.pdf}
+    \caption{\label{edt} Transformation of a binary image into a filtration of cubical complexes based on the Euclidean Distance Transform.}
   \end{figure}
 
 \end{example}
 
-Our filtration then will describe the structure starting at the boundary of the cornea, the hollow shell surrounding the volume, and then as the threshold increases the cubical complex will include more and more of the denser parts within the volume. An illustration of the thresholding at different values is seen in Figure \ref{thresh}.
+Our filtration on the volumes will describe the structure of the cornea starting at it the void surrounding it, then including the hollow shell which is its boundary, and then as the threshold increases the cubical complex will include more and more of the denser parts within the volume. An illustration of the thresholding at different values is seen in Figure \ref{thresh}.
 
 \begin{figure}[ht]
   \centering
@@ -126,153 +110,281 @@ Our filtration then will describe the structure starting at the boundary of the 
   \end{subfigure}
   \caption{\label{thresh} EDT thresholding of BT\_77976. Cooler colors indicate denser parts of the volume relative to the rest of the volume.}
 \end{figure}
-The resulting topological summaries we find are barcodes. While these are in themselves interesting, in order to answer whether the size of an individual of the specis \textit{Bombus terrestris} has an impact on the topology of its cornea we compare the samples in a distance matrix, where the metric between pairs is the 1-Wasserstein distance. We choose the Wasserstein distance because it is sensitive to small changes in the persistence diagrams whereas the bottleneck distance only considers the largest differences.
 
-We then analyze this distance matrics using standard tools for data analysis. We are interested in two things:
-\begin{enumerate}
-  \item Is there a correlation between the size of the bumblebees and their persistent homology?
-  \item Can we with persistent homology identify subgroups of bumblebees, and if so are these subgroups related to their size?
-\end{enumerate}
-Answering these questions will allow us to evaluate whether persistent homology provides information which relates to the hypothesis.
+The resulting topological summaries we get are persistence diagrams. While these are in themselves interesting, in order to answer whether there is any relation between the size of an individual and the persistent homology of its cornea, we compute a distance matrix giving the distance of each sample to another. Since we have a number of dimensions of homology to compare and two different metrics (1-Wasserstein and Bottleneck) we get a total of 6 distance matrices. For each of these distance matrices, we divide them into two submatrices, one group consisting of the submatrix with entries from \textit{Bombus terrestris} and the other group consisting of all the other samples to act as a control group on the first.
 
-(Work in progress, proper definitions for clustering and Mantel)
-In order to identify groupings in the samples we use \textit{hierarchical single-linkage clustering}. Each sample starts out in its own cluster. We then cluster that sample with the sample to which, in terms of persistent homology, it has the lowest distance. We then proceed inductively, and consider the distance from a cluster to another cluster to be the smallest distance among the distances of samples within the two clusters.
+Our hypothesis is that there is some relationship between the distances given by the absolute difference in ITW and their persistent homologies. But since different homology dimensions and metrics provide different summaries of the objects we first need to figure out which one of them is most suited for our applications.
 
-To investigate the relationship between between size and topology we additionally compute the distance matrix between the samples' ITWs (intertegular widths) and use the Mantel test to see the correlation between the Wasserstein distance matrix. The Mantel test is a non-parametric test of the correlation between two distance matrices given. The idea is quite simple: we take the two matrices and permute the columns of one of the matrices to compute the probabilities that the values fall within a certain range. If the two matrices are correlated we expect the value to change drastically.
+We determine which metric we will rely on by doing a so called Mantel test. A Mantel test is a non-parametric test of distance matrices, in which we compute the correlation of the two matrices under the null hypothesis that the matrices are uncorrelated. Essentially, the results of a Mantel test is a correlation coefficient and a probability that the persistent homology distance matrix is simply a random matrix and this will be our $p$-value. This is done by permuting the columns and rows of the persistent homology distance matrix and if the permutations differ in a large way from the observed correlation the probability becomes lower.
+
+Our final analysis consists of a clustering of the persistent homology distance matrix based on \textit{hierarchical clustering} where we group together samples in a tree-structure of \textit{Bombus terrestris} based on their differences in distance with the hope that the resulting groupings reflect their differences in size.
+
 \subsection{Results}
-The clusterings on the entire data-set in Figure \ref{wfull1} and Figure \ref{wfull2} reveals that there are two samples of \textit{Bombus terrestris} that are notably different from the other samples of the same species both in their first and second persistent homologies. Coincidentally, these two samples are the samples with the largest ITW in the entire data-set ($5.42$, $5.47$).
-
-We further see that species are mostly grouped together indicating that distances given by 1-Wasserstein between persistent homologies is a capable discriminant when it comes to species. However, there are some oddities such as \textit{Melipona bicolor} and \textit{Melipona quadrifascisata} not being clustered by species.
-
-If we look more closely at \textit{Bombus terrestris} in Figure \ref{wbt1} and Figure \ref{wbt2} we see that persistent homology in both first and second dimension leads to clusterings where the two large samples are considered in a cluster for themselves. However, $H_{2}$ from $H_{1}$ leads to a slightly different clustering where BT\_77971 is considered different from the remaining smaller bumblebees.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[scale=0.35]{clusters/wasserstein_h1_full.pdf}
-  \caption{\label{wfull1} Hierarchical single-link clustering of the 1-Wasserstein distance matrix derived from the persistent homologies of the entire data-set in $H_{1}$.}
-\end{figure}
-
-
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.35]{clusters/wasserstein_h2_full.pdf}
-  \caption{\label{wfull2} Hierarchical single-link clustering of the 1-Wasserstein distance matrix derived from the persistent homologies of the entire data-set in $H_{2}$.}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[scale=0.35]{clusters/wasserstein_h1_bt.pdf}
-  \caption{\label{wbt1} Hierarchical single-link clustering of the 1-Wasserstein distance matrix derived from the persistent homologies of samples from the species \textit{Bombus terrestris} in $H_{1}$. }
-\end{figure}
-
-\begin{figure}[]
-  \centering
-  \includegraphics[scale=0.35]{clusters/wasserstein_h2_bt.pdf}
-  \caption{\label{wbt2} Hierarchical single-link clustering of the 1-Wasserstein distance matrix derived from the persistent homologies of samples from the species \textit{Bombus terrestris} in $H_{2}$. }
-\end{figure}
-
-Finally, we compute the Mantel test and see a non-trivial correlation coefficient for the samples from the species \textit{Bombus terrestris} in Table \ref{mantelc} for the 1-Wasserstein distance in all dimensions. For the significant results we see that we have roughly the same correlation coefficient (0.57) in dimensions 1 and 2 and a weaker one (0.26) in dimension 0.
-
-Notably, none of the bottleneck distances produce any significant results. Perhaps this is not too surprising as the bottleneck distance only provides information about the largest distance in the matching between persistence diagrams. This works well for simple topological shapes, but perhaps too much geometric information is lost about the intermediate stages of the persistent homology filtrations.
+The Mantel tests in Table \ref{mantelc} reveal that the highest correlation is given by the bottleneck distance on $H_{2}$. Perhaps this is not too surprising, our objects are volumes and the most distinguishing aspects of volumes will be how they encode voids. Interestingly, the $H_{1}$ bottleneck distance matrix shows a very high $p$-value indicating that the largest distance between holes are not very telling in drawing a conclusion about correlation between size and persistent homology. This could be explained again by the fact that our object is a volume of a single connected component namely a cornea, and so any existence of holes will at best be local geometric information and at worst simply noise.
 
 \begin{table}[h]
 \begin{center}
-\begin{tabular}{ | c | c | c | c | }
-\hline
-  Dimension & Metric & Correlation & P-value \\
-  \hline
-  0 & Bottleneck & 0.014 & 0.9096 \\
-  0 & 1-Wasserstein & 0.26 &  \textbf{0.013} \\
-  1 & Bottleneck & -0.11 & 0.4304 \\
-  1 & 1-Wasserstein & 0.57 & \textbf{0.0004} \\
-  2 & Bottleneck & -0.12 & 0.3415 \\
-  2 & 1-Wasserstein & 0.57 & \textbf{0.0003} \\
-\hline
+
+\begin{tabular}{*6l}    \toprule
+Group  & Metric  & $H_{1} \rho $  & $H_{1}$ p-value  & $H_{2} \rho$ & $H_{2}$ p-value  \\ \midrule
+\textit{BT} & Bottleneck & $-0.069$ & $0.84$ & $0.86$ & $0.0083$\\
+\textit{BT} & Wasserstein & $0.59 $ & $0.053 $ & $0.49$ & $0.080$\\
+\textit{Others}& Bottleneck & $0.22$ & $0.030$ & $0.33$ & $0.0073$\\
+\textit{Others}& Wasserstein & $0.23$ & $0.023$ & $0.26$ & $0.013$\\\bottomrule
+ \hline
 \end{tabular}
 \end{center}
+
 \caption{\label{mantelc} Table displaying the statistics computed in the Mantel test of the pairwise distances in different dimensions of persistent homology and the ITW for the species \textit{Bombus terrestris}.}
 \end{table}
-While the purpose of this analysis is mostly a showcase of persistent homology in the wild, these results  do support to the idea that different sized \textit{Bombus terrestris} do not only have larger eyes, but also that they are topologically different. Our clustering results group the larger individuals together and we find a moderate  correlation between the higher order persistent homologies of the samples and their intertegular widths.
+
+The $1$-Wasserstein metric does not provide a low enough $p$-value for us to draw any conclusions from the tests when it comes to \textit{Bombus terrestris}, this perhaps indicates that the sample size of the \textit{Bombus terrestris} submatrix is too small. It is possible that the more sensitive nature in the $1$-Wasserstein metric, since it records not only the largest differences in the persistence diagrams but all of them, makes it less robust to a smaller sample size.
+
+Since the bottleneck distance on $H_{2}$ has a strong correlation with the ITW distance matrix we proceed with a hierarchical clustering on its distance matrix as seen in Figure \ref{h2b}. We see that there are two groups formed where one of the groups contains an additional cluster. The first group, which does not contain a subgroup, consists of two samples BT\_77967 and BT\_77976. These are the largest samples in terms of ITW and the remaining group contains two subgroups both in which the samples are grouped with the least difference in ITW. It is worth repeating that this clustering is done without knowledge of the actual ITW, these clusterings are purely based on the theory of persistent homology which in turn is based on topology and is indifferent to things such as scale. Any differences here indicate differences based solely on the fact that their pesistence diagrams differ.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[scale=0.35]{clusters/bottleneck_h2_cluster.pdf}
+  \caption{\label{h2b} Hierarchical single-link clustering of the bottleneck distance matrix derived from the persistent homologies of the \textit{Bombus terrestris} in $H_{2}$.}
+\end{figure}
+
+In order to further clarify in what way the persistence diagrams of the \textit{Bombus terrestris} are differing we can look at visualizations of the bijections done under the bottleneck distance and which pair of generators are the ones to determine the metric.
+
+In Figure \ref{ingroup-matching} we see the matchings produced for the elements \textit{within} each of the identified clusters. We see that within the group the optimal matching always gives the largest distance as a matching between a point and the diagonal.
+
+On the other hand, if we look at the distances from samples \textit{between} groups in Figure \ref{outgroup-matching} we see that there is one generator that is responsible for the bottleneck distance in all of these matchings. That is the longest living generator which is born at filtration value $0$. At filtration value $0$ the only voxels in the volume are the empty voxels consituting the background, which means that the void is left by the space where the cornea will be at a higher filtration value. As the filtration value increases the volume gets filled in with denser and denser parts of the cornea, but as seen in Figures \ref{ingroup-matching} and \ref{outgroup-matching} it lives for a long time before the cornea is entirely filled out. This difference in lifetime, which can somewhat be translated to the density of the cornea, appears to be the distinguishing factor between the three identified clusters of samples.
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{.49 \linewidth}
+  \includegraphics[scale=0.5]{matchings/77970-77971.pdf}
+  \end{subfigure}%
+  \begin{subfigure}{.49 \linewidth}
+  \includegraphics[scale=0.5]{matchings/77967-77976.pdf}
+  \end{subfigure}
+  \begin{subfigure}{.49 \linewidth}
+  \includegraphics[scale=0.5]{matchings/77973-77974.pdf}
+  \end{subfigure}
+  \caption{\label{ingroup-matching} Visualisations of bottleneck distances within clusters on persistence diagrams of $H_{2}$.}
+\end{figure}
 \clearpage
-\section{Brain network (work in progress)}
-Intro. Lorem ipsum.
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{.49 \linewidth}
+  \includegraphics[scale=0.5]{matchings/77973-77976.pdf}
+  \end{subfigure}%
+  \begin{subfigure}{.49 \linewidth}
+  \includegraphics[scale=0.5]{matchings/77970-77973.pdf}
+  \end{subfigure}
+  \begin{subfigure}{.49 \linewidth}
+  \includegraphics[scale=0.5]{matchings/77970-77976.pdf}
+  \end{subfigure}
+  \caption{\label{outgroup-matching} Visualisations of bottleneck distances between clusters on persistence diagrams of $H_{2}$.}
+\end{figure}
+
+
+% The clusterings on the entire data-set in Figure \ref{wfull1} and Figure \ref{wfull2} reveals that there are two samples of \textit{Bombus terrestris} that are notably different from the other samples of the same species both in their first and second persistent homologies. Coincidentally, these two samples are the samples with the largest ITW in the entire data-set ($5.42$, $5.47$).
+
+% We further see that species are mostly grouped together indicating that distances given by 1-Wasserstein between persistent homologies is a capable discriminant when it comes to species. However, there are some oddities such as \textit{Melipona bicolor} and \textit{Melipona quadrifascisata} not being clustered by species.
+
+% If we look more closely at \textit{Bombus terrestris} in Figure \ref{wbt1} and Figure \ref{wbt2} we see that persistent homology in both first and second dimension leads to clusterings where the two large samples are considered in a cluster for themselves. However, $H_{2}$ from $H_{1}$ leads to a slightly different clustering where BT\_77971 is considered different from the remaining smaller bumblebees.
+
+
+
+
+% Finally, we compute the Mantel test and see a non-trivial correlation coefficient for the samples from the species \textit{Bombus terrestris} in Table \ref{mantelc} for the 1-Wasserstein distance in all dimensions. For the significant results we see that we have roughly the same correlation coefficient (0.57) in dimensions 1 and 2 and a weaker one (0.26) in dimension 0.
+
+% Notably, none of the bottleneck distances produce any significant results. Perhaps this is not too surprising as the bottleneck distance only provides information about the largest distance in the matching between persistence diagrams. This works well for simple topological shapes, but perhaps too much geometric information is lost about the intermediate stages of the persistent homology filtrations.
+
+
+While the purpose of this analysis is mostly to showcase persistent homology in the wild, these results  do support to the idea that different sized \textit{Bombus terrestris} do not only have larger eyes, but also that they are topologically different. Our clustering results on $H_{2}$ group the larger individuals together and we find a strong correlation with bottleneck distance in $H_{2}$ and ITW. Furthermore, we find that there is one generator born at the beginning of the filtration that is responsible for the ``bottleneck'' when comparing samples from the different clusters whereas within the same cluster other generators with much shorter lifetime are the contributors.
+\clearpage
+\section{The Simplicial Structure of the Striatum}
+The use of topological methods in order to understand brain networks is not new. There are a multitude of applications where persistent homology is used to overcome the problem of producing a graph from a set of a set sequence of connectivity maps by encoding all of them as a filtration. Traditional edge and vertex statistics have been generalized to simplices. Some other examples here.
+
+There is much reason for considering simplicial complexes when it comes to networks related to the brain. An extensive field of study when it comes to network analysis of the brain are motifs, which at a high-level simply means a repeated pattern in a network which has some form of semantic meaning to the network. Simplices capture such patterns at a micro-level through the connectivity of its faces, whereas homology captures another type of patterns at a meso-level through cycles of simplices. Armed with persistent homology we arrive at a comprehensive summary of the network through the lens of the filtration of our choice.
+
+In this analysis we follow \cite{reimann} by observing the high-dimensional simplicial structure of the brain by constructing a particular simplicial complex on the connectivity matrix of a synthetically generated microcircuit of the striatum, a part of the basal ganglia in the brain. By computing the resulting persistent homology we hope to discover distinguishing features of our network from a few selected control models. Furthermore, our aim is that this analysis serves as yet another example of the breadth of possible scenarios in which persistent homology is applicable outside the realm of theory. While we only investigate the mentioned microcircuit, our methodology is general enough for it to be applicable in any scenario where we data can be interpreted as directed graphs.
 
 \subsection{Data}
-In this case analysis our main object of study will be two synthetic networks generated based on the striatum.
-One network consists of 50 001 vertices and the other network of 999 vertices. It has to be said that the smaller network suffers from being too small to give even the most central neurons all the neighbours it should have.
 
-We follow the results of \cite{reimann} in showing the non-random structure in brain networks.
+Recall that a directed graph $G=\{V,E\}$ consists of a set of \textbf{vertices} $V$ and a set of \textbf{edges} $E$, where an edge is an ordered set $\{v_{i},v_{j}\}$ for some vertices $v_{i},v_{j} \in V$. The \textbf{degree} of a vertex in a directed graph is the sum of the number of outgoing and incoming edges from and to the vertex.
+
+
+In this case analysis our main object of study is a synthetic network of generated based on empirical findings regarding the microcircuitry of the striatum realized as a directed graph, see \cite{Hjorth202000671} for further details. We compare this network to a three different models of directed graphs that all have different qualities common to networks of the brain.
+
+\begin{definition}[{\cite{erdos}}]
+The \textbf{Erdős–Rényi (ER) model} generates a directed graph through the choice of two parameters: the number of vertices $n$ and the number of edges $m$. The graph is then selected uniformly from the set of all graphs with $n$ vertices and $m$ edges.
+\end{definition}
+
+\begin{definition}[{\cite{strogatz}}]
+The \textbf{Watts-Strogatz (WS)} model is parametrized by the number of vertices $n$, the average out-degree $m$ and a rewiring probability $p$. A directed graph is constructed by first creating a graph of $n$ vertices, such that for every vertex there is an outgoing edge to its $m$ closest neighbours modulo $n$, meaning that the graph is circular. Then finally each edge has a probability $p$ of being rewired to a different, uniformly selected, endpoint.
+\end{definition}
+
+\begin{definition}[{\cite{barabasi}}]
+  The \textbf{Barabási–Albert (BA) model} is parametrized by the number of vertices $n$ and $m$, the average out-degree of each vertex. It is constructed by first adding $m$ vertices and succesively adding vertices until there are $n$ vertices. For each new vertex $v_{i}$ we add an edge $\{v_{i},v_{j}\}$  with a probability of
+  \[
+    \frac{\deg(v_{j})}{\sum_{k} \deg(v_{k})}
+  \]
+\end{definition}
+ER can be considered the baseline null model, since it is an abitrary random graph among all possible graphs. WS is said to have \textit{small-world properties}, which means that there are clusters of highly connected nodes and that the average path between two vertices is short. BA is said to be \textit{scale-free} which means that most vertices have a low degree, but some ``hubs'' have a high degree. Both \sextit{scale-free} and \textit{small-world} properties have been observed in brain networks \cite{SPORNS2004418}. Figure \ref{graphexamples} gives an example of each model generated with $100$ vertices.
+
+In this analysis we compare we will compare the three models above with the synthetic network generated from the striatum, which we will refer to as ST. In Table \ref{graphmodels} we can see our choice parameters for the models and the resulting number of edges and vertices. For ER and WS our parameter choices were made to match the number of edges in ST. However, for the BA model we instead choose parameters in order to match the number of dimensions in the simplicial complex on ST as seen in Figure \ref{count50k}.
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{.3 \linewidth}
+    \includegraphics[scale=0.2]{random_graphs/erdos100v500e.pdf}
+    \caption{Erdos-Renyi}
+  \end{subfigure}%
+  \begin{subfigure}{.3 \linewidth}
+
+    \includegraphics[scale=0.2]{random_graphs/strogatz100v5m05prob.pdf}
+    \caption{Watts-Strogatz}
+  \end{subfigure}%
+  \begin{subfigure}{.3 \linewidth}
+
+    \includegraphics[scale=0.2]{random_graphs/barabasi100em5.pdf}
+    \caption{Barabasi-Albert}
+  \end{subfigure}
+  \caption{\label{graphexamples} An example of the ER, WS and BA models on 100 vertices.}
+\end{figure}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{*4l}    \toprule
+  Network & Vertices & Edges & Parameters\\ \toprule
+  ST & $50000$ & $12298074$  & - \\
+  ER & $50000$ & $12298074$  & $n=50000, m=12298074$ \\
+  WS & $50000$ & $12300000$  & $n=50000, m=247, p=0.5$  \\
+  BA & $50000$ & $849864$ & $n=500000, m=17$
+  \midrule
+  \\
+  \bottomrule
+\end{tabular}
+\caption{\label{graphmodels} Breakdown of the ST, ER, WS and BA graphs compared in the analysis.}
+\end{table}
 
 \subsection{Methodology}
-The networks we work with are directed graphs, meaning that a connection from $A \to B$ does not imply a connection from $B \to A$.
-\begin{definition}
-A directed graph $G={V,E}$ consists of an ordered vertex set $V=(v_{0},\dots)$ and an ordered set of edges $E$ whose elements are of the form $(v_{i},v_{j})$ where the edge in the opposite direction $(v_{j},v_{i})$is not necessarily in the set.
-\end{definition}
-It is not entirely clear how we should define a simplicial complex on a directed graph, but it is of importance that we try to do so. The assymetry in brain networks are important to capture the structure of how the neurons bind together, and should we disregard the fact that the network is directed important qualities of the network might be lost. While the Vietoris-Rips complex is directly definable on an undirected graph there are a number of different ways to go about defining a similar complex on a directed graph (cite digraph clique article). In our case we follow Reimann et al. (cite) and we extend the notion of the Vietoris-Rips complex, which is a special case of a flag complex, to something called a \textit{directed flag complex} which we construct by imposing a certain partial order on the vertices of the directed graph.
+It is not entirely clear how we should define a simplicial complex on a directed graph. The assymetry is important as connections between neurons in the brain do not necessarily go both ways. While we could simply consider the network as a undirected graph by adding missing edges it is likely that important qualities of the network might be lost. There are a number of different ways to go about defining a similar complex on a directed graph . In our case we follow \cite{reimann} and construct something called the \textit{directed flag complex} of a directed graph.
 
 \begin{definition}[\cite{luetdigraph}]
-  A directed clique is a directed graph $G=(V,E)$ such that every vertex has at least an outgoing or incoming edge to every other vertex in the graph. \end{definition}
+  A \textbf{directed clique} is a directed graph $G=(V,E)$ such that every vertex has at least an outgoing or incoming edge to every other vertex in the graph. \end{definition}
 
-Recall that an ordered (abstract) simplicial complex arises from an ordinary simplicial complex where we give a
+Recall that a simplicial complex includes a partial order that descends to a linear order on each simplex. Hence, if we can construct such a partial order on our graph then we can define a simplicial complex from there.
 
 \begin{definition}[\cite{luetdigraph}]
-  Let G=(V,E) be a directed graph. The directed flag complex dFl(G) is defined to be the ordered simplicial complex whose $k$-simplices are all directed cliques with vertices $v_{0},\dots,v_{k}$ such that $\forall i: v_{i} \in V$
+  Let G=\{V,E\} be a directed graph. The \textbf{directed flag complex} dFl(G) is defined to be the simplicial complex whose $k$-simplices are all directed cliques with vertices $v_{0},\dots,v_{k}$ such that $\forall i: v_{i} \in V$
   and $\forall i,j: i < j \implies (v_{i}, v_{j}) \in E$. The vertices $v_{0}, v_{k}$ are called the source and the sink of a $k$-simplex.
 \end{definition}
 
-It is important to try to understand this construction because it will have meaning when we try to interpret the homology of the resulting networks. In Figure \ref{disimplex} we see what a $3$-simplex looks like in a \textit{directed flag complex}. We then need to think about what a chain of these directed simplices look like. For example, a $2$-chain of directed simplices can be see in Figure \ref{}. Then what is a cycle? It is a cavity built in by these directed simplices. In the $1$-dimensional case it is not very difficult, it will look something like this.
+This construction is essentially the same construction given by the Vietoris-Rips complex where pairwise intersection is given by an edge. The difference is that we only create a simplex from those cliques whose edges flow ``upwards'' in the partial order. In Figure \ref{disimplex} we see how the left clique has a source and sink and thus defines a $3$-simplex in the directed flag complex, but the right clique has one edge going in the wrong direction hence it is not a $3$-simplex.
+
+% It is important to try to understand this construction because it will have meaning when we try to interpret the homology of the resulting networks. In Figure \ref{disimplex} we see what a $3$-simplex looks like in a \textit{directed flag complex}. We then need to think about what a chain of these directed simplices look like. For example, a $2$-chain of directed simplices can be see in Figure \ref{}. Then what is a cycle? It is a cavity built in by these directed simplices. In the $1$-dimensional case it is not very difficult, it will look something like this.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[]{./counts/3simplex.pdf}
-  \caption{\label{disimplex} A 3-simplex in a directed flag complex.}
+  \includegraphics[]{./3simplex.pdf}
+  \caption{\label{disimplex} Two directed cliques where the left clique does create a 3-simplex in the directed flag complex and the right clique does not.}
 \end{figure}
+
+We then investigate the graphs ST, ER, WS, and BA in three different ways: the number of simplices in each dimension, their Betti numbers and their persistence diagrams.
+
+For computing persistent homology, we need to define a filtration on the directed flag complexes.
+We use a simple filtration function
+\[
+  f(\sigma) = \begin{cases}
+    -\deg(\sigma) & \text{if } \dim(\sigma) = 0 \\
+    \max_{\tau \text{ is a face of } \sigma} \{ f(\tau) \} & \text{if } \dim(\sigma) > 0
+  \end{cases}
+\] where we add vertices in the reverse order of their degrees and their resulting higher-dimensional simplices whenever all their vertices have been included in the complex. The degree of the vertex indicates how central a vertex is to the graph, which means that the filtration will describe the network in its most basic building blocks and then add less and less important vertices.
 \subsection{Results}
+First we note the large number of simplices in ST as seen in Figure \ref{count50k}, where we find as much as over a hundred billion simplices in dimension $7,8$ and $9$. This phenomena was also observed in \cite{reimann}, however not of the same magnitude.  Furthermore, we see that the number of dimensions is significantly larger in ST compared to ER and WS. The graph BA was chosen so that its directed flag complex had the same dimension as ST's, but we see that the number of simplices in each dimension is notably lower. So while the BA model seems to capture the complexity of connectivity in ST it does not capture the magnitude. ER and WS present a lot fewer simplices and a lot fewer dimensions than ST. In this sense ER is the simplest model, but this is to be expected since it is a random graph we expect there to be less of simplicial complexity.
 
+One thing that has to be mentioned is that the computation of homology and even more so persistent homology becomes extremly computationally expensive due to the number of simplices in ST. As seen in Section 3.3 reducing the boundary matrix in a dimension is at worst case given by a cubical amount of field operations in proportion to the number of simplices in one dimension above. Hence, computing something like $\beta_{7}$ for ST would involve a computation of the magnitude $10^{3 \cdot 11}$ field operations. Even worse, persistent homology is not only affected by the number of simplices in the resulting simplicial complex, but also the number of simplicial complexes in the filtration. For this reason we only present persistence diagrams and Betti numbers for $H_{0},H_{1}$ and additionally the Betti number for $H_{2}$.
 
+In Table \ref{bettis} we see that ST has a lower $\beta_{1}$ than any of the other graphs. Curiously, even though BA has a lot fewer edges it still has a higher Betti number in dimension 1. It is possible that the low amount of $1$-cycles is a feature that distinguishes brain networks from other types of networks, but no such result is presented in \cite{reimann} since $\beta_{1}$ was never computed due to computational limitations. If we turn to $\beta_{2}$ we see that $ST$ has the largest change from $\beta_{1}$, while the other graphs are pretty close to their $\beta_{1}$ however with a larger error. This dramatic increase from dimension 1 to dimension 2, both in Betti number and number of simplices, could also be seen as a feature of $ST$ compared to the other models. The distribution of simplices in Figure \ref{count50k} indicates that this dramatic increase continues for several dimensions.
+
+We see in Figure \ref{graphph} that ST is markedly different from all other models in terms of persistent homology. The persistence diagram of $BA$ is not very informative due to all of its vertices essentially having the same degree. However, WS and ER display similar persistence diagrams in which the distribution of holes is concentrated to a small interval of filtration steps from degree $500$ to degree $400$. In comparison, ST shows a much larger spread of both birth and death of holes, with some holes even being born or dying close to degree $0$.
+
+To conclude, we have found that directed flag complex on $ST$ differs in several ways from the other three graphs: it has a much larger number of simplices in each dimension, it has simplices in high dimensions, it has lower $\beta_{1}$ than all models and lower $\beta_{2}$ than all models but BA. Furthermore, the persistence diagram of ST shows a distinct spread of the birth and death of generators of $H_{1}$, whereas for BA they are all born at the same time due to nature of the filtration and for ER and WS they are all restricted within a small interval of degrees.
+%To interpret this, we have to remind ourselves of the definition of a $1$-dimensional hole in the context of a directed flag complex. It will be a cycle of edges such that there is no $2$-simplex, which is a triangle with a source and sink, including it. For example, a hole could look like this or like this both being valid holes, however it cannot look like this. This means that when a hole is killed, a vertex was added that gave rise to a vertex which turned the hole into a cycle. This only happens when
 \begin{figure}[ht]
   \centering
   \begin{subfigure}{.49 \linewidth}
-    \includegraphics[scale=0.49]{./counts/real1k_count.png}
+    \includegraphics[scale=0.49]{./counts/real50k_count.pdf}
+    \caption{ST}
   \end{subfigure}%
   \begin{subfigure}{.49 \linewidth}
-    \includegraphics[scale=0.49]{./counts/random1k_count.png}
-  \end{subfigure}%
-  \caption{\label{count1k}The number of simplices in each dimension for the directed flag complex generated by (a) synthetic network from Snudda, (b) random network generated with the same edge probability creation as the first network, both with 999 vertices.}
+    \includegraphics[scale=0.405]{./counts/random50k.pdf}
+    \caption{ER}
+  \end{subfigure}
+  \begin{subfigure}{.45 \linewidth}
+    \includegraphics[scale=0.49]{./counts/random50k_ws_count.pdf}
+    \caption{WS}
+  \end{subfigure}
+  \begin{subfigure}{.49 \linewidth}
+    \includegraphics[scale=0.49]{./counts/random50k_ba_count.pdf}
+    \caption{BA}
+  \end{subfigure}
+  \caption{\label{count50k}The total number of simplices in each dimension for the directed flag complex on ST, ER, WS and BA. For ER, WS and BA the counts are the result of the mean number of simplices in each dimension over 100 computations.}
 \end{figure}
+\begin{table}[ht]
+\centering
+\begin{tabular}{*4l}    \toprule
+  Network & $\beta_{1} $  & $\beta_{2}$  & Computations \\ \toprule
+  ST &   $5128 \pm 1219$ & $293013 \pm 79867$ & 1 \\
+  ER &  $369770.18 \pm 687.69$ & $3470380.91 \pm 2774.23$ & 100 \\
+  WS & $334754.93 \pm 625.38$ & $3756595.22 \pm 3709.97$ & 100 \\
+  BA &  $11982.51 \pm 956.18$ & $12946.77  \pm 1734.00$ & 100
+  \midrule
+  \\
+  \bottomrule
+\end{tabular}
+\caption{\label{bettis} Table over the first and second Betti numbers for the graphs ST, ER, WS and BA. The computation column denotes the number of instances of the model over which the result was averaged, hence the Betti numbers are given by an average value and its standard deviation. For ST the approximation seen in \cite{luetdigraph} was used in order to reduce computational time in which some columns were not reduced to Smith normal form. Every such non-reduced column can at most subtract or add one Betti number.}
+\end{table}
 
 \begin{figure}[ht]
   \centering
+
   \begin{subfigure}{.49 \linewidth}
-    \includegraphics[scale=0.49]{./counts/real50k_count.png}
+    \includegraphics[scale=0.49]{./graph_phs/ST.png}
+    \caption{ST}
   \end{subfigure}%
   \begin{subfigure}{.49 \linewidth}
-    \includegraphics[scale=0.49]{./counts/random50k_count.png}
-  \end{subfigure}%
-  \caption{\label{count50k}The number of simplices in each dimension for the directed flag complex generated by (a) synthetic network from Snudda, (b) random network generated with the same edge probability creation as the first network, both with 50 001 vertices.}
+    \includegraphics[scale=0.49]{./graph_phs/ER.png}
+    \caption{ER}
+  \end{subfigure}
+  \begin{subfigure}{.49 \linewidth}
+    \includegraphics[scale=0.49]{./graph_phs/WG.png}
+    \caption{WS}
+  \end{subfigure}
+  \begin{subfigure}{.49 \linewidth}
+    \includegraphics[scale=0.49]{./graph_phs/BA.png}
+    \caption{BA}
+  \end{subfigure}
+  \caption{\label{graphph} Persistence diagrams over $H_{0}$ and $H_{1}$ for ST,ER,WS and BA given by inclusion of vertices and their resulting higher order simplices in the negative order of their degrees.}
 \end{figure}
 
-In Figures \ref{count1k} and \ref{count50k} we see that the synthetic brain networks have much more higher order structure in terms of high dimensional simplices than a network generated solely based on edge connectivity. For instance, we see in \ref{count50k} the presence of 17-dimensional cells in the synthetic network, which means directed cliques consisting of 18 participating neurons, whereas in the random network we see at most 4-dimensional cell.
+% In Figures \ref{count1k} and \ref{count50k} we see that the synthetic brain networks have much more higher order structure in terms of high dimensional simplices than a network generated solely based on edge connectivity. For instance, we see in \ref{count50k} the presence of 17-dimensional cells in the synthetic network, which means directed cliques consisting of 18 participating neurons, whereas in the random network we see at most 4-dimensional cell.
 
-In other to further investigate these higher order cells in the synthetic networks we can look at their persistent homology. However, a priori the directed brain network does not have any weights, and so it is not obvious what a filtration $f: V \to \mathbb{R_{+}}$ would look like. So we impose a metric space structure on the directed graph by giving the value of a directed edge between two vertices the Euclidean distance between the two neurons in the simulated model. This means that at low threshold values the filtration will only look at connections made by neurons very close to each other, but as the threshold increases we look at a larger and larger part of the network.
+% In other to further investigate these higher order cells in the synthetic networks we can look at their persistent homology. However, a priori the directed brain network does not have any weights, and so it is not obvious what a filtration $f: V \to \mathbb{R_{+}}$ would look like. So we impose a metric space structure on the directed graph by giving the value of a directed edge between two vertices the Euclidean distance between the two neurons in the simulated model. This means that at low threshold values the filtration will only look at connections made by neurons very close to each other, but as the threshold increases we look at a larger and larger part of the network.
 
-So what is a generator of a homology group in a brain network? It would have to be a $k$-simplex which is not the boundary of a $k+1$-simplex, which translated to the brain network means a clique of neurons that are in themselves an isolated source-sink network and not part of any other network.
+% So what is a generator of a homology group in a brain network? It would have to be a $k$-simplex which is not the boundary of a $k+1$-simplex, which translated to the brain network means a clique of neurons that are in themselves an isolated source-sink network and not part of any other network.
 
-Due to computational aspects it is not feasible to compute the persistent homology of the synthetic network with 50 001 vertices, so we restrict ourselves to a subnetwork of the full network consisting only of dSPN neurons as seen in Figure \ref{pers50k}. We also look at a full synthetic network generated with only 999 vertices in Figure \ref{pers1k}.
+% Due to computational aspects it is not feasible to compute the persistent homology of the synthetic network with 50 001 vertices, so we restrict ourselves to a subnetwork of the full network consisting only of dSPN neurons as seen in Figure \ref{pers50k}. We also look at a full synthetic network generated with only 999 vertices in Figure \ref{pers1k}.
 
-We see that the formation of higher order $(> 5)$ homology generators mostly happens over small distances, which reaffirms the notion of the brain having a small-world structure.
-\begin{figure}[ht]
-  \centering
-  \includegraphics[scale=0.8]{./counts/5kdpsnap10k.png}
-  \caption{\label{pers50k} Persistence diagram of the subnetwork of dSPNs extracted from a synthetic network of 50 001 vertices. }
-\end{figure}
+% We see that the formation of higher order $(> 5)$ homology generators mostly happens over small distances, which reaffirms the notion of the brain having a small-world structure.
+% \begin{figure}[ht]
+%   \centering
+%   \includegraphics[scale=0.8]{./counts/5kdpsnap10k.png}
+%   \caption{\label{pers50k} Persistence diagram of the subnetwork of dSPNs extracted from a synthetic network of 50 001 vertices. }
+% \end{figure}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[scale=0.8]{./counts/1kap10000.png}
-  \caption{\label{pers1k} Persistence diagram of the entire synthetic network consisting of 999 vertices. (this is scaled 1000 larger than in actual data, generate new diagram)}
-\end{figure}
+% \begin{figure}[ht]
+%   \centering
+%   \includegraphics[scale=0.8]{./counts/1kap10000.png}
+%   \caption{\label{pers1k} Persistence diagram of the entire synthetic network consisting of 999 vertices. (this is scaled 1000 larger than in actual data, generate new diagram)}
+% \end{figure}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "thesis.tex"

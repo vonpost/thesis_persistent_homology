@@ -3,8 +3,8 @@
 \usetheme[progressbar=frametitle]{metropolis}
 \usepackage{appendixnumberbeamer}
 \usepackage{subcaption}
-
 \usepackage{booktabs}
+
 \usepackage[scale=2]{ccicons}
 \usepackage{svg}
 
@@ -30,182 +30,75 @@
 % \institute{Center for modern beamer themes}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
 \begin{document}
-\begin{frame}[fragile]{}
-\begin{figure}[ht]
-  \centering
-  \begin{subfigure}[t]{.5\linewidth}
-    \includegraphics[scale=.35]{annulus.pdf}
-    \caption{\label{annulus:points}}
- \end{subfigure}%
-  \begin{subfigure}[t]{.5\linewidth}
-    \includegraphics[scale=.35]{annulus_rips.pdf}
-    \caption{\label{annulus:imposed}}
- \end{subfigure}
-\end{figure}
+% \begin{frame}[fragile]{}
+% \begin{figure}[ht]
+%   \centering
+%   \begin{subfigure}[t]{.5\linewidth}
+%     \caption{\label{annulus:points}}
+%  \end{subfigure}%
+%   \begin{subfigure}[t]{.5\linewidth}
+%     \caption{\label{annulus:imposed}}
+%  \end{subfigure}
+% \end{figure}
+% \end{frame}
+
+\begin{frame}[fragile]{Two questions}
+  \begin{enumerate}
+          \item Correlation between ITW and topology of the eye?
+          \item Can we group BT samples based on PH that correspond with size?
+          \end{enumerate}
+          \begin{itemize}
+            \item Persistent homology is a good choice, measures shape not size.
+                  \item $H_{1}$ encodes loops in volume, $H_{2}$ encodes voids in volume.
+                  \end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Setup}
+
+  \begin{itemize}
+    \item<1-> Two groups, one consisting of \textit{Bombus terrestris} and one of others
+    \item<2-> We compute \textit{persistent homology} for the cornea of each sample (less noisy)
+    \item<3-> We create a distance matrix that tells us how close each sample is to the other (topologically, ITW)
+    \item<4-> Mantel test each group separately with PH matrix and ITW matrix
+    \item<5-> Cluster \textit{Bombus terrestris} based on best metric from Mantel test
+  \end{itemize}
+
 
 \end{frame}
-
-\begin{frame}[fragile]{}
-\begin{figure}
+\begin{frame}[fragile]{Mantel test results}
+\begin{table}[ht]
   \centering
-  \begin{subfigure}[t]{.5\linewidth}
-    \includegraphics[scale=.4]{rips_eps=01.pdf}
-    \caption{$\epsilon=0.1$}
- \end{subfigure}%
-  \begin{subfigure}[t]{.5\linewidth}
-    \includegraphics[scale=.4]{rips_eps=015.pdf}
-    \caption{$\epsilon=0.15$}
- \end{subfigure}
-  \begin{subfigure}[b]{.49\linewidth}
-    \includegraphics[scale=.4]{rips_eps=02.pdf}
-    \caption{$\epsilon=0.2$}
- \end{subfigure}
-  \begin{subfigure}[b]{.5\linewidth}
-    \includegraphics[scale=.4]{rips_eps=03.pdf}
-    \caption{$\epsilon=0.3$}
- \end{subfigure}
-\end{figure}
+\begin{tabular}{*6l}    \toprule
+Group  & Metric  & $H_{1} \rho $  & $H_{1}$ p-value  & $H_{2} \rho$ & $H_{2}$ p-value  \\ \midrule
+\textit{BT} & Bottleneck & $-0.069$ & $0.84$ & $0.86$ & $0.0083$\\
+\textit{BT} & Wasserstein & $0.59 $ & $0.053 $ & $0.49$ & $0.080$\\
+\textit{Others}& Bottleneck & $0.22$ & $0.030$ & $0.33$ & $0.0073$\\
+\textit{Others}& Wasserstein & $0.23$ & $0.023$ & $0.26$ & $0.013$\\\bottomrule
+ \hline
+\end{tabular}
+\end{table}
+$H_{2}$ with bottleneck distance shows significant results for \textit{Bombus terrestris} and the other group of insects.
 \end{frame}
 
-\begin{frame}[fragile]{}
-\begin{figure}
-  \centering
-  \scalebox{0.7}{
-\begin{tikzpicture}
-\node[inner sep=0pt] (barcode) at (0,0)
-    {\includegraphics[scale=0.7]{barcode.pdf}};
+\begin{frame}[fragile]{Clustering on $H_{2}$ (bottleneck)}
 
-\node[draw=black!100,line width=0.6mm, inner sep=0pt] (annulus0) at (-3.2,5.1)
-    {\includegraphics[scale=0.3]{annulus_eps0.pdf}};
-    \draw[dotted,thick] (annulus0.south) -- (-3.2,-2.9);
-
-\node[draw=black!100,line width=0.6mm, inner sep=0pt] (annulus3) at (-1,8)
-    {\includegraphics[scale=0.3]{annulus_eps3.pdf}};
-\draw[dotted,thick] (annulus3.south) -- (-1,-2.9);
-
-\node[draw=black!100,line width=0.6mm, inner sep=0pt] (annulus5) at (1.2,5.1)
-    {\includegraphics[scale=0.3]{annulus_eps5.pdf}};
-    \draw[dotted,thick] (annulus5.south) -- (1.2,-2.9);
-\node[draw=black!100,line width=0.6mm, inner sep=0pt] (annulus10) at (4.4,8)
-    {\includegraphics[scale=0.3]{annulus_eps10.pdf}};
-\draw[dotted,thick] (annulus10.south) -- (4.4,-1.8);
-\draw[dotted,thick] (4.4,-2.74) -- (4.4,-2.9);
-\end{tikzpicture}
-}
-\end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{}
-
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[scale=0.7]{diagram.pdf}
+  \begin{figure}
+    \begin{tabular}{3l}
+    ID & ITW \\
+    \midrule
+    BT\_77976 & 5.47 \\
+    BT\_77967 & 5.42 \\
+    BT\_77971 & 4.02 \\
+    BT\_77970 & 4.00 \\
+    BT\_77974 & 2.97 \\
+    BT\_77973 & 1.97
+      \end{tabular}
+    \includegraphics[scale=0.25]{./clusters/bottleneck_h2_cluster.pdf}
   \end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{}
-\begin{figure}[ht]
-  \centering
-  \begin{subfigure}{.5 \linewidth}
-    \includegraphics[scale=0.3]{persistence_diagrams/60185_multi_ph.png}
-    \caption{60185}
-  \end{subfigure}%
-  \begin{subfigure}{.5 \linewidth}
-    \includegraphics[scale=0.3]{persistence_diagrams/60186_multi_ph.png}
-    \caption{60186}
-  \end{subfigure}
-  \begin{subfigure}{.5 \linewidth}
-    \includegraphics[scale=0.3]{persistence_diagrams/77066_multi_ph.png}
-    \caption{77066}
-  \end{subfigure}%
-  \begin{subfigure}{.5 \linewidth}
-    \includegraphics[scale=0.3]{persistence_diagrams/77967_multi_ph.png}
-    \caption{77967}
-  \end{subfigure}
-\end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{}
-\begin{figure}[ht]
-  \centering
-  \begin{subfigure}{.5 \linewidth}
-    \includegraphics[scale=0.3]{persistence_diagrams/77970_multi_ph.png}
-    \caption{77970}
-  \end{subfigure}%
-  \begin{subfigure}{.5 \linewidth}
-    \includegraphics[scale=0.3]{persistence_diagrams/77971_multi_ph.png}
-    \caption{77971}
-  \end{subfigure}
-  \begin{subfigure}{.5 \linewidth}
-    \includegraphics[scale=0.3]{persistence_diagrams/77973_multi_ph.png}
-    \caption{77973}
-  \end{subfigure}%
-  \begin{subfigure}{.5 \linewidth}
-    \includegraphics[scale=0.3]{persistence_diagrams/77974_multi_ph.png}
-    \caption{77974}
-  \end{subfigure}
-\end{figure}
-\end{frame}
-\begin{frame}[fragile]{}
-\begin{figure}[ht]
-  \centering
-  \begin{subfigure}{.33 \linewidth}
-    \fbox{
-      \includegraphics[scale=0.15]{persistence_diagrams/distances/graphs/bottleneck_h0_graph.pdf}
-      }
-  \end{subfigure}%
-  \begin{subfigure}{.33 \linewidth}
-    \fbox{
-      \includegraphics[scale=0.15]{persistence_diagrams/distances/graphs/bottleneck_h1_graph.pdf}
-      }
-  \end{subfigure}%
-  \begin{subfigure}{.33 \linewidth}
-    \fbox{
-    \includegraphics[scale=0.15]{persistence_diagrams/distances/graphs/bottleneck_h2_graph.pdf}
-    }
-  \end{subfigure}
-
-  \begin{subfigure}{.33 \linewidth}
-    \fbox{
-    \includegraphics[scale=0.15]{persistence_diagrams/distances/graphs/wasserstein_h0_graph.pdf}
-    }
-  \end{subfigure}%
-  \begin{subfigure}{.33 \linewidth}
-    \fbox{
-    \includegraphics[scale=0.15]{persistence_diagrams/distances/graphs/wasserstein_h1_graph.pdf}
-    }
-  \end{subfigure}%
-  \begin{subfigure}{.33 \linewidth}
-    \fbox{
-    \includegraphics[scale=0.15]{persistence_diagrams/distances/graphs/wasserstein_h2_graph.pdf}
-    }
-  \end{subfigure}%
-\end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{}
-
-\begin{figure}[ht]
-  \centering
-  \begin{subfigure}{.32 \linewidth}
-    \includegraphics[scale=0.2]{persistence_diagrams/distances/heatmaps/bottleneck_h0.npy.pdf}
-  \end{subfigure}%
-  \begin{subfigure}{.32 \linewidth}
-    \includegraphics[scale=0.2]{persistence_diagrams/distances/heatmaps/bottleneck_h1.npy.pdf}
-  \end{subfigure}%
-  \begin{subfigure}{.32 \linewidth}
-    \includegraphics[scale=0.2]{persistence_diagrams/distances/heatmaps/bottleneck_h2.npy.pdf}
-  \end{subfigure}
-
-  \begin{subfigure}{.32 \linewidth}
-    \includegraphics[scale=0.2]{persistence_diagrams/distances/heatmaps/wasserstein_h0.npy.pdf}
-  \end{subfigure}%
-  \begin{subfigure}{.32 \linewidth}
-    \includegraphics[scale=0.2]{persistence_diagrams/distances/heatmaps/wasserstein_h1.npy.pdf}
-  \end{subfigure}%
-  \begin{subfigure}{.32 \linewidth}
-    \includegraphics[scale=0.2]{persistence_diagrams/distances/heatmaps/wasserstein_h2.npy.pdf}
-  \end{subfigure}%
-\end{figure}
-\end{frame}
+  \end{frame}
+\begin{frame}[fragile]{Conclusions}
+  \begin{itemize}
+    \item Supports the hypothesis that ITW and topology of eye are related
+    \item Other dimensions/metrics were not as correlated, but do we want strong correlation?
+  \end{itemize}
+  \end{frame}
 \end{document}

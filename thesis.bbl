@@ -1,11 +1,38 @@
 \begin{thebibliography}{10}
 
+\bibitem{barabasi}
+Albert-Laszlo Barabasi and Reka Albert.
+\newblock Emergence of scaling in random networks. science 286, 509-512.
+\newblock {\em Science (New York, N.Y.)}, 286:509--12, November 1999.
+
+\bibitem{ripser}
+Ulrich Bauer.
+\newblock Ripser: efficient computation of vietoris-rips persistence barcodes,
+  2021.
+\newblock Preprint.
+
 \bibitem{delgadofriedrichs2014}
 Olaf {Delgado-Friedrichs}, Vanessa {Robins}, and Adrian {Sheppard}.
 \newblock Morse theory and persistent homology for topological analysis of 3d
   images of complex materials.
 \newblock In {\em 2014 IEEE International Conference on Image Processing
   (ICIP)}, pages 4872--4876, 2014.
+
+\bibitem{edels}
+Herbert Edelsbrunner and John~L. Harer.
+\newblock {\em Computational topology : an introduction}.
+\newblock American Mathematical Society, Providence, R.I, 2010.
+
+\bibitem{erdos}
+Paul Erdos and Alfred Renyi.
+\newblock On the evolution of random graphs.
+\newblock {\em Publ. Math. Inst. Hungary. Acad. Sci.}, 5:17--61, 1960.
+
+\bibitem{ghirst}
+Robert Ghrist.
+\newblock Barcodes: The persistent topology of data.
+\newblock {\em BULLETIN (New Series) OF THE AMERICAN MATHEMATICAL SOCIETY}, 45,
+  February 2008.
 
 \bibitem{gutierrez2014}
 Antonio Gutierrez, Maria~Jose Jimenez, David Monaghan, and Noel~E. O’Connor.
@@ -24,6 +51,19 @@ Antonio Gutierrez, David Monaghan, Mar{\'i}a~Jos{\'e} Jim{\'e}nez, and Noel~E.
 Allen Hatcher.
 \newblock {\em Algebraic topology}.
 \newblock Cambridge University Press, Cambridge New York, 2002.
+
+\bibitem{Hjorth202000671}
+J.~J.~Johannes Hjorth, Alexander Kozlov, Ilaria Carannante, Johanna
+  Frost~Nyl{\'e}n, Robert Lindroos, Yvonne Johansson, Anna Tokarska,
+  Matthijs~C. Dorst, Shreyas~M. Suryanarayana, Gilad Silberberg, Jeanette
+  Hellgren~Kotaleski, and Sten Grillner.
+\newblock The microcircuits of striatum in silico.
+\newblock {\em Proceedings of the National Academy of Sciences}, 2020.
+
+\bibitem{jacobson2009basic}
+Nathan Jacobson.
+\newblock {\em Basic algebra}.
+\newblock Dover Publications, Mineola, N.Y, 2009.
 
 \bibitem{kaczynski2004}
 {Tomasz} Kaczynski, {Konstantin} Mischaikow, and {Marian} Mrozek.
@@ -49,12 +89,44 @@ Michael~W. Reimann, Max Nolte, Martina Scolamiero, Katharine Turner, Rodrigo
   structure and function.
 \newblock {\em Frontiers in Computational Neuroscience}, 11:48, 2017.
 
+\bibitem{skraba2021notes}
+Primoz Skraba and Katharine Turner.
+\newblock Notes on an elementary proof for the stability of persistence
+  diagrams, 2021.
+
+\bibitem{skraba2021wasserstein}
+Primoz Skraba and Katharine Turner.
+\newblock Wasserstein stability for persistence diagrams, 2021.
+
+\bibitem{skraba}
+Primoz Skraba and Mikael Vejdemo{-}Johansson.
+\newblock Persistence modules: Algebra and algorithms.
+\newblock {\em CoRR}, abs/1302.2015, 2013.
+
+\bibitem{SPORNS2004418}
+Olaf Sporns, Dante~R. Chialvo, Marcus Kaiser, and Claus~C. Hilgetag.
+\newblock Organization, development and function of complex brain networks.
+\newblock {\em Trends in Cognitive Sciences}, 8(9):418--425, 2004.
+
 \bibitem{emily}
 {Gavin J.} Taylor, Pierre Tichit, {Marie D.} Schmidt, {Andrew J.} Bodey,
   Christoph Rau, and Emily Baird.
 \newblock Bumblebee visual allometry results in locally improved resolution and
   globally improved sensitivity.
 \newblock {\em eLife}, 8, February 2019.
+
+\bibitem{vejdemo}
+Mikael Vejdemo-Johansson.
+\newblock Sketches of a platypus: persistent homology and its algebraic
+  foundations.
+\newblock In {\em ALGEBRAIC TOPOLOGY: APPLICATIONS AND NEW DIRECTIONS}, page
+  295–320, 2014.
+\newblock QC 20151005.
+
+\bibitem{strogatz}
+D.J. Watts and S.H. Strogatz.
+\newblock Collective dynamics of 'small-world' networks.
+\newblock {\em Nature}, (393):440--442, 1998.
 
 \bibitem{weibel1994}
 Charles Weibel.

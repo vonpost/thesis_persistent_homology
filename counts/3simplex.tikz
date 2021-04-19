@@ -1,12 +1,17 @@
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=new style 0] (0) at (-2.25, 0) {$v_0$};
-		\node [style=new style 0] (1) at (6, 0) {};
-		\node [style=new style 0] (2) at (6, 0) {$v_3$};
-		\node [style=new style 0] (3) at (2, 2) {$v_2$};
-		\node [style=new style 0] (4) at (2, -1.75) {$v_1$};
-		\node [style=none] (5) at (-2.25, 1) {Source};
-		\node [style=none] (6) at (6, 1) {Sink};
+		\node [style=new style 0] (0) at (-9.5, 0) {$v_0$};
+		\node [style=new style 0] (1) at (-1.25, 0) {};
+		\node [style=new style 0] (2) at (-1.25, 0) {$v_3$};
+		\node [style=new style 0] (3) at (-5.25, 2) {$v_2$};
+		\node [style=new style 0] (4) at (-5.25, -1.75) {$v_1$};
+		\node [style=none] (5) at (-9.5, 1) {Source};
+		\node [style=none] (6) at (-1.25, 1) {Sink};
+		\node [style=new style 0] (7) at (1.25, 0) {$v_0$};
+		\node [style=new style 0] (8) at (9.5, 0) {};
+		\node [style=new style 0] (9) at (9.5, 0) {$v_3$};
+		\node [style=new style 0] (10) at (5.5, 2) {$v_2$};
+		\node [style=new style 0] (11) at (5.5, -1.75) {$v_1$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw [style=new edge style 0] (0) to (3);
@@ -15,5 +20,11 @@
 		\draw [style=new edge style 0] (4) to (2);
 		\draw [style=new edge style 0] (4) to (3);
 		\draw [style=new edge style 0] (3) to (2);
+		\draw [style=new edge style 0] (7) to (11);
+		\draw [style=new edge style 0] (7) to (9);
+		\draw [style=new edge style 0] (11) to (9);
+		\draw [style=new edge style 0] (11) to (10);
+		\draw [style=new edge style 0] (10) to (9);
+		\draw [style=new edge style 6] (10) to (7);
 	\end{pgfonlayer}
 \end{tikzpicture}

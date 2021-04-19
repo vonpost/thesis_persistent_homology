@@ -1,0 +1,133 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=small dot node] (0) at (-0.75, 1.25) {};
+		\node [style=small dot node] (1) at (0.25, 1.25) {};
+		\node [style=small dot node] (2) at (1.25, 1.25) {};
+		\node [style=small dot node] (3) at (-0.75, 0.25) {};
+		\node [style=small dot node] (4) at (0.25, 0.25) {};
+		\node [style=small dot node] (5) at (1.25, 0.25) {};
+		\node [style=small dot node] (6) at (-0.75, -0.75) {};
+		\node [style=small dot node] (7) at (0.25, -0.75) {};
+		\node [style=small dot node] (8) at (1.25, -0.75) {};
+		\node [style=small dot node] (9) at (-0.75, -1.75) {};
+		\node [style=small dot node] (10) at (0.25, -1.75) {};
+		\node [style=small dot node] (11) at (1.25, -1.75) {};
+		\node [style=small dot node] (12) at (3.5, 1.25) {};
+		\node [style=small dot node] (13) at (4.5, 1.25) {};
+		\node [style=small dot node] (14) at (5.5, 1.25) {};
+		\node [style=small dot node] (15) at (3.5, 0.25) {};
+		\node [style=small dot node] (16) at (4.5, 0.25) {};
+		\node [style=small dot node] (17) at (5.5, 0.25) {};
+		\node [style=small dot node] (18) at (3.5, -0.75) {};
+		\node [style=small dot node] (19) at (4.5, -0.75) {};
+		\node [style=small dot node] (20) at (5.5, -0.75) {};
+		\node [style=small dot node] (21) at (3.5, -1.75) {};
+		\node [style=small dot node] (22) at (4.5, -1.75) {};
+		\node [style=small dot node] (23) at (5.5, -1.75) {};
+		\node [style=small dot node] (24) at (-5, 1.25) {};
+		\node [style=small dot node] (25) at (-4, 1.25) {};
+		\node [style=small dot node] (26) at (-3, 1.25) {};
+		\node [style=small dot node] (27) at (-5, 0.25) {};
+		\node [style=small dot node] (28) at (-4, 0.25) {};
+		\node [style=small dot node] (29) at (-3, 0.25) {};
+		\node [style=small dot node] (30) at (-5, -0.75) {};
+		\node [style=small dot node] (31) at (-4, -0.75) {};
+		\node [style=small dot node] (32) at (-3, -0.75) {};
+		\node [style=small dot node] (33) at (-5, -1.75) {};
+		\node [style=small dot node] (34) at (-4, -1.75) {};
+		\node [style=small dot node] (35) at (-3, -1.75) {};
+		\node [style=small dot node] (36) at (6.5, 1.25) {};
+		\node [style=small dot node] (37) at (7.5, 1.25) {};
+		\node [style=small dot node] (38) at (8.5, 1.25) {};
+		\node [style=small dot node] (39) at (6.5, 0.25) {};
+		\node [style=small dot node] (40) at (7.5, 0.25) {};
+		\node [style=small dot node] (41) at (8.5, 0.25) {};
+		\node [style=small dot node] (42) at (6.5, -0.75) {};
+		\node [style=small dot node] (43) at (7.5, -0.75) {};
+		\node [style=small dot node] (44) at (8.5, -0.75) {};
+		\node [style=small dot node] (45) at (6.5, -1.75) {};
+		\node [style=small dot node] (46) at (7.5, -1.75) {};
+		\node [style=small dot node] (47) at (8.5, -1.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=new edge style 1] (21) to (18);
+		\draw [style=new edge style 1] (18) to (19);
+		\draw [style=new edge style 1] (19) to (22);
+		\draw [style=new edge style 1] (22) to (21);
+		\draw [style=new edge style 1] (19) to (20);
+		\draw [style=new edge style 1] (20) to (23);
+		\draw [style=new edge style 1] (23) to (22);
+		\draw [style=new edge style 1] (18) to (15);
+		\draw [style=new edge style 1] (15) to (16);
+		\draw [style=new edge style 1] (16) to (19);
+		\draw [style=new edge style 1] (16) to (17);
+		\draw [style=new edge style 1] (17) to (20);
+		\draw [style=new edge style 1] (15) to (12);
+		\draw [style=new edge style 1] (12) to (13);
+		\draw [style=new edge style 1] (13) to (16);
+		\draw [style=new edge style 1] (13) to (14);
+		\draw [style=new edge style 1] (14) to (17);
+		\draw [style=new edge style 1] (33) to (30);
+		\draw [style=new edge style 1] (30) to (31);
+		\draw [style=new edge style 1] (31) to (34);
+		\draw [style=new edge style 1] (34) to (33);
+		\draw [style=new edge style 1] (31.center)
+			 to (32.center)
+			 to (35.center)
+			 to (34.center)
+			 to cycle;
+		\draw [style=new edge style 1] (31.center)
+			 to (30.center)
+			 to (27.center)
+			 to (28.center)
+			 to cycle;
+		\draw [style=new edge style 1] (28.center)
+			 to (29.center)
+			 to (32.center)
+			 to (31.center)
+			 to cycle;
+		\draw [style=new edge style 1] (28.center)
+			 to (27.center)
+			 to (24.center)
+			 to (25.center)
+			 to cycle;
+		\draw [style=new edge style 1] (28.center)
+			 to (25.center)
+			 to (26.center)
+			 to (29.center)
+			 to cycle;
+		\draw [style=new edge style 1] (31.center)
+			 to (30.center)
+			 to (33.center)
+			 to (34.center)
+			 to cycle;
+		\draw [style=new edge style 1] (45) to (42);
+		\draw [style=new edge style 1] (42) to (43);
+		\draw [style=new edge style 1] (43) to (46);
+		\draw [style=new edge style 1] (46) to (45);
+		\draw [style=new edge style 1] (43) to (44);
+		\draw [style=new edge style 1] (44) to (47);
+		\draw [style=new edge style 1] (47) to (46);
+		\draw [style=new edge style 1] (46) to (43);
+		\draw [style=new edge style 1] (43) to (42);
+		\draw [style=new edge style 1] (42) to (39);
+		\draw [style=new edge style 1] (39) to (40);
+		\draw [style=new edge style 1] (40) to (43);
+		\draw [style=new edge style 1] (40) to (41);
+		\draw [style=new edge style 1] (41) to (44);
+		\draw [style=new edge style 1] (44) to (43);
+		\draw [style=new edge style 1] (43) to (40);
+		\draw [style=new edge style 1] (40) to (39);
+		\draw [style=new edge style 1] (39) to (36);
+		\draw [style=new edge style 1] (36) to (37);
+		\draw [style=new edge style 1] (37) to (40);
+		\draw [style=new edge style 1] (40) to (37);
+		\draw [style=new edge style 1] (37) to (38);
+		\draw [style=new edge style 1] (38) to (41);
+		\draw [style=new edge style 1] (41) to (40);
+		\draw [style=new edge style 1] (43) to (42);
+		\draw [style=new edge style 1] (42) to (45);
+		\draw [style=new edge style 1] (45) to (46);
+		\draw [style=new edge style 1] (46) to (43);
+	\end{pgfonlayer}
+\end{tikzpicture}
