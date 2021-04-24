@@ -61,8 +61,13 @@ A sort of compromise is the Vietoris-Rips complex as seen in Figure \ref{manyrip
  \caption{The Vietoris-Rips complex at different $\epsilon$-values.}
  \label{manyrips}
 \end{figure}
-\begin{definition}[Vietoris-Rips complex]
-For a given selection of points $\{x_{\alpha}\}$ in some Euclidean space $\mathbb{R}^{n}$ the Vietoris-Rips complex $R_{\epsilon}$ is the abstract simplicial complex whose $k$-simplices are given by $k+1$ points which are pairwise at most $\epsilon$ apart.
+% \begin{definition}[Vietoris-Rips complex]
+% For a given selection of points $\{x_{\alpha}\}$ in some Euclidean space $\mathbb{R}^{n}$ the Vietoris-Rips complex $R_{\epsilon}$ is the abstract simplicial complex whose $k$-simplices are given by $k+1$ points which are pairwise at most $\epsilon$ apart.
+% \end{definition}
+
+\begin{definition}[{\cite[p. ~74]{edels}}]
+For a family of points $X=\{x_{\alpha}\}_{\alpha}$ in some Euclidean space $\mathbb{R}^{n}$ the \textbf{Vietoris-Rips complex}
+$\text{R}_{\epsilon}$ is given by the abstract simplicial complex whose $k$-simplices are given by a subfamily of $k+1$ points $\{x_{\alpha_{i}}\}$ such that for any two points in the collection $x_{\alpha_{i}}, x_{\alpha_{j}}$ we have that \[B_{\epsilon/2}(x_{\alpha_{i}}) \cap B_{\epsilon/2}(x_{\alpha_{j}}) \neq \emptyset\] where $B_{r}(x)$ is the closed ball of radius $r$ centered at $x$.
 \end{definition}
 
 The Vietoris-Rips complex does not come with the same guarantee of fidelity to the underlying space as the Čech complex does. However, it is entirely defined by the vertices and the edges of the simplicial complex, allowing it to be stored as a graph.
@@ -175,9 +180,9 @@ The action $t^{p}$ sends $M^{k} \to M^{k+p}$ by $p$ repeated applications of $t$
 \[ t \cdot (m^{0}, m^{1}, m^{2}, \dots  ) = (0, \phi^{0}(m^{0}), \phi^{1}(m^{1}),\phi^{2}(m^{2}),\dots) \]
 and so we get that $R[t]_{p}M^{k} = Rt^{p}M^{k} \subseteq M^{k+p}$ which satisfies the condition we gave in our definition of a graded module.
 
-The map $\alpha$ is actually an isomorphism between the category of persistence modules and graded modules \cite{ghirst}. Hence, for ease of notation we will simply consider a persistence module to be a graded module when necessary. This gives us a lot for free: we do not have to be afraid of taking quotients or direct sums of persistence modules as we know what objects they correspond to in the category of graded modules. For example, we write $H$ for the direct sum of the persistence modules $H_{k}$ and similarly we write $C$ for the persistence complex given by the sum of the persistence modules $C_{k}$.
+The map $\alpha$ is actually a functor between the category of persistence modules and graded modules \cite{ghirst} which becomes an isomorphism of categories when considering persistence modules of finite type over a field. Hence, for ease of notation we will simply consider a persistence module to be a graded module when the aforementioned conditions are fulfilled. This gives us a lot for free: we do not have to be afraid of taking quotients or direct sums of persistence modules as we know what objects they correspond to in the category of graded modules. For example, we write $H$ for the direct sum of the persistence modules $H_{k}$ and similarly we write $C$ for the persistence complex given by the sum of the persistence modules $C_{k}$.
 
-We now arrive at the result which fully characterizes the algebraic structure of persistent homology. This result comes with a caveat, namely that it only characterizes persistence modules of finite type over a field. The more general problem is under the functor $\alpha$ equivalent to characterizing graded $\mathcal{R}[t]$ modules over an arbitrary ring $\mathcal{R}$, which is known to be a hard problem \cite{ghirst}.
+We now arrive at the result which fully characterizes the algebraic structure of persistent homology. This result sadly comes with the restriction that makes $\alpha$ an isomorphism of categories, namely that it only characterizes persistence modules of finite type over a field. The more general problem is under the functor $\alpha$ equivalent to characterizing graded $\mathcal{R}[t]$ modules over an arbitrary ring $\mathcal{R}$, which is known to be a hard problem \cite{ghirst}.
 \begin{theorem}[{\cite{Zomorodian2005}}] \label{structurethm1}
   For a persistence module $M$ of \textit{finite type} over a field $\mathbb{F}$,
   \[M \cong \bigoplus_{i} t^{p_{i}} \cdot \mathbb{F}[t] \oplus (\bigoplus_{j} (t^{r_{j}} \cdot \mathbb{F}[t]) / (t^{s_{j}}) \]
@@ -197,7 +202,7 @@ We can make this association of the decomposition of a persistence module with i
   \[Q(i,j):= t^{i} \cdot \mathbb{F}[t]/t^{{j-i}},\]
 
   \[Q(i,\infty):= t^{i} \cdot \mathbb{F}[t].\]
-  Furthermore, given a set of intervals $S = \{(i_{0},j_{0}),\dots,(i_{n},j_{n})\}$ we say that
+  Furthermore, given a multiset of intervals $S = \{(i_{0},j_{0}),\dots,(i_{n},j_{n})\}$ we say that
   \[Q(S) := \bigoplus_{k} Q(i_{k},j_{k}).\]
   The \textbf{barcode} $\mathbf{B_{M}}$ is the multiset of intervals $Q^{-1}(M)$.
 \end{definition}
@@ -207,15 +212,30 @@ In the obvious way, $Q$ is a bijection which maps each summand in the decomposit
 
 
 \section{Proof of the Structure Theorem}
-As promised we will now derive the connection between linear algebra and persistence modules. A key observation is that for every (graded) module $M$ there is an exact sequence
+As promised we will now derive the connection between linear algebra and persistence modules. For this part we will abuse the isomorphism of categories between persistence modules and graded modules over $\mathbb{F}[t]$ and readily switch between the two perspectives.  A key observation is that for every (graded) module $M$ there is an exact sequence
 \[ K \to G \to M \to 0\]
-where $G$ is the free module on the generators of $M$ and $K$ is the kernel of the projection onto $M$. We call this the \textbf{presentation} of $M$ and it follows by the first isomorphism theorem we have an isomorphism $M \cong G/\text{im f}$, and hence we can characterize $M$ by only knowing $K,G$ and $f$.
+where $G$ is the free module on the generators of $M$ and $K$ is the free module on the generators of $\ker G \to M$. By the first isomorphism theorem this exact sequence yields an isomorphism $M \cong G/\text{im }(K \to G)$, and hence we can characterize $M$ by only knowing $K,G$ and $f$. We call such a sequence a \textbf{presentation} of $M$.
 \begin{lemma}[{\cite[Theorem 7]{skraba}}]
-  When $M$ is a persistence module of finite type the presentation of $M$ becomes a short exact sequence
+  For a finitely generated graded module $M$ over $\mathbb{F}[t]$ there a presentation of $M$ given by a short exact sequence
   \[ 0 \to K \to G \to M \to 0\]
-  where $K$ is also free. We call this the \textbf{free presentation} of $M$.
+  where $G,K$ are finitely generated.
 \end{lemma}
-When $K,G$ are free the map $f$ is a map $\mathbb{F}[t]^{n} \to \mathbb{F}[t]^{m}$, in other words it can for a given choice of bases be represented by a matrix in $\mathbb{F}[t]^{n \times m}$ which we call a \textbf{presentation matrix} of $M$. This is the vital connection between persistence modules and linear algebra. By reducing this matrix, much like in the process of Gaussian elimination, we end up with a matrix that describes compatible bases in $K$ and $G$. Then $M$ is generated by the basis in $G$ with relations given by the basis in $K$.
+\begin{proof}
+First of all, note that since $G$ is the free module on the generators of $M$ and $M$ has a finite set of generators so does $G$.
+
+A standard result due to Hillbert (see for example \cite[Theorem 4, p. ~76]{Cox+Others/1991/Ideals}) is that any submodule of a finitely generated module over $\mathbb{F}[t]$ is finitely generated. This means in particular that $\ker (G \to M)$ is finitely generated, as it is a submodule of $G$ over $\mathbb{F}[t]$.
+
+We start by proving that $\ker (G \to M)$ is free. Suppose for contradiction that $\ker (G \to M)$ is not free, then for a finite set of generators $\{k_{i}\}^{n}_{i=0}$ of $\ker (G \to M)$ the assumption implies linear dependence such that
+\[\sum_{i} r_{i}t^{a_{i}}k_{i}=0  \iff t^{b} \sum_{i} r_{i}t^{a_{i}-b}k_{i} = 0 \implies \sum_{i} r_{i}t^{a_{i}-b}k_{i} = 0 \]
+where $b = \min\{a_{i} \mid r_{i} \neq 0\}, r_{i} \in \mathbb{F}$ and the last implication follows from that $\ker(G \to M)$ is a submodule of the free module $G$. Then for some term in the sum we have that $a_{j}=b$ and $ k_{j} \neq 0 $ which gives us that
+\[
+  r_{j}t^{a_{j}-b}k_{j}=r_{j}k_{j} \implies k_{j} = - r_{j}^{-1}\sum_{i \neq j} r_{i}t^{a_{i}-b}k_{i}.
+\]
+But then $k_{j}$ can be given as a linear sum of generators of $\ker (G \to M)$ so it can be excluded from the list of generators. Iterating the argument above then exhausts the finite set of generators until the set consists of linear independent generators, hence $\ker (G \to M)$ is free.
+
+Since $\ker (G \to M) = \text{im } (K \to G)$ by the exactness of the presentation and $K$ is the free module on the generators of this finitely generated, free image it follows that $K \cong \text{im } K \to G$ and so $K \to G$ is injective and $K$ is finitely generated.
+\end{proof}
+When $K,G$ are free and finitely generated the presentation yields a map $\mathbb{F}[t]^{n} \to \mathbb{F}[t]^{m}$, in other words it can for a given choice of bases be represented by a matrix in $\mathbb{F}[t]^{n \times m}$ which we call a \textbf{presentation matrix} of $M$. This is the vital connection between persistence modules and linear algebra. By reducing this matrix, much like in the process of Gaussian elimination, we end up with a matrix that describes compatible bases in $K$ and $G$. Then $M$ is generated by the basis in $G$ with relations given by the basis in $K$.
 
 \begin{definition}
 A matrix with coefficients in $\mathbb{F}[t]$ is in \textbf{graded Smith normal} if its only non-zero entries are on the (possibly permuted) diagonal and these entries are homogeneous elements.
@@ -239,20 +259,24 @@ We will now describe an algorithm for computing the graded Smith normal form. Si
 
   Suppose we wish to eliminate some entry in row $j$ with an element in row $i$. This implies that $ i > j$ by the algorithm itself. Let the entries be denoted $a_{i}= c \cdot t^{r_{i}}$ and $b_{j} = d \cdot t^{s_{j}}$ respectively. Since the columns and rows are chosen to be homogeneous, we know that they can be written this way. The matrix is sorted in ascending degree order in both rows and columns, which implies that $\deg(a_{i}) \leq \deg(b_{j})$, hence we can always eliminate $b_{j}$ by adding $t^{s_{j}-r_{i}} \frac{-d}{c} \cdot a_{i}$. Furthermore, if $\gamma_{i},\gamma_{j}$ are the basis elements of rows $i,j$ then we know from linear algebra that the addition causes a change of basis $\gamma'_{i}:=\gamma_{i}-t^{s_{j}-r_{i}} \frac{-d}{c} \cdot \gamma_{j}$. We get that $\deg(\gamma'_{i})=\max\{\deg(\gamma_{i}), (s_{j}-r_{i}+\deg(\gamma_{j})\}$, but since $a_{i},b_{j}$ are entries of the same homogeneous column this implies that $r_{i} + \deg(\gamma_{i}) = s_{j} + \deg(\gamma_{j})$, hence $\deg(\gamma'_{i}) = \deg(\gamma_{i})$. An identical argument holds for if we wish to eliminate by column additions, with the exception that it is $\gamma_{j}$ that changes basis.
 \end{proof}
-When a presentation matrix of $M$ is put into graded Smith normal form by Algorithm 1 it gives us compatible bases for $K$ and $G$ and the isomorphism becomes \[M\cong \text{zero rows of matrix}/\text{non-zero rows of matrix times their entry}.\]
-We are now ready to prove Theorem \ref{structurethm1}.
+When a presentation matrix of $M$ is put into graded Smith normal form by Algorithm 1 it gives us compatible bases for $K$ and $G$ and the isomorphism becomes \[M\cong \frac{\text{basis  elements given by rows  }}{\text{basis elements given by non-zero rows times their entry}}\]
+To understand how we can intrepret the presentation matrix as such, consider that the rows give a basis for $G$ under the inclusion $K \hookrightarrow G$. The non-zero rows tell us which of those basis elements become basis elements of $K$ when multiplied by their corresponding non-zero entry and thus define when they are killed in $M$.
+
+We are now ready to prove \textbf{Theorem \ref{structurethm1}}.
 
 \begin{proof}
-  The module $M$ is of finite type so it has a presentation matrix $P$. By reducing $P$ to graded Smith normal form with Algorithm 1 we get a matrix $P'$. Since $M \cong G/K$ by the first isomorphism theorem we have that $M$ is generated by the basis elements of $G$ given by the zero rows of $P'$, as these are basis elements which are not hit by the inclusion $K \hookrightarrow G$. Furthermore, the torsional part in the decomposition is given by the non-zero rows which define those basis elements of $K$ which shifted by their entry are killed in $M$. This proves the existence of the decomposition.
+  The module $M$ is of finite type so it has a presentation matrix $P$. By reducing $P$ to graded Smith normal form with Algorithm 1 we get a matrix $P'$. Since $M \cong G/K$ by the first isomorphism theorem we have that $M$ the free part is given by the basis elements of $G$ associated with the zero rows of $P'$, as these are basis elements which are not hit by the inclusion $K \hookrightarrow G$ in any part of the grading. Furthermore, the torsional part in the decomposition is given by the non-zero rows which define basis elements of $G$ that when shifted by their entry are basis elements of $K$ and thus are killed in $M$. This proves the existence of the decomposition.
 
-  What remains to show is that the decomposition is unique no matter our choice of generators for $G$ and $K$. This actually follows from a much more general result, the Krull-Schmidt Theorem \cite[p. ~115]{jacobson2009basic}, but we will give a proof for our specific situation. Suppose that we have two different decompositions of $M$ that we denote $C,D$. We claim that they are identical up to permutation of components and modulo trivial components. We have homomorphisms
+  What remains to show is that the decomposition is unique no matter our choice of basis for $G$ and $K$. This actually follows from a much more general result, the Krull-Schmidt Theorem \cite[p. ~115]{jacobson2009basic}, but we will give an elementary proof. Suppose that we have two different decompositions of $M$ that we denote $C,D$. We claim that they are identical up to permutation of components and modulo trivial components. We have homomorphisms
   \[
     f_{ij} := C_{i} \hookrightarrow C \cong M  \cong D  \twoheadrightarrow D_{j},
   \]
   \[
     g_{ij} :=  D_{j} \hookrightarrow D \cong M  \cong C  \twoheadrightarrow C_{i}
   \]
-  where the maps are the obvious inclusions and projections from and onto components. Then for at least one pair $i,j$ the homomorphism $f_{ij}$ cannot be the zero map since $\bigoplus_{i,j} g_{ij} \circ f_{ij}: C \to C$ is an automorphism of $C$. But this implies that $f_{ij}$ is an isomorphism $C_{i} \cong D_{j}$ and so the original claim follows by induction.
+  where the maps are the obvious inclusions and projections from and onto components. Then for at least one pair $i,j$ the homomorphism $f_{ij}$ cannot be the zero map since $\bigoplus_{i,j} g_{ij} \circ f_{ij}: C \to C$ is an automorphism of $C$. Assume that $i=1,j=1$, if this is not the case we can just permute the summands.  Then $f_{11}$ is an isomorphism $C_{1} \cong D_{1}$ since the graded isomorphism $\bigoplus_{i,j} f_{ij}$ takes a homogeneous element $t^{a} \to c \cdot t^{a}$ for some $c \in \mathbb{F}$.
+
+  By now looking at $\bigoplus_{i=2,j=2} g_{ij} \circ f_{ij}: C \to C$ and iterating the argument above we will find isomorphisms $f_{ij}$ for all non-trivial summands. Since the decomposition is a direct sum, there are a finite number of non-trivial modules and so we will eventually have exhausted all of them. By symmetry, the exact same reasoning holds for finding isomorphisms $g_{ij}$. The rest of the summands not covered by these isomorphisms must then consist of trivial modules and so we have proven the claim.
 
 \end{proof}
 Now for explicitly computing persistent homology we have the presentation

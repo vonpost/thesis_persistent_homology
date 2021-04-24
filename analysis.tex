@@ -1,7 +1,7 @@
 \chapter{Two Applications of Persistent Homology}
 Since our purpose with thesis is not only to give an introduction to persistent homology in terms of theory, but also display how it can be used with actual real-world data, we have investigated two different situations where the theory we have expanded upon so far serve as our main tool for data analysis.
 
-In the first case we quantify differences in morphology between different-sized individuals of the bumblebee \textit{Bombus terrestris} by computing the persistent homology of 3D volumes of their corneas. To our knowledge this is the first use of persistent homology in data pertaining to insects, although in \cite{moon2019, delgadofriedrichs2014} materials and in \cite{gutierrez2012, gutierrez2014} reconstructions of 3D volumes are investigated with approaches that are similar in spirit.
+In the first case we quantify differences in morphology between different-sized individuals of the bumblebee \textit{Bombus terrestris} by computing the persistent homology of 3D volumes of their corneas. To our knowledge this is the first use of persistent homology in data pertaining to insects, although materials \cite{moon2019, delgadofriedrichs2014}, reconstructions of 3D volumes \cite{gutierrez2012, gutierrez2014} and plants \cite{plants} have been investigated with approaches that are similar in spirit.
 
 In the second case we try to understand the network structure of the striatum, a part of the basal ganglia in the brain. Due to the sheer computational power needed to compute persistent homology for this data our analysis is more of a holistic summary of the resulting simplicial structure rather than focusing solely on persistent homology. Our approach is largely inspired by \cite{reimann}, in which a similar analysis is done but for a different part of the brain.
 
@@ -115,9 +115,10 @@ The resulting topological summaries we get are persistence diagrams. While these
 
 Our hypothesis is that there is some relationship between the distances given by the absolute difference in ITW and their persistent homologies. But since different homology dimensions and metrics provide different summaries of the objects we first need to figure out which one of them is most suited for our applications.
 
-We determine which metric we will rely on by doing a so called Mantel test. A Mantel test is a non-parametric test of distance matrices, in which we compute the correlation of the two matrices under the null hypothesis that the matrices are uncorrelated. Essentially, the results of a Mantel test is a correlation coefficient and a probability that the persistent homology distance matrix is simply a random matrix and this will be our $p$-value. This is done by permuting the columns and rows of the persistent homology distance matrix and if the permutations differ in a large way from the observed correlation the probability becomes lower.
+We determine which metric we will rely on by doing a so called \textbf{Mantel test}. A Mantel test is a non-parametric test of distance matrices, in which we compute the Spearman rank correlation of the two matrices under the null hypothesis that the matrices are uncorrelated. We can then derive a test statistic by permuting the one of the matrices in both rows and columns and computing their respective correlations.  The results of a Mantel test is a correlation coefficient indicating the strength of the correlation and $p$-value indicating how likely it is  that this coefficient would appear in a random permutation of one of the matrices.
 
-Our final analysis consists of a clustering of the persistent homology distance matrix based on \textit{hierarchical clustering} where we group together samples in a tree-structure of \textit{Bombus terrestris} based on their differences in distance with the hope that the resulting groupings reflect their differences in size.
+We then perform clustering of the persistent homology distance matrix based on \textbf{hierarchical clustering}. It is a simple algorithm where we first consider each sample as its own cluster, and then group together clusters depending on the distance between them. The distance between two clusters is given as the minimum distance between any two samples between the two clusters. Our hope then is that the final clustering reflects the ITW of the \textit{Bombus terrestris} samples.
+
 
 \subsection{Results}
 The Mantel tests in Table \ref{mantelc} reveal that the highest correlation is given by the bottleneck distance on $H_{2}$. Perhaps this is not too surprising, our objects are volumes and the most distinguishing aspects of volumes will be how they encode voids. Interestingly, the $H_{1}$ bottleneck distance matrix shows a very high $p$-value indicating that the largest distance between holes are not very telling in drawing a conclusion about correlation between size and persistent homology. This could be explained again by the fact that our object is a volume of a single connected component namely a cornea, and so any existence of holes will at best be local geometric information and at worst simply noise.
@@ -135,12 +136,12 @@ Group  & Metric  & $H_{1} \rho $  & $H_{1}$ p-value  & $H_{2} \rho$ & $H_{2}$ p-
 \end{tabular}
 \end{center}
 
-\caption{\label{mantelc} Table displaying the statistics computed in the Mantel test of the pairwise distances in different dimensions of persistent homology and the ITW for the species \textit{Bombus terrestris}.}
+\caption{\label{mantelc} Table displaying the statistics computed in the Mantel test of the pairwise distances in different dimensions of persistent homology and the ITW for the species \textit{Bombus terrestris}. The symbol $\rho$ denotes the Spearman rank correlation coefficient computed between the two distance matrices. }
 \end{table}
 
 The $1$-Wasserstein metric does not provide a low enough $p$-value for us to draw any conclusions from the tests when it comes to \textit{Bombus terrestris}, this perhaps indicates that the sample size of the \textit{Bombus terrestris} submatrix is too small. It is possible that the more sensitive nature in the $1$-Wasserstein metric, since it records not only the largest differences in the persistence diagrams but all of them, makes it less robust to a smaller sample size.
 
-Since the bottleneck distance on $H_{2}$ has a strong correlation with the ITW distance matrix we proceed with a hierarchical clustering on its distance matrix as seen in Figure \ref{h2b}. We see that there are two groups formed where one of the groups contains an additional cluster. The first group, which does not contain a subgroup, consists of two samples BT\_77967 and BT\_77976. These are the largest samples in terms of ITW and the remaining group contains two subgroups both in which the samples are grouped with the least difference in ITW. It is worth repeating that this clustering is done without knowledge of the actual ITW, these clusterings are purely based on the theory of persistent homology which in turn is based on topology and is indifferent to things such as scale. Any differences here indicate differences based solely on the fact that their persistence diagrams differ.
+Since the bottleneck distance on $H_{2}$ has a strong correlation with the ITW distance matrix we proceed with a hierarchical clustering on its distance matrix as seen in Figure \ref{h2b}. We see that there are two groups formed where one of the groups contains an additional cluster. The first group, which does not contain a subgroup, consists of two samples BT\_77967 and BT\_77976. These are the largest samples in terms of ITW and the remaining group contains two subgroups both in which the ITWs are smaller. It is worth repeating that this clustering is done without knowledge of the actual ITW, these clusterings are purely based on the bottleneck distance of the $H_{2}$ persistent homology and as such a differences here indicate differences based solely on the fact that their persistence diagrams differ.
 
 \begin{figure}[ht]
   \centering
@@ -183,32 +184,20 @@ On the other hand, if we look at the distances from samples \textit{between} gro
 \end{figure}
 
 
-% The clusterings on the entire data-set in Figure \ref{wfull1} and Figure \ref{wfull2} reveals that there are two samples of \textit{Bombus terrestris} that are notably different from the other samples of the same species both in their first and second persistent homologies. Coincidentally, these two samples are the samples with the largest ITW in the entire data-set ($5.42$, $5.47$).
-
-% We further see that species are mostly grouped together indicating that distances given by 1-Wasserstein between persistent homologies is a capable discriminant when it comes to species. However, there are some oddities such as \textit{Melipona bicolor} and \textit{Melipona quadrifascisata} not being clustered by species.
-
-% If we look more closely at \textit{Bombus terrestris} in Figure \ref{wbt1} and Figure \ref{wbt2} we see that persistent homology in both first and second dimension leads to clusterings where the two large samples are considered in a cluster for themselves. However, $H_{2}$ from $H_{1}$ leads to a slightly different clustering where BT\_77971 is considered different from the remaining smaller bumblebees.
-
-
-
-
-% Finally, we compute the Mantel test and see a non-trivial correlation coefficient for the samples from the species \textit{Bombus terrestris} in Table \ref{mantelc} for the 1-Wasserstein distance in all dimensions. For the significant results we see that we have roughly the same correlation coefficient (0.57) in dimensions 1 and 2 and a weaker one (0.26) in dimension 0.
-
-% Notably, none of the bottleneck distances produce any significant results. Perhaps this is not too surprising as the bottleneck distance only provides information about the largest distance in the matching between persistence diagrams. This works well for simple topological shapes, but perhaps too much geometric information is lost about the intermediate stages of the persistent homology filtrations.
 
 
 While the purpose of this analysis is mostly to showcase persistent homology in the wild, these results  do support to the idea that different sized \textit{Bombus terrestris} do not only have larger eyes, but also that they are topologically different. Our clustering results on $H_{2}$ group the larger individuals together and we find a strong correlation with bottleneck distance in $H_{2}$ and ITW. Furthermore, we find that there is one generator born at the beginning of the filtration that is responsible for the ``bottleneck'' when comparing samples from the different clusters whereas within the same cluster other generators with much shorter lifetime are the contributors.
 \clearpage
 \section{The Simplicial Structure of the Striatum}
-The use of topological methods in order to understand brain networks is not new. There are a multitude of applications where persistent homology is used to overcome the problem of producing a graph from a set of a set sequence of connectivity maps by encoding all of them as a filtration. Traditional edge and vertex statistics have been generalized to simplices. Some other examples here.
+% The use of topological methods in order to understand brain networks is not new. There are a multitude of applications where persistent homology is used to overcome the problem of producing a graph from a set of a set sequence of connectivity maps by encoding all of them as a filtration. Traditional edge and vertex statistics have been generalized to simplices. Some other examples here.
 
-There is much reason for considering simplicial complexes when it comes to networks related to the brain. An extensive field of study when it comes to network analysis of the brain are motifs, which at a high-level simply means a repeated pattern in a network which has some form of semantic meaning to the network. Simplices capture such patterns at a micro-level through the connectivity of its faces, whereas homology captures another type of patterns at a meso-level through cycles of simplices. Armed with persistent homology we arrive at a comprehensive summary of the network through the lens of the filtration of our choice.
+There is much reason for considering simplicial complexes when it comes to networks related to the brain. An extensive field of study when it comes to network analysis of the brain are motifs, which at a high-level simply means a repeated pattern in a network which has some form of semantic meaning to the network. Simplices capture such patterns at a micro-level through the connectivity of its faces. Furthermore, homology captures another type of patterns at a meso-level through cycles of simplices. Armed with persistent homology we arrive at a comprehensive summary of the network through the lens of the filtration of our choice.
 
 In this analysis we follow \cite{reimann} by observing the high-dimensional simplicial structure of the brain by constructing a particular simplicial complex on the connectivity matrix of a synthetically generated microcircuit of the striatum, a part of the basal ganglia in the brain. By computing the resulting persistent homology we hope to discover distinguishing features of our network from a few selected control models. Furthermore, our aim is that this analysis serves as yet another example of the breadth of possible scenarios in which persistent homology is applicable outside the realm of theory. While we only investigate the mentioned microcircuit, our methodology is general enough for it to be applicable in any scenario where we data can be interpreted as directed graphs.
 
 \subsection{Data}
 
-Recall that a directed graph $G=\{V,E\}$ consists of a set of \textbf{vertices} $V$ and a set of \textbf{edges} $E$, where an edge is an ordered set $\{v_{i},v_{j}\}$ for some vertices $v_{i},v_{j} \in V$. The \textbf{degree} of a vertex in a directed graph is the sum of the number of outgoing and incoming edges from and to the vertex.
+Recall that a directed graph $G=\{V,E\}$ consists of a set of \textbf{vertices} $V$ and a set of \textbf{edges} $E$, where an edge is an ordered set $(v_{i},v_{j})$ for some vertices $v_{i},v_{j} \in V$. The \textbf{degree} of a vertex in a directed graph is the sum of the number of outgoing and incoming edges from and to the vertex.
 
 
 In this case analysis our main object of study is a synthetic network of generated based on empirical findings regarding the micro-circuitry of the striatum realized as a directed graph, see \cite{Hjorth202000671} for further details. We compare this network to a three different models of directed graphs that all have different qualities common to networks of the brain.
@@ -277,8 +266,11 @@ Recall that a simplicial complex includes a partial order that descends to a lin
   and $\forall i,j: i < j \implies (v_{i}, v_{j}) \in E$. The vertices $v_{0}, v_{k}$ are called the source and the sink of a $k$-simplex.
 \end{definition}
 
-This construction is essentially the same construction given by the Vietoris-Rips complex where pairwise intersection is given by an edge. The difference is that we only create a simplex from those cliques whose edges flow ``upwards'' in the partial order. In Figure \ref{disimplex} we see how the left clique has a source and sink and thus defines a $3$-simplex in the directed flag complex, but the right clique has one edge going in the wrong direction hence it is not a $3$-simplex.
+% Note that the directed flag complex adds two simplices for a bidirectional edge. This leads to the fact that we can have cycles given by the same vertex in the opposite direction. Normally, this is not the case.. since $[v_{0},v_{1}] = -[v_{1},v_{0}]$ in the ordinary simplicial complex whereas in the directed flag complex this is not true.
 
+This construction is essentially the same construction given by the Vietoris-Rips complex where pairwise intersection is given by an edge. However, there are some notable difference due to the fact that the underlying graph is directed. One difference is that we only create a simplex from cliques of simplices whose edges flow ``upwards'' in the order. In Figure \ref{disimplex} we see how the left clique has a source and sink and thus defines a $3$-simplex in the directed flag complex, but the right clique has one edge going in the wrong direction hence it is not a $3$-simplex.
+
+Another difference given by the fact that we have directions in the underlying graph, which for example results in that the simplices $[v_{0},v_{1}]$ and $[v_{1},v_{0}]}$ given by a bidirectional edge in the graph are two different simplices and hence make up a cycle $[v_{0},v_{1}]+[v_{1},v_{0}]$.
 % It is important to try to understand this construction because it will have meaning when we try to interpret the homology of the resulting networks. In Figure \ref{disimplex} we see what a $3$-simplex looks like in a \textit{directed flag complex}. We then need to think about what a chain of these directed simplices look like. For example, a $2$-chain of directed simplices can be see in Figure \ref{}. Then what is a cycle? It is a cavity built in by these directed simplices. In the $1$-dimensional case it is not very difficult, it will look something like this.
 
 \begin{figure}[ht]
@@ -287,7 +279,7 @@ This construction is essentially the same construction given by the Vietoris-Rip
   \caption{\label{disimplex} Two directed cliques where the left clique does create a 3-simplex in the directed flag complex and the right clique does not.}
 \end{figure}
 
-We then investigate the graphs ST, ER, WS, and BA in three different ways: the number of simplices in each dimension, their Betti numbers and their persistence diagrams.
+We investigate the graphs ST, ER, WS, and BA in three different ways: the number of simplices in each dimension, their Betti numbers and their persistence diagrams.
 
 For computing persistent homology, we need to define a filtration on the directed flag complexes.
 We use a simple filtration function

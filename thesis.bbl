@@ -11,6 +11,12 @@ Ulrich Bauer.
   2021.
 \newblock Preprint.
 
+\bibitem{Cox+Others/1991/Ideals}
+David Cox, John Little, and Donald O'Shea.
+\newblock {\em Ideals, Varieties and Algorithms: An Introduction to
+  Computational Algebraic Geometry and Commutative Algebra}.
+\newblock Springer, 1991.
+
 \bibitem{delgadofriedrichs2014}
 Olaf {Delgado-Friedrichs}, Vanessa {Robins}, and Adrian {Sheppard}.
 \newblock Morse theory and persistent homology for topological analysis of 3d
