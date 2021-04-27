@@ -1,5 +1,7 @@
 \chapter{Homology}
-Before go into what \textit{persistent} homology is, it is well worth our time to clearly state what we mean by homology. Broadly speaking, homology is an invariant of topological spaces which is concerned with cycles in the space which are not boundaries. Or more abstractly, homology captures the notion $n$-dimensional holes in the space. In \textit{persistent} homology we generally work without predefined topological spaces and start with a basic data-set which at most contains some metric structure which we endow with some form of complex. The main complex we will be working with is the simplicial complex, since computationally we can approximate a such a complex on a set of data-points. We will also review homology of cubical complexes as this relates to one of the case studies. Therefore the classical definitions involving concepts such as singular homology are not something we will dwell on, but rather we refer the reader to Hatcher's excellent exposition in \cite{hatcher2002}.
+Before go into what \textit{persistent} homology is, it is well worth our time to clearly state what we mean by homology. Broadly speaking, homology is an invariant of topological spaces which is concerned with cycles in the space which are not boundaries. Or more abstractly, homology captures the notion $n$-dimensional holes in the space.
+
+In \textit{persistent} homology we generally work without predefined topological spaces and start with a basic data-set which at most contains some metric structure which we endow with some form of complex. The main complex we will be working with is the simplicial complex, since computationally we can approximate a such a complex on a set of data-points. We will also review homology of cubical complexes as this relates to one of the case studies. Therefore the classical definitions involving concepts such as singular homology are not something we will dwell on, but rather we refer the reader to Hatcher's excellent exposition in \cite{hatcher2002}.
 
 
 \section{Simplices}
@@ -63,9 +65,9 @@ Roughly speaking, in topology when two spaces homeomorphic they share the same t
 Homology can generally thought of as being the characterization of these holes in a topological space. Beyond that however, it is a way of associating algebraic objects to topological spaces. In the context of simplicial complexes, we first need some algebraic machinery in order to define precisely what we mean by holes in a simplicial complex.
 
 \begin{definition}[\cite{Zomorodian2005}]
-  The $k$th \textbf{chain module} $C_{k}(K)$ on a simplicial complex $K$ is the free module with basis given by the $k$-dimensional simplices in $K$ with coefficients in some ring $\mathcal{R}$ with additive unit $0$ and multiplicative unit $1$. In other words, the elements of $C_{k}(K)$ are formal sums
+  The $k$th \textbf{chain module} $C_{k}(K)$ on a simplicial complex $K$ is the free module with basis given by the $k$-dimensional simplices in $K$ with coefficients in some ring $R$ with additive unit $0$ and multiplicative unit $1$. In other words, the elements of $C_{k}(K)$ are formal sums
   \[ \sum_{i=1} r_{i}\sigma_{i}\]
-  where $r_{i} \in \mathcal{R}$ and $\sigma_{i}$ is a $k$-dimensional simplex in $K$.
+  where $r_{i} \in R$ and $\sigma_{i}$ is a $k$-dimensional simplex in $K$.
 \end{definition}
 \begin{definition}[{\cite[p. ~2]{weibel1994}}]
   A \textbf{chain complex} $C_{*}$ over a ring $R$ is a family of $R$-modules $\{C_{k}\}_{k
@@ -73,7 +75,7 @@ Homology can generally thought of as being the characterization of these holes i
 \end{definition}
 
 \begin{theorem}\label{simpchainthm}
-Given a simplicial complex $K$ and a ring $\mathcal{R}$ the sequence of chain modules
+Given a simplicial complex $K$ and a ring $R$ the sequence of chain modules
 \begin{center}
 \begin{tikzcd}
   \dots \arrow[]{r}{\partial_{k+1}} & C_k(K) \arrow[]{r}{\partial_{k}} & C_{k-1}(K) \arrow[]{r}{\partial_{k-1}} & C_{k-2}(K) \arrow[]{r}{\partial_{k-2}} & \dots \arrow[]{r}{\partial_{1}} & C_0(K)
@@ -115,7 +117,7 @@ Given a $2$-simplex as in Figure \ref{2simplex} we get the differential of the i
 \end{example}
 The notion of the differential being a map from a simplex to its boundary motivates the following definition.
 \begin{definition}[{\cite[p. ~4]{weibel1994}}]
-  Given a chain complex $C_{*}$ the \textbf{$k$-cycles} $Z_{k}$  and the \textbf{$k$-boundaries} $B_{k}$ of $K$ are the $\mathcal{R}$-modules
+  Given a chain complex $C_{*}$ the \textbf{$k$-cycles} $Z_{k}$  and the \textbf{$k$-boundaries} $B_{k}$ of $K$ are the $R$-modules
   \[ Z_{k} := \ker \partial_{k}\]
   \[ B_{k} := \textrm{im } \partial_{k+1}.\]
   Just as for a chain complex we will sometimes refer to the collection of $Z_{k}$ and $B_{k}$ as $Z_{*}$ or $B_{*}$ respectively.
@@ -144,7 +146,7 @@ Consider the chain complex over $\mathbb{Z}_{2}$ resulting from the simplicial c
 \begin{figure}[ht]
   \centering
   \includegraphics[scale=2]{trisquarefilled.pdf}
-  \caption{\label{trihom} }
+  \caption{\label{trihom} Illustration of a simplicial complex with a 1-cycle in green consisting of a square without interior.}
 \end{figure}
 There are two 1-cycles, the boundary of the filled triangle and the square. Since the boundary of the filled triangle is in $\text{im} (\partial_{2})$ we get that this element belongs to the trivial class in $H_{1}$. But there is one non-trivial element given by the square without interior. So $H_{1}$ contains one non-trivial element generated by the cycle in green.
 
@@ -195,11 +197,11 @@ Furthermore, since elementary cubes consist of finite cartesian products of elem
 \begin{definition}[{\cite[Definition 2.23, p. ~51]{kaczynski2004}}]
 Given two elementary cubes $P,Q$ The cubical product is defined as \[\hat P \diamond \hat Q:= \widehat{P \times Q}\]
 \end{definition}
-Fix some ring $\mathcal{R}$ with additive unit $0$ and multiplicative unit $1$ and then we can proceed as for the simplicial case.
+Fix some ring $R$ with additive unit $0$ and multiplicative unit $1$ and then we can proceed as for the simplicial case.
 \begin{definition}[{\cite[Definition 2.27, p. ~53]{kaczynski2004}}]
   The \textbf{$k$th chain module} of a cubical complex $\mathcal{K}(X)$ is the free $R$-module $C_{k}(\mathcal{K}(X))$ whose elements are formal sums
   \[ \sum \alpha_{i} Q_{i}\]
-  known as \textbf{$k$-chains} where $\alpha_{i} \in \mathcal{R}$ and $Q_{i} \in K_{k}(X)$.
+  known as \textbf{$k$-chains} where $\alpha_{i} \in R$ and $Q_{i} \in K_{k}(X)$.
 \end{definition}
 
 The cubical product extends to $k$-chains in the following way.
@@ -254,7 +256,7 @@ where $\partial \partial \hat P = 0$ follows from the induction hypothesis since
 \end{align*}
 where $\dim \partial \hat I = 0$ since $ I$ is an elementary interval. Since we have now shown the induction hypothesis holds for $n+1$ given it holds for $n$, this concludes the proof by induction.
 \end{proof}
-We now have everything we need to construct a chain complex on cubical complexes: a sequence of $\mathcal{R}$-modules, the $k$-chain modules on cubical complexes, and module homomorphisms $\partial$ which have the property of $\partial \partial = 0$. Since our prior definitions with regards to \textit{homology} were entirely stated in terms of chain complexes we can be assured that homology on chain complexes given by cubical complexes is well-defined.
+We now have everything we need to construct a chain complex on cubical complexes: a sequence of $R$-modules, the $k$-chain modules on cubical complexes, and module homomorphisms $\partial$ which have the property of $\partial \partial = 0$. Since our prior definitions with regards to \textit{homology} were entirely stated in terms of chain complexes we can be assured that homology on chain complexes given by cubical complexes is well-defined.
 
 %%% Local Variables:
 %%% mode: latex

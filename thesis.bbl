@@ -1,158 +1,1171 @@
-\begin{thebibliography}{10}
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
 
-\bibitem{barabasi}
-Albert-Laszlo Barabasi and Reka Albert.
-\newblock Emergence of scaling in random networks. science 286, 509-512.
-\newblock {\em Science (New York, N.Y.)}, 286:509--12, November 1999.
 
-\bibitem{ripser}
-Ulrich Bauer.
-\newblock Ripser: efficient computation of vietoris-rips persistence barcodes,
-  2021.
-\newblock Preprint.
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{reimann}{article}{}
+      \name{author}{10}{}{%
+        {{hash=5ebc6a8b3a1ca059fbdd32d34da9a296}{%
+           family={Reimann},
+           familyi={R\bibinitperiod},
+           given={Michael\bibnamedelima W.},
+           giveni={M\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=8a3c4b0411d7d536dd816048fb272090}{%
+           family={Nolte},
+           familyi={N\bibinitperiod},
+           given={Max},
+           giveni={M\bibinitperiod}}}%
+        {{hash=1c1fd53fe24ebd7d28668a3c1b3f69c0}{%
+           family={Scolamiero},
+           familyi={S\bibinitperiod},
+           given={Martina},
+           giveni={M\bibinitperiod}}}%
+        {{hash=a882bd4b16bda6eab3bc499934e2c86b}{%
+           family={Turner},
+           familyi={T\bibinitperiod},
+           given={Katharine},
+           giveni={K\bibinitperiod}}}%
+        {{hash=a0a0e04fa7af8418d80495a6f63c7f14}{%
+           family={Perin},
+           familyi={P\bibinitperiod},
+           given={Rodrigo},
+           giveni={R\bibinitperiod}}}%
+        {{hash=3003cc609cbfff14cdf0196761f25eb3}{%
+           family={Chindemi},
+           familyi={C\bibinitperiod},
+           given={Giuseppe},
+           giveni={G\bibinitperiod}}}%
+        {{hash=39de50e4e79bfda0601b494144791bb4}{%
+           family={Dłotko},
+           familyi={D\bibinitperiod},
+           given={Paweł},
+           giveni={P\bibinitperiod}}}%
+        {{hash=15878d5a102b8911f3d3a29aa13648ae}{%
+           family={Levi},
+           familyi={L\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=fdfb6457a31af9c67afd61478567c478}{%
+           family={Hess},
+           familyi={H\bibinitperiod},
+           given={Kathryn},
+           giveni={K\bibinitperiod}}}%
+        {{hash=96734e7ca80390b8caf8dcebb3d0a5ac}{%
+           family={Markram},
+           familyi={M\bibinitperiod},
+           given={Henry},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{5ef14d28001362a50c9a5ec85e5e946c}
+      \strng{fullhash}{5930784999eccb66111f00e7337b2b39}
+      \strng{bibnamehash}{5930784999eccb66111f00e7337b2b39}
+      \strng{authorbibnamehash}{5930784999eccb66111f00e7337b2b39}
+      \strng{authornamehash}{5ef14d28001362a50c9a5ec85e5e946c}
+      \strng{authorfullhash}{5930784999eccb66111f00e7337b2b39}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The lack of a formal link between neural network structure and its emergent function has hampered our understanding of how the brain processes information. We have now come closer to describing such a link by taking the direction of synaptic transmission into account, constructing graphs of a network that reflect the direction of information flow, and analyzing these directed graphs using algebraic topology. Applying this approach to a local network of neurons in the neocortex revealed a remarkably intricate and previously unseen topology of synaptic connectivity. The synaptic network contains an abundance of cliques of neurons bound into cavities that guide the emergence of correlated activity. In response to stimuli, correlated activity binds synaptically connected neurons into functional cliques and cavities that evolve in a stereotypical sequence toward peak complexity. We propose that the brain processes stimuli by forming increasingly complex functional cliques and cavities.}
+      \field{issn}{1662-5188}
+      \field{journaltitle}{Frontiers in Computational Neuroscience}
+      \field{title}{Cliques of Neurons Bound into Cavities Provide a Missing Link between Structure and Function}
+      \field{volume}{11}
+      \field{year}{2017}
+      \field{pages}{48}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3389/fncom.2017.00048
+      \endverb
+      \verb{urlraw}
+      \verb https://www.frontiersin.org/article/10.3389/fncom.2017.00048
+      \endverb
+      \verb{url}
+      \verb https://www.frontiersin.org/article/10.3389/fncom.2017.00048
+      \endverb
+    \endentry
+    \entry{plants}{article}{}
+      \name{author}{4}{}{%
+        {{hash=ba6dacd9f0a39458e76635d67ac58379}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Mao},
+           giveni={M\bibinitperiod}}}%
+        {{hash=b631db01bf547db8452395b8723da5f4}{%
+           family={Duncan},
+           familyi={D\bibinitperiod},
+           given={Keith},
+           giveni={K\bibinitperiod}}}%
+        {{hash=87ddb298d51f8a28be7fd9e7897f8963}{%
+           family={Topp},
+           familyi={T\bibinitperiod},
+           given={Christopher},
+           giveni={C\bibinitperiod}}}%
+        {{hash=3320aa6e891bcee56e87ccde4d74cc4b}{%
+           family={Chitwood},
+           familyi={C\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{8b90ac89167fc65a2314f0bf9979d733}
+      \strng{fullhash}{57e17135a36f0aabad007743483c01e7}
+      \strng{bibnamehash}{57e17135a36f0aabad007743483c01e7}
+      \strng{authorbibnamehash}{57e17135a36f0aabad007743483c01e7}
+      \strng{authornamehash}{8b90ac89167fc65a2314f0bf9979d733}
+      \strng{authorfullhash}{57e17135a36f0aabad007743483c01e7}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Journal of Botany}
+      \field{title}{Persistent homology and the branching topologies of plants}
+      \field{volume}{104}
+      \field{year}{2017}
+      \verb{doi}
+      \verb 10.3732/ajb.1700046
+      \endverb
+    \endentry
+    \entry{moon2019}{article}{}
+      \name{author}{4}{}{%
+        {{hash=be78fb2a1db9c40c70f7537f28b18367}{%
+           family={Moon},
+           familyi={M\bibinitperiod},
+           given={Chul},
+           giveni={C\bibinitperiod}}}%
+        {{hash=8ce411a07f0dd0e75ce8d2700f0ae3d8}{%
+           family={Mitchell},
+           familyi={M\bibinitperiod},
+           given={Scott\bibnamedelima A.},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=522b023e6b5b0d8baf82674499701c85}{%
+           family={Heath},
+           familyi={H\bibinitperiod},
+           given={Jason\bibnamedelima E.},
+           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=143858be293554a1f58910ed98c4a738}{%
+           family={Andrew},
+           familyi={A\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{6933c0c8e1684dc856c7230c3ef85654}
+      \strng{fullhash}{4c8b5580988696d0d6ff2417e8b32e4f}
+      \strng{bibnamehash}{4c8b5580988696d0d6ff2417e8b32e4f}
+      \strng{authorbibnamehash}{4c8b5580988696d0d6ff2417e8b32e4f}
+      \strng{authornamehash}{6933c0c8e1684dc856c7230c3ef85654}
+      \strng{authorfullhash}{4c8b5580988696d0d6ff2417e8b32e4f}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Abstract We statistically infer fluid flow and transport properties of porous materials based on their geometry and connectivity, without the need for detailed We summarize structure by persistent homology and then determines the similarity of structures using image analysis and statistics. Longer term, this may enable quick and automated categorization of rocks into known archetypes. We first compute persistent homology of binarized 3D images of material subvolume samples. The persistence parameter is the signed Euclidean distance from inferred material interfaces, which captures the distribution of sizes of pores and grains. Each persistence diagram is converted into an image vector. We infer structural similarity by calculating image similarity. For each image vector, we compute principal components to extract features. We fit statistical models to features estimates material permeability, tortuosity, and anisotropy. We develop a Structural SIMilarity index to determine statistical representative elementary volumes.}
+      \field{journaltitle}{Water Resources Research}
+      \field{number}{11}
+      \field{title}{Statistical Inference Over Persistent Homology Predicts Fluid Flow in Porous Media}
+      \field{volume}{55}
+      \field{year}{2019}
+      \field{pages}{9592\bibrangedash 9603}
+      \range{pages}{12}
+      \verb{doi}
+      \verb https://doi.org/10.1029/2019WR025171
+      \endverb
+      \verb{urlraw}
+      \verb https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2019WR025171
+      \endverb
+      \verb{url}
+      \verb https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2019WR025171
+      \endverb
+      \keyw{Fluid Flow,Persistent Homology,REV,Statistical Inference,LASSO,Principal Component Analysis}
+    \endentry
+    \entry{Zomorodian2005}{article}{}
+      \name{author}{2}{}{%
+        {{hash=f30d2b78e0e34c02d8e03ea5698fb192}{%
+           family={Zomorodian},
+           familyi={Z\bibinitperiod},
+           given={Afra},
+           giveni={A\bibinitperiod}}}%
+        {{hash=86916713a3861f9e4e6fa5e0ce4c7b44}{%
+           family={Carlsson},
+           familyi={C\bibinitperiod},
+           given={Gunnar},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{1a29492dcb45701e89a07b9e69cf839e}
+      \strng{fullhash}{1a29492dcb45701e89a07b9e69cf839e}
+      \strng{bibnamehash}{1a29492dcb45701e89a07b9e69cf839e}
+      \strng{authorbibnamehash}{1a29492dcb45701e89a07b9e69cf839e}
+      \strng{authornamehash}{1a29492dcb45701e89a07b9e69cf839e}
+      \strng{authorfullhash}{1a29492dcb45701e89a07b9e69cf839e}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We show that the persistent homology of a filtered d-dimensionalsimplicial complex is simply the standard homology of a particular graded module over a polynomial ring.Our analysis establishes the existence of a simple description ofpersistent homology groups over arbitrary fields.It also enables us to derive a naturalalgorithm for computing persistent homology of spaces in arbitrary dimension over any field.This result generalizes and extends the previously knownalgorithm that was restricted to subcomplexes of S3 andZ2 coefficients.Finally, our study implies the lack of a simple classification over non-fields.Instead, we give an algorithm for computing individualpersistent homology groups over an arbitrary principal ideal domain in any dimension.}
+      \field{issn}{1432-0444}
+      \field{journaltitle}{Discrete {\&} Computational Geometry}
+      \field{number}{2}
+      \field{title}{Computing Persistent Homology}
+      \field{volume}{33}
+      \field{year}{2005}
+      \field{pages}{249\bibrangedash 274}
+      \range{pages}{26}
+      \verb{doi}
+      \verb 10.1007/s00454-004-1146-y
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s00454-004-1146-y
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s00454-004-1146-y
+      \endverb
+    \endentry
+    \entry{edelszom}{article}{}
+      \name{author}{3}{}{%
+        {{hash=a32d61ef7947b60c5805e6dd35fa4fa7}{%
+           family={Edelsbrunner},
+           familyi={E\bibinitperiod},
+           given={Herbert},
+           giveni={H\bibinitperiod}}}%
+        {{hash=a00040ee3cb1e43e3872dab8c8604ae9}{%
+           family={Letscher},
+           familyi={L\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=f30d2b78e0e34c02d8e03ea5698fb192}{%
+           family={Zomorodian},
+           familyi={Z\bibinitperiod},
+           given={Afra},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{1e0eed521176ee0e9e26a54b4c0a1c8e}
+      \strng{fullhash}{1e0eed521176ee0e9e26a54b4c0a1c8e}
+      \strng{bibnamehash}{1e0eed521176ee0e9e26a54b4c0a1c8e}
+      \strng{authorbibnamehash}{1e0eed521176ee0e9e26a54b4c0a1c8e}
+      \strng{authornamehash}{1e0eed521176ee0e9e26a54b4c0a1c8e}
+      \strng{authorfullhash}{1e0eed521176ee0e9e26a54b4c0a1c8e}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Discrete Computational Geometry}
+      \field{number}{4}
+      \field{title}{Topological Persistence and Simplification}
+      \field{volume}{28}
+      \field{year}{2002}
+      \field{pages}{511\bibrangedash 533}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1007/s00454-002-2885-2
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s00454-002-2885-2
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s00454-002-2885-2
+      \endverb
+    \endentry
+    \entry{vejdemo}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=a7808170bdb717b181a5ff56ee8900d0}{%
+           family={Vejdemo-Johansson},
+           familyi={V\bibinithyphendelim J\bibinitperiod},
+           given={Mikael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{a7808170bdb717b181a5ff56ee8900d0}
+      \strng{fullhash}{a7808170bdb717b181a5ff56ee8900d0}
+      \strng{bibnamehash}{a7808170bdb717b181a5ff56ee8900d0}
+      \strng{authorbibnamehash}{a7808170bdb717b181a5ff56ee8900d0}
+      \strng{authornamehash}{a7808170bdb717b181a5ff56ee8900d0}
+      \strng{authorfullhash}{a7808170bdb717b181a5ff56ee8900d0}
+      \field{sortinit}{6}
+      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Algebraic Topology: Applications and New Directions}
+      \field{isbn}{978-1-4704-1855-7}
+      \field{title}{Sketches of a platypus: persistent homology and its algebraic foundations}
+      \field{year}{2014}
+      \field{pages}{295\bibrangedash 320}
+      \range{pages}{26}
+      \verb{doi}
+      \verb 10.1090/conm/620/12371
+      \endverb
+      \verb{urlraw}
+      \verb http://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-150369
+      \endverb
+      \verb{url}
+      \verb http://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-150369
+      \endverb
+    \endentry
+    \entry{skraba}{article}{}
+      \name{author}{2}{}{%
+        {{hash=679713c92cae984f3b14863809836387}{%
+           family={Skraba},
+           familyi={S\bibinitperiod},
+           given={Primoz},
+           giveni={P\bibinitperiod}}}%
+        {{hash=a7808170bdb717b181a5ff56ee8900d0}{%
+           family={Vejdemo{-}Johansson},
+           familyi={V\bibinithyphendelim J\bibinitperiod},
+           given={Mikael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{ef42c2713f83cffab3054b3a18dd7f7c}
+      \strng{fullhash}{ef42c2713f83cffab3054b3a18dd7f7c}
+      \strng{bibnamehash}{ef42c2713f83cffab3054b3a18dd7f7c}
+      \strng{authorbibnamehash}{ef42c2713f83cffab3054b3a18dd7f7c}
+      \strng{authornamehash}{ef42c2713f83cffab3054b3a18dd7f7c}
+      \strng{authorfullhash}{ef42c2713f83cffab3054b3a18dd7f7c}
+      \field{sortinit}{6}
+      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{CoRR}
+      \field{title}{Persistence modules: Algebra and algorithms}
+      \field{volume}{abs/1302.2015}
+      \field{year}{2013}
+      \verb{eprint}
+      \verb 1302.2015
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1302.2015
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1302.2015
+      \endverb
+    \endentry
+    \entry{hatcher2002}{book}{}
+      \name{author}{1}{}{%
+        {{hash=0a94eadf86d8b878d4c37bc5640e53e3}{%
+           family={Hatcher},
+           familyi={H\bibinitperiod},
+           given={Allen},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cambridge New York}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{0a94eadf86d8b878d4c37bc5640e53e3}
+      \strng{fullhash}{0a94eadf86d8b878d4c37bc5640e53e3}
+      \strng{bibnamehash}{0a94eadf86d8b878d4c37bc5640e53e3}
+      \strng{authorbibnamehash}{0a94eadf86d8b878d4c37bc5640e53e3}
+      \strng{authornamehash}{0a94eadf86d8b878d4c37bc5640e53e3}
+      \strng{authorfullhash}{0a94eadf86d8b878d4c37bc5640e53e3}
+      \field{sortinit}{7}
+      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780521795401}
+      \field{title}{Algebraic topology}
+      \field{year}{2002}
+    \endentry
+    \entry{edels}{book}{}
+      \name{author}{2}{}{%
+        {{hash=a32d61ef7947b60c5805e6dd35fa4fa7}{%
+           family={Edelsbrunner},
+           familyi={E\bibinitperiod},
+           given={Herbert},
+           giveni={H\bibinitperiod}}}%
+        {{hash=89eab1be81f4795503d708961ec40fd0}{%
+           family={Harer},
+           familyi={H\bibinitperiod},
+           given={John\bibnamedelima L.},
+           giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Providence, R.I}%
+      }
+      \list{publisher}{1}{%
+        {American Mathematical Society}%
+      }
+      \strng{namehash}{7617f04be0b20624d35be3adb564c64a}
+      \strng{fullhash}{7617f04be0b20624d35be3adb564c64a}
+      \strng{bibnamehash}{7617f04be0b20624d35be3adb564c64a}
+      \strng{authorbibnamehash}{7617f04be0b20624d35be3adb564c64a}
+      \strng{authornamehash}{7617f04be0b20624d35be3adb564c64a}
+      \strng{authorfullhash}{7617f04be0b20624d35be3adb564c64a}
+      \field{sortinit}{8}
+      \field{sortinithash}{1b24cab5087933ef0826a7cd3b99e994}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780821849255}
+      \field{title}{Computational topology: an introduction}
+      \field{year}{2010}
+    \endentry
+    \entry{weibel1994}{book}{}
+      \name{author}{1}{}{%
+        {{hash=c20a91f51653cb322a20f30af22a08a3}{%
+           family={Weibel},
+           familyi={W\bibinitperiod},
+           given={Charles},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cambridge England New York}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{c20a91f51653cb322a20f30af22a08a3}
+      \strng{fullhash}{c20a91f51653cb322a20f30af22a08a3}
+      \strng{bibnamehash}{c20a91f51653cb322a20f30af22a08a3}
+      \strng{authorbibnamehash}{c20a91f51653cb322a20f30af22a08a3}
+      \strng{authornamehash}{c20a91f51653cb322a20f30af22a08a3}
+      \strng{authorfullhash}{c20a91f51653cb322a20f30af22a08a3}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9781139644136}
+      \field{title}{An introduction to homological algebra}
+      \field{year}{1994}
+    \endentry
+    \entry{kaczynski2004}{book}{}
+      \name{author}{3}{}{%
+        {{hash=768e9a299a98d8128175e47ad35f8663}{%
+           family={Kaczynski},
+           familyi={K\bibinitperiod},
+           given={{Tomasz}},
+           giveni={T\bibinitperiod}}}%
+        {{hash=d11814522a0686c1b24ab9291e66523b}{%
+           family={Mischaikow},
+           familyi={M\bibinitperiod},
+           given={{Konstantin}},
+           giveni={K\bibinitperiod}}}%
+        {{hash=1397e2fbf7cb153d8facc217c9f8d39f}{%
+           family={Mrozek},
+           familyi={M\bibinitperiod},
+           given={{Marian}},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{4f80053d28d14cd5abe2bf42fa962aca}
+      \strng{fullhash}{4f80053d28d14cd5abe2bf42fa962aca}
+      \strng{bibnamehash}{4f80053d28d14cd5abe2bf42fa962aca}
+      \strng{authorbibnamehash}{4f80053d28d14cd5abe2bf42fa962aca}
+      \strng{authornamehash}{4f80053d28d14cd5abe2bf42fa962aca}
+      \strng{authorfullhash}{4f80053d28d14cd5abe2bf42fa962aca}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-1-4419-2354-7}
+      \field{title}{Computational homology}
+      \field{volume}{157}
+      \field{year}{2004}
+    \endentry
+    \entry{ghirst}{article}{}
+      \name{author}{1}{}{%
+        {{hash=b9a73a1e13aed5a0023e94663dbc020b}{%
+           family={Ghrist},
+           familyi={G\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{b9a73a1e13aed5a0023e94663dbc020b}
+      \strng{fullhash}{b9a73a1e13aed5a0023e94663dbc020b}
+      \strng{bibnamehash}{b9a73a1e13aed5a0023e94663dbc020b}
+      \strng{authorbibnamehash}{b9a73a1e13aed5a0023e94663dbc020b}
+      \strng{authornamehash}{b9a73a1e13aed5a0023e94663dbc020b}
+      \strng{authorfullhash}{b9a73a1e13aed5a0023e94663dbc020b}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Bulletin (New Series) of the American Mathematical Society}
+      \field{title}{Barcodes: The persistent topology of data}
+      \field{volume}{45}
+      \field{year}{2008}
+      \verb{doi}
+      \verb 10.1090/S0273-0979-07-01191-3
+      \endverb
+    \endentry
+    \entry{Cox+Others/1991/Ideals}{book}{}
+      \name{author}{3}{}{%
+        {{hash=bc0b42f4eec960b52a2496b25fbb4ec7}{%
+           family={Cox},
+           familyi={C\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=8a72cf3903e931ba6c47c32f8d97825d}{%
+           family={Little},
+           familyi={L\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=16f85adf277c4b1f72671d176ec4e339}{%
+           family={O'Shea},
+           familyi={O\bibinitperiod},
+           given={Donald},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{c90c85a4a217ac0850e530251b31f891}
+      \strng{fullhash}{c90c85a4a217ac0850e530251b31f891}
+      \strng{bibnamehash}{c90c85a4a217ac0850e530251b31f891}
+      \strng{authorbibnamehash}{c90c85a4a217ac0850e530251b31f891}
+      \strng{authornamehash}{c90c85a4a217ac0850e530251b31f891}
+      \strng{authorfullhash}{c90c85a4a217ac0850e530251b31f891}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Ideals, Varieties and Algorithms: An Introduction to Computational Algebraic Geometry and Commutative Algebra}
+      \field{year}{1991}
+    \endentry
+    \entry{jacobson2009basic}{book}{}
+      \name{author}{1}{}{%
+        {{hash=b0cb6bcf1a8e3658bf8037b530d0cd8c}{%
+           family={Jacobson},
+           familyi={J\bibinitperiod},
+           given={Nathan},
+           giveni={N\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Mineola, N.Y}%
+      }
+      \list{publisher}{1}{%
+        {Dover Publications}%
+      }
+      \strng{namehash}{b0cb6bcf1a8e3658bf8037b530d0cd8c}
+      \strng{fullhash}{b0cb6bcf1a8e3658bf8037b530d0cd8c}
+      \strng{bibnamehash}{b0cb6bcf1a8e3658bf8037b530d0cd8c}
+      \strng{authorbibnamehash}{b0cb6bcf1a8e3658bf8037b530d0cd8c}
+      \strng{authornamehash}{b0cb6bcf1a8e3658bf8037b530d0cd8c}
+      \strng{authorfullhash}{b0cb6bcf1a8e3658bf8037b530d0cd8c}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780486471877}
+      \field{title}{Basic algebra}
+      \field{year}{2009}
+    \endentry
+    \entry{ripser}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=dd6f1eb5275595e21a2cc15c3abf0f44}{%
+           family={Bauer},
+           familyi={B\bibinitperiod},
+           given={Ulrich},
+           giveni={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{dd6f1eb5275595e21a2cc15c3abf0f44}
+      \strng{fullhash}{dd6f1eb5275595e21a2cc15c3abf0f44}
+      \strng{bibnamehash}{dd6f1eb5275595e21a2cc15c3abf0f44}
+      \strng{authorbibnamehash}{dd6f1eb5275595e21a2cc15c3abf0f44}
+      \strng{authornamehash}{dd6f1eb5275595e21a2cc15c3abf0f44}
+      \strng{authorfullhash}{dd6f1eb5275595e21a2cc15c3abf0f44}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Preprint}
+      \field{title}{Ripser: efficient computation of Vietoris-Rips persistence barcodes}
+      \field{year}{2021}
+      \verb{eprint}
+      \verb 1908.02518v2
+      \endverb
+    \endentry
+    \entry{skraba2021wasserstein}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=679713c92cae984f3b14863809836387}{%
+           family={Skraba},
+           familyi={S\bibinitperiod},
+           given={Primoz},
+           giveni={P\bibinitperiod}}}%
+        {{hash=a882bd4b16bda6eab3bc499934e2c86b}{%
+           family={Turner},
+           familyi={T\bibinitperiod},
+           given={Katharine},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{262d2e8623fbe36243e225a85071cad7}
+      \strng{fullhash}{262d2e8623fbe36243e225a85071cad7}
+      \strng{bibnamehash}{262d2e8623fbe36243e225a85071cad7}
+      \strng{authorbibnamehash}{262d2e8623fbe36243e225a85071cad7}
+      \strng{authornamehash}{262d2e8623fbe36243e225a85071cad7}
+      \strng{authorfullhash}{262d2e8623fbe36243e225a85071cad7}
+      \field{extraname}{1}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.AT}
+      \field{eprinttype}{arXiv}
+      \field{title}{Wasserstein Stability for Persistence Diagrams}
+      \field{year}{2021}
+      \verb{eprint}
+      \verb 2006.16824
+      \endverb
+    \endentry
+    \entry{skraba2021notes}{misc}{}
+      \name{author}{2}{}{%
+        {{hash=679713c92cae984f3b14863809836387}{%
+           family={Skraba},
+           familyi={S\bibinitperiod},
+           given={Primoz},
+           giveni={P\bibinitperiod}}}%
+        {{hash=a882bd4b16bda6eab3bc499934e2c86b}{%
+           family={Turner},
+           familyi={T\bibinitperiod},
+           given={Katharine},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{262d2e8623fbe36243e225a85071cad7}
+      \strng{fullhash}{262d2e8623fbe36243e225a85071cad7}
+      \strng{bibnamehash}{262d2e8623fbe36243e225a85071cad7}
+      \strng{authorbibnamehash}{262d2e8623fbe36243e225a85071cad7}
+      \strng{authornamehash}{262d2e8623fbe36243e225a85071cad7}
+      \strng{authorfullhash}{262d2e8623fbe36243e225a85071cad7}
+      \field{extraname}{2}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.AT}
+      \field{eprinttype}{arXiv}
+      \field{title}{Notes on an Elementary Proof for the Stability of Persistence Diagrams}
+      \field{year}{2021}
+      \verb{eprint}
+      \verb 2103.10723
+      \endverb
+    \endentry
+    \entry{delgadofriedrichs2014}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=6098b59295689142651f9ea1c0598d79}{%
+           family={{Delgado-Friedrichs}},
+           familyi={D\bibinitperiod},
+           given={Olaf},
+           giveni={O\bibinitperiod}}}%
+        {{hash=ee60117a5064f88b4f9c2ff0adc22a12}{%
+           family={{Robins}},
+           familyi={R\bibinitperiod},
+           given={Vanessa},
+           giveni={V\bibinitperiod}}}%
+        {{hash=ced166129f56eda4b29b6646d2f33f49}{%
+           family={{Sheppard}},
+           familyi={S\bibinitperiod},
+           given={Adrian},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{999012ec84a343d43df79e02a25af8df}
+      \strng{fullhash}{999012ec84a343d43df79e02a25af8df}
+      \strng{bibnamehash}{999012ec84a343d43df79e02a25af8df}
+      \strng{authorbibnamehash}{999012ec84a343d43df79e02a25af8df}
+      \strng{authornamehash}{999012ec84a343d43df79e02a25af8df}
+      \strng{authorfullhash}{999012ec84a343d43df79e02a25af8df}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{IEEE International Conference on Image Processing (ICIP)}
+      \field{title}{Morse theory and persistent homology for topological analysis of 3D images of complex materials}
+      \field{year}{2014}
+      \field{pages}{4872\bibrangedash 4876}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1109/ICIP.2014.7025987
+      \endverb
+    \endentry
+    \entry{gutierrez2012}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=1363b8c36908f57ccbc134eb64654805}{%
+           family={Gutierrez},
+           familyi={G\bibinitperiod},
+           given={Antonio},
+           giveni={A\bibinitperiod}}}%
+        {{hash=73603631778991a6eef86eab518c6ee9}{%
+           family={Monaghan},
+           familyi={M\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=3fee3a3cac950b4c1d96221ffa071cd4}{%
+           family={Jiménez},
+           familyi={J\bibinitperiod},
+           given={María\bibnamedelima José},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=4f4fb5d93d0a4e63f21a1a36d3258bf5}{%
+           family={O'Connor},
+           familyi={O\bibinitperiod},
+           given={Noel\bibnamedelima E.},
+           giveni={N\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \name{editor}{5}{}{%
+        {{hash=18f36df10c3b8e094c490976823a4c77}{%
+           family={Ferri},
+           familyi={F\bibinitperiod},
+           given={Massimo},
+           giveni={M\bibinitperiod}}}%
+        {{hash=3df74a8de74dfce005f304d89418805b}{%
+           family={Frosini},
+           familyi={F\bibinitperiod},
+           given={Patrizio},
+           giveni={P\bibinitperiod}}}%
+        {{hash=18900c0425a7bd53a0e3cae23f8a82e1}{%
+           family={Landi},
+           familyi={L\bibinitperiod},
+           given={Claudia},
+           giveni={C\bibinitperiod}}}%
+        {{hash=4a5872bd49f36adced36bc10ee9735ed}{%
+           family={Cerri},
+           familyi={C\bibinitperiod},
+           given={Andrea},
+           giveni={A\bibinitperiod}}}%
+        {{hash=737127936510257ffffef2929de98e87}{%
+           family={Di\bibnamedelima Fabio},
+           familyi={D\bibinitperiod\bibinitdelim F\bibinitperiod},
+           given={Barbara},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{0ec421782ea1653213908a3e531ab189}
+      \strng{fullhash}{e69b6abdf1e9edbee6402ba9c0cfbb3b}
+      \strng{bibnamehash}{e69b6abdf1e9edbee6402ba9c0cfbb3b}
+      \strng{authorbibnamehash}{e69b6abdf1e9edbee6402ba9c0cfbb3b}
+      \strng{authornamehash}{0ec421782ea1653213908a3e531ab189}
+      \strng{authorfullhash}{e69b6abdf1e9edbee6402ba9c0cfbb3b}
+      \strng{editorbibnamehash}{09a32e4c4bd71a45add2595a6b08aec7}
+      \strng{editornamehash}{f3922f5c0676f28c648737c658718f1e}
+      \strng{editorfullhash}{09a32e4c4bd71a45add2595a6b08aec7}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Space or voxel carving is a non-invasive technique that is used to produce a 3D volume and can be used in particular for the reconstruction of a 3D human model from images captured from a set of cameras placed around the subject. In [1], the authors present a technique to quantitatively evaluate spatially carved volumetric representations of humans using a synthetic dataset of typical sports motion in a tennis court scenario, with regard to the number of cameras used. In this paper, we compute persistent homology over the sequence of chain complexes obtained from the 3D outcomes with increasing number of cameras. This allows us to analyze the topological evolution of the reconstruction process, something which as far as we are aware has not been investigated to date.}
+      \field{booktitle}{Computational Topology in Image Context}
+      \field{isbn}{978-3-642-30238-1}
+      \field{title}{Persistent Homology for {3D} Reconstruction Evaluation}
+      \field{year}{2012}
+      \field{pages}{139\bibrangedash 147}
+      \range{pages}{9}
+    \endentry
+    \entry{gutierrez2014}{article}{}
+      \name{author}{4}{}{%
+        {{hash=1363b8c36908f57ccbc134eb64654805}{%
+           family={Gutierrez},
+           familyi={G\bibinitperiod},
+           given={Antonio},
+           giveni={A\bibinitperiod}}}%
+        {{hash=2117c6feb370e2a5a8c373d63eb6417d}{%
+           family={Jimenez},
+           familyi={J\bibinitperiod},
+           given={Maria\bibnamedelima Jose},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=73603631778991a6eef86eab518c6ee9}{%
+           family={Monaghan},
+           familyi={M\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=4976008a75a62bc50d9289f85b796574}{%
+           family={O’Connor},
+           familyi={O\bibinitperiod},
+           given={Noel\bibnamedelima E.},
+           giveni={N\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \strng{namehash}{1e64e4752ea7a74bf67c54bfe8b36c97}
+      \strng{fullhash}{f99f224da5a02725ac73a27053c31914}
+      \strng{bibnamehash}{f99f224da5a02725ac73a27053c31914}
+      \strng{authorbibnamehash}{f99f224da5a02725ac73a27053c31914}
+      \strng{authornamehash}{1e64e4752ea7a74bf67c54bfe8b36c97}
+      \strng{authorfullhash}{f99f224da5a02725ac73a27053c31914}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Space or voxel carving (Broadhurst et al., 2001; Culbertson et al., 1999; Kutulakos and Seitz, 2000; Seitz et al., 2006) is a technique for creating a three-dimensional reconstruction of an object from a series of two-dimensional images captured from cameras placed around the object at different viewing angles. However, little work has been done to date on evaluating the quality of space carving results. This paper extends the work reported in (Gutierrez et al., 2012), where application of persistent homology was initially proposed as a tool for providing a topological analysis of the carving process along the sequence of 3D reconstructions with increasing number of cameras. We give now a more extensive treatment by: (1) developing the formal framework by which persistent homology can be applied in this context; (2) computing persistent homology of the 3D reconstructions of 66 new frames, including different poses, resolutions and camera orders; (3) studying what information about stability, topological correctness and influence of the camera orders in the carving performance can be drawn from the computed barcodes.}
+      \field{issn}{1077-3142}
+      \field{journaltitle}{Computer Vision and Image Understanding}
+      \field{title}{Topological evaluation of volume reconstructions by voxel carving}
+      \field{volume}{121}
+      \field{year}{2014}
+      \field{pages}{27\bibrangedash 35}
+      \range{pages}{9}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.cviu.2013.11.005
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S1077314213002233
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S1077314213002233
+      \endverb
+      \keyw{Voxel carving,Volume reconstruction,Persistent homology,Barcodes,Evaluation}
+    \endentry
+    \entry{emily}{article}{}
+      \name{author}{6}{}{%
+        {{hash=39d8babd50bda4daadf960364657ba55}{%
+           family={Taylor},
+           familyi={T\bibinitperiod},
+           given={{Gavin J.}},
+           giveni={G\bibinitperiod}}}%
+        {{hash=f93615532117173ddc97f6c1ae254313}{%
+           family={Tichit},
+           familyi={T\bibinitperiod},
+           given={Pierre},
+           giveni={P\bibinitperiod}}}%
+        {{hash=cd92f4c8a2bcac2f0461e24e966efad4}{%
+           family={Schmidt},
+           familyi={S\bibinitperiod},
+           given={{Marie D.}},
+           giveni={M\bibinitperiod}}}%
+        {{hash=2c5054ad0c91d2a1c4a244995050e3f2}{%
+           family={Bodey},
+           familyi={B\bibinitperiod},
+           given={{Andrew J.}},
+           giveni={A\bibinitperiod}}}%
+        {{hash=7b1b4a02e481cddadb249c656663411b}{%
+           family={Rau},
+           familyi={R\bibinitperiod},
+           given={Christoph},
+           giveni={C\bibinitperiod}}}%
+        {{hash=e47de1c60f9b26313fe1f2ae81485f0c}{%
+           family={Baird},
+           familyi={B\bibinitperiod},
+           given={Emily},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {eLife Sciences Publications LTD.}%
+      }
+      \strng{namehash}{95bf4da5caf0ced93a8967818a47613a}
+      \strng{fullhash}{fd63c0973688f2d5b0d6f4ee2510b8bc}
+      \strng{bibnamehash}{fd63c0973688f2d5b0d6f4ee2510b8bc}
+      \strng{authorbibnamehash}{fd63c0973688f2d5b0d6f4ee2510b8bc}
+      \strng{authornamehash}{95bf4da5caf0ced93a8967818a47613a}
+      \strng{authorfullhash}{fd63c0973688f2d5b0d6f4ee2510b8bc}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The quality of visual information that is available to an animal is limited by the size of its eyes. Differences in eye size can be observed even between closely related individuals, yet we understand little about how this affects vision. Insects are good models for exploring the effects of size on visual systems because many insect species exhibit size polymorphism. Previous work has been limited by difficulties in determining the 3D structure of eyes. We have developed a novel method based on x-ray microtomography to measure the 3D structure of insect eyes and to calculate predictions of their visual capabilities. We used our method to investigate visual allometry in the bumblebee Bombus terrestris and found that size affects specific aspects of vision, including binocular overlap, optical sensitivity, and dorsofrontal visual resolution. This reveals that differential scaling between eye areas provides flexibility that improves the visual capabilities of larger bumblebees.}
+      \field{issn}{2050-084X}
+      \field{journaltitle}{eLife}
+      \field{title}{Bumblebee visual allometry results in locally improved resolution and globally improved sensitivity}
+      \field{volume}{8}
+      \field{year}{2019}
+      \verb{doi}
+      \verb 10.7554/eLife.40613
+      \endverb
+      \keyw{allometry,computational biology,computational geometry,eyes,MicroCT,neuroscience,optical model,systems biology,vision}
+    \endentry
+    \entry{Hjorth202000671}{article}{}
+      \name{author}{12}{}{%
+        {{hash=8204c2453b66ae726354883998c4c930}{%
+           family={Hjorth},
+           familyi={H\bibinitperiod},
+           given={J.\bibnamedelimi J.\bibnamedelimi Johannes},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=0df7f5e8d93fc53640017a6fdc28c9b1}{%
+           family={Kozlov},
+           familyi={K\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+        {{hash=b1d405794acd36ac1470dba4e79f90a9}{%
+           family={Carannante},
+           familyi={C\bibinitperiod},
+           given={Ilaria},
+           giveni={I\bibinitperiod}}}%
+        {{hash=b1724fd566958106135415a47f0a2ef8}{%
+           family={Frost\bibnamedelima Nylén},
+           familyi={F\bibinitperiod\bibinitdelim N\bibinitperiod},
+           given={Johanna},
+           giveni={J\bibinitperiod}}}%
+        {{hash=5c7dab48e4fe3dc5e8384e30e89be827}{%
+           family={Lindroos},
+           familyi={L\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+        {{hash=e4c1dee92de28510fc55c78028ae2729}{%
+           family={Johansson},
+           familyi={J\bibinitperiod},
+           given={Yvonne},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=e494854d7b146bdb0d11c64031c78cd0}{%
+           family={Tokarska},
+           familyi={T\bibinitperiod},
+           given={Anna},
+           giveni={A\bibinitperiod}}}%
+        {{hash=ce8abe6e62ed651f29a376b4e2a351d4}{%
+           family={Dorst},
+           familyi={D\bibinitperiod},
+           given={Matthijs\bibnamedelima C.},
+           giveni={M\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=67af4c960d01816fdfeeb82e17df6528}{%
+           family={Suryanarayana},
+           familyi={S\bibinitperiod},
+           given={Shreyas\bibnamedelima M.},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=f721283704eb5e737c8e043b79a5c894}{%
+           family={Silberberg},
+           familyi={S\bibinitperiod},
+           given={Gilad},
+           giveni={G\bibinitperiod}}}%
+        {{hash=5f6a544c8f70571ab8c4b9c655097a2f}{%
+           family={Hellgren\bibnamedelima Kotaleski},
+           familyi={H\bibinitperiod\bibinitdelim K\bibinitperiod},
+           given={Jeanette},
+           giveni={J\bibinitperiod}}}%
+        {{hash=ab5cc4aaa02cbbacc510589570214488}{%
+           family={Grillner},
+           familyi={G\bibinitperiod},
+           given={Sten},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {National Academy of Sciences}%
+      }
+      \strng{namehash}{76f15a063f89c274e5525e400947b4d2}
+      \strng{fullhash}{4aefc1efe2ad2438c6d1068f25a487b6}
+      \strng{bibnamehash}{4aefc1efe2ad2438c6d1068f25a487b6}
+      \strng{authorbibnamehash}{4aefc1efe2ad2438c6d1068f25a487b6}
+      \strng{authornamehash}{76f15a063f89c274e5525e400947b4d2}
+      \strng{authorfullhash}{4aefc1efe2ad2438c6d1068f25a487b6}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Our aim is to reconstruct a full-scale mouse striatal cellular level model to provide a framework to integrate and interpret striatal data. We represent the main striatal neuronal subtypes, the two types of projection neurons (dSPNs and iSPNs) giving rise to the direct and indirect pathways, the fast-spiking interneurons, the low threshold spiking interneurons, and the cholinergic interneurons as detailed compartmental models, with properties close to their biological counterparts. Both intrastriatal and afferent synaptic inputs (cortex, thalamus, dopamine system) are optimized against existing data, including short-term plasticity. This model platform will be used to generate new hypotheses on striatal function or network dynamic phenomena.The basal ganglia play an important role in decision making and selection of action primarily based on input from cortex, thalamus, and the dopamine system. Their main input structure, striatum, is central to this process. It consists of two types of projection neurons, together representing 95\% of the neurons, and 5\% of interneurons, among which are the cholinergic, fast-spiking, and low threshold-spiking subtypes. The membrane properties, soma{–}dendritic shape, and intrastriatal and extrastriatal synaptic interactions of these neurons are quite well described in the mouse, and therefore they can be simulated in sufficient detail to capture their intrinsic properties, as well as the connectivity. We focus on simulation at the striatal cellular/microcircuit level, in which the molecular/subcellular and systems levels meet. We present a nearly full-scale model of the mouse striatum using available data on synaptic connectivity, cellular morphology, and electrophysiological properties to create a microcircuit mimicking the real network. A striatal volume is populated with reconstructed neuronal morphologies with appropriate cell densities, and then we connect neurons together based on appositions between neurites as possible synapses and constrain them further with available connectivity data. Moreover, we simulate a subset of the striatum involving 10,000 neurons, with input from cortex, thalamus, and the dopamine system, as a proof of principle. Simulation at this biological scale should serve as an invaluable tool to understand the mode of operation of this complex structure. This platform will be updated with new data and expanded to simulate the entire striatum.}
+      \field{issn}{0027-8424}
+      \field{journaltitle}{Proceedings of the National Academy of Sciences}
+      \field{title}{The microcircuits of striatum in silico}
+      \field{year}{2020}
+      \verb{doi}
+      \verb 10.1073/pnas.2000671117
+      \endverb
+      \verb{urlraw}
+      \verb https://www.pnas.org/content/early/2020/04/21/2000671117
+      \endverb
+      \verb{url}
+      \verb https://www.pnas.org/content/early/2020/04/21/2000671117
+      \endverb
+    \endentry
+    \entry{erdos}{article}{}
+      \name{author}{2}{}{%
+        {{hash=129486f184038f7ffbd6479868ff6105}{%
+           family={Erdos},
+           familyi={E\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+        {{hash=79cb6e4dc79030455cf1fb9769079453}{%
+           family={Renyi},
+           familyi={R\bibinitperiod},
+           given={Alfred},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{b16888644b726b583cb8bc2fc2118807}
+      \strng{fullhash}{b16888644b726b583cb8bc2fc2118807}
+      \strng{bibnamehash}{b16888644b726b583cb8bc2fc2118807}
+      \strng{authorbibnamehash}{b16888644b726b583cb8bc2fc2118807}
+      \strng{authornamehash}{b16888644b726b583cb8bc2fc2118807}
+      \strng{authorfullhash}{b16888644b726b583cb8bc2fc2118807}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Publications of the Mathematical Institute of the Hungarian Academy of Sciences}
+      \field{title}{On the evolution of random graphs}
+      \field{volume}{5}
+      \field{year}{1960}
+      \field{pages}{17\bibrangedash 61}
+      \range{pages}{45}
+    \endentry
+    \entry{strogatz}{article}{}
+      \name{author}{2}{}{%
+        {{hash=5b4d12393c6ea7932bda21084c762349}{%
+           family={Watts},
+           familyi={W\bibinitperiod},
+           given={D.J.},
+           giveni={D\bibinitperiod}}}%
+        {{hash=fb4e7c12ee0f02b794873a51172b205f}{%
+           family={Strogatz},
+           familyi={S\bibinitperiod},
+           given={S.H.},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{77b73d4b0a046bc376129b9277be61d4}
+      \strng{fullhash}{77b73d4b0a046bc376129b9277be61d4}
+      \strng{bibnamehash}{77b73d4b0a046bc376129b9277be61d4}
+      \strng{authorbibnamehash}{77b73d4b0a046bc376129b9277be61d4}
+      \strng{authornamehash}{77b73d4b0a046bc376129b9277be61d4}
+      \strng{authorfullhash}{77b73d4b0a046bc376129b9277be61d4}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature}
+      \field{number}{393}
+      \field{title}{Collective dynamics of 'small-world' networks}
+      \field{year}{1998}
+      \field{pages}{440\bibrangedash 442}
+      \range{pages}{3}
+      \keyw{allocation law networks smallworld}
+    \endentry
+    \entry{barabasi}{article}{}
+      \name{author}{2}{}{%
+        {{hash=b2d66ab85a6a23f6f1d4fd558eb1fd06}{%
+           family={Barabasi},
+           familyi={B\bibinitperiod},
+           given={Albert-Laszlo},
+           giveni={A\bibinithyphendelim L\bibinitperiod}}}%
+        {{hash=ba374d9d56eedd7d3caede3da5a44e49}{%
+           family={Albert},
+           familyi={A\bibinitperiod},
+           given={Reka},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{56e7df7b3e718a8b586cd522b9c39667}
+      \strng{fullhash}{56e7df7b3e718a8b586cd522b9c39667}
+      \strng{bibnamehash}{56e7df7b3e718a8b586cd522b9c39667}
+      \strng{authorbibnamehash}{56e7df7b3e718a8b586cd522b9c39667}
+      \strng{authornamehash}{56e7df7b3e718a8b586cd522b9c39667}
+      \strng{authorfullhash}{56e7df7b3e718a8b586cd522b9c39667}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Science (New York, N.Y.)}
+      \field{title}{Emergence of Scaling in Random Networks}
+      \field{volume}{286}
+      \field{year}{1999}
+      \field{pages}{509\bibrangedash 12}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1126/science.286.5439.509
+      \endverb
+    \endentry
+    \entry{SPORNS2004418}{article}{}
+      \name{author}{4}{}{%
+        {{hash=45ad603551aca6e1246f0e73c18c6eed}{%
+           family={Sporns},
+           familyi={S\bibinitperiod},
+           given={Olaf},
+           giveni={O\bibinitperiod}}}%
+        {{hash=4d57a2f82ed17e633fb8cd9478041bbd}{%
+           family={Chialvo},
+           familyi={C\bibinitperiod},
+           given={Dante\bibnamedelima R.},
+           giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=e8ff33f2b3e89c156e5dc0efa6d6ff2a}{%
+           family={Kaiser},
+           familyi={K\bibinitperiod},
+           given={Marcus},
+           giveni={M\bibinitperiod}}}%
+        {{hash=15c5612e1d5b88c9f943b9e88c6c2519}{%
+           family={Hilgetag},
+           familyi={H\bibinitperiod},
+           given={Claus\bibnamedelima C.},
+           giveni={C\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{e5a8063887e37ecf91a1151d63780725}
+      \strng{fullhash}{df63701723152e4b6525293308a85ac0}
+      \strng{bibnamehash}{df63701723152e4b6525293308a85ac0}
+      \strng{authorbibnamehash}{df63701723152e4b6525293308a85ac0}
+      \strng{authornamehash}{e5a8063887e37ecf91a1151d63780725}
+      \strng{authorfullhash}{df63701723152e4b6525293308a85ac0}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Recent research has revealed general principles in the structural and functional organization of complex networks which are shared by various natural, social and technological systems. This review examines these principles as applied to the organization, development and function of complex brain networks. Specifically, we examine the structural properties of large-scale anatomical and functional brain networks and discuss how they might arise in the course of network growth and rewiring. Moreover, we examine the relationship between the structural substrate of neuroanatomy and more dynamic functional and effective connectivity patterns that underlie human cognition. We suggest that network analysis offers new fundamental insights into global and integrative aspects of brain function, including the origin of flexible and coherent cognitive states within the neural architecture.}
+      \field{issn}{1364-6613}
+      \field{journaltitle}{Trends in Cognitive Sciences}
+      \field{number}{9}
+      \field{title}{Organization, development and function of complex brain networks}
+      \field{volume}{8}
+      \field{year}{2004}
+      \field{pages}{418\bibrangedash 425}
+      \range{pages}{8}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.tics.2004.07.008
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S1364661304001901
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S1364661304001901
+      \endverb
+    \endentry
+    \entry{luetdigraph}{article}{}
+      \name{author}{4}{}{%
+        {{hash=71340154bd4cf3d81805d054061fa70a}{%
+           family={Luetgehetmann},
+           familyi={L\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=0a4f776c098573e75ca428453c17b9ee}{%
+           family={Govc},
+           familyi={G\bibinitperiod},
+           given={Dejan},
+           giveni={D\bibinitperiod}}}%
+        {{hash=dd794e3fc42625216f13506936f9efea}{%
+           family={Smith},
+           familyi={S\bibinitperiod},
+           given={Jason},
+           giveni={J\bibinitperiod}}}%
+        {{hash=15878d5a102b8911f3d3a29aa13648ae}{%
+           family={Levi},
+           familyi={L\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {MDPI}%
+      }
+      \strng{namehash}{834feb2f634a84561877a00b505c0a2c}
+      \strng{fullhash}{1b9c1ba5412e21417d43312dac6c703f}
+      \strng{bibnamehash}{1b9c1ba5412e21417d43312dac6c703f}
+      \strng{authorbibnamehash}{1b9c1ba5412e21417d43312dac6c703f}
+      \strng{authornamehash}{834feb2f634a84561877a00b505c0a2c}
+      \strng{authorfullhash}{1b9c1ba5412e21417d43312dac6c703f}
+      \field{sortinit}{6}
+      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We present a new computing package Flagser, designed to construct the directed flag complex of a finite directed graph, and compute persistent homology for flexibly defined filtrations on the graph and the resulting complex. The persistent homology computation part of Flagser is based on the program Ripser by U. Bauer, but is optimised specifically for large computations. The construction of the directed flag complex is done in a way that allows easy parallelisation by arbitrarily many cores. Flagser also has the option of working with undirected graphs. For homology computations Flagser has an approximate option, which shortens compute time with remarkable accuracy. We demonstrate the power of Flagser by applying it to the construction of the directed flag complex of digital reconstructions of brain microcircuitry by the Blue Brain Project and several other examples. In some instances we perform computation of homology. For a more complete performance analysis, we also apply Flagser to some other data collections. In all cases the hardware used in the computation, the use of memory and the compute time are recorded.}
+      \field{issn}{1999-4893}
+      \field{journaltitle}{Algorithms}
+      \field{number}{1}
+      \field{title}{Computing Persistent Homology of Directed Flag Complexes}
+      \field{volume}{13}
+      \field{year}{2020}
+      \verb{doi}
+      \verb 10.3390/a13010019
+      \endverb
+      \keyw{math.AT,q-bio.NC,55-04,Persistent homology,Neural networks,Directed graphs,Computational software,Topology,Directed flag complexes}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
 
-\bibitem{Cox+Others/1991/Ideals}
-David Cox, John Little, and Donald O'Shea.
-\newblock {\em Ideals, Varieties and Algorithms: An Introduction to
-  Computational Algebraic Geometry and Commutative Algebra}.
-\newblock Springer, 1991.
-
-\bibitem{delgadofriedrichs2014}
-Olaf {Delgado-Friedrichs}, Vanessa {Robins}, and Adrian {Sheppard}.
-\newblock Morse theory and persistent homology for topological analysis of 3d
-  images of complex materials.
-\newblock In {\em 2014 IEEE International Conference on Image Processing
-  (ICIP)}, pages 4872--4876, 2014.
-
-\bibitem{edels}
-Herbert Edelsbrunner and John~L. Harer.
-\newblock {\em Computational topology : an introduction}.
-\newblock American Mathematical Society, Providence, R.I, 2010.
-
-\bibitem{edelszom}
-Herbert Edelsbrunner, David Letscher, and Afra Zomorodian.
-\newblock Topological persistence and simplification.
-\newblock {\em Discrete Computational Geometry}, 28(4):511--533, 2002.
-
-\bibitem{erdos}
-Paul Erdos and Alfred Renyi.
-\newblock On the evolution of random graphs.
-\newblock {\em Publ. Math. Inst. Hungary. Acad. Sci.}, 5:17--61, 1960.
-
-\bibitem{ghirst}
-Robert Ghrist.
-\newblock Barcodes: The persistent topology of data.
-\newblock {\em BULLETIN (New Series) OF THE AMERICAN MATHEMATICAL SOCIETY}, 45,
-  February 2008.
-
-\bibitem{gutierrez2014}
-Antonio Gutierrez, Maria~Jose Jimenez, David Monaghan, and Noel~E. O’Connor.
-\newblock Topological evaluation of volume reconstructions by voxel carving.
-\newblock {\em Computer Vision and Image Understanding}, 121:27--35, 2014.
-
-\bibitem{gutierrez2012}
-Antonio Gutierrez, David Monaghan, Mar{\'i}a~Jos{\'e} Jim{\'e}nez, and Noel~E.
-  O'Connor.
-\newblock Persistent homology for 3d reconstruction evaluation.
-\newblock In Massimo Ferri, Patrizio Frosini, Claudia Landi, Andrea Cerri, and
-  Barbara Di~Fabio, editors, {\em Computational Topology in Image Context},
-  pages 139--147, Berlin, Heidelberg, 2012. Springer Berlin Heidelberg.
-
-\bibitem{hatcher2002}
-Allen Hatcher.
-\newblock {\em Algebraic topology}.
-\newblock Cambridge University Press, Cambridge New York, 2002.
-
-\bibitem{Hjorth202000671}
-J.~J.~Johannes Hjorth, Alexander Kozlov, Ilaria Carannante, Johanna
-  Frost~Nyl{\'e}n, Robert Lindroos, Yvonne Johansson, Anna Tokarska,
-  Matthijs~C. Dorst, Shreyas~M. Suryanarayana, Gilad Silberberg, Jeanette
-  Hellgren~Kotaleski, and Sten Grillner.
-\newblock The microcircuits of striatum in silico.
-\newblock {\em Proceedings of the National Academy of Sciences}, 2020.
-
-\bibitem{jacobson2009basic}
-Nathan Jacobson.
-\newblock {\em Basic algebra}.
-\newblock Dover Publications, Mineola, N.Y, 2009.
-
-\bibitem{kaczynski2004}
-{Tomasz} Kaczynski, {Konstantin} Mischaikow, and {Marian} Mrozek.
-\newblock {\em Computational homology}, volume 157.
-\newblock Springer, New York, 2004.
-
-\bibitem{plants}
-Mao Li, Keith Duncan, Christopher Topp, and Daniel Chitwood.
-\newblock Persistent homology and the branching topologies of plants.
-\newblock {\em American Journal of Botany}, 104, 03 2017.
-
-\bibitem{luetdigraph}
-Daniel Luetgehetmann, Dejan Govc, Jason Smith, and Ran Levi.
-\newblock Computing persistent homology of directed flag complexes.
-\newblock {\em Algorithms}, 13(1), January 2020.
-
-\bibitem{moon2019}
-Chul Moon, Scott~A. Mitchell, Jason~E. Heath, and Matthew Andrew.
-\newblock Statistical inference over persistent homology predicts fluid flow in
-  porous media.
-\newblock {\em Water Resources Research}, 55(11):9592--9603, 2019.
-
-\bibitem{reimann}
-Michael~W. Reimann, Max Nolte, Martina Scolamiero, Katharine Turner, Rodrigo
-  Perin, Giuseppe Chindemi, Paweł Dłotko, Ran Levi, Kathryn Hess, and Henry
-  Markram.
-\newblock Cliques of neurons bound into cavities provide a missing link between
-  structure and function.
-\newblock {\em Frontiers in Computational Neuroscience}, 11:48, 2017.
-
-\bibitem{skraba2021notes}
-Primoz Skraba and Katharine Turner.
-\newblock Notes on an elementary proof for the stability of persistence
-  diagrams, 2021.
-
-\bibitem{skraba2021wasserstein}
-Primoz Skraba and Katharine Turner.
-\newblock Wasserstein stability for persistence diagrams, 2021.
-
-\bibitem{skraba}
-Primoz Skraba and Mikael Vejdemo{-}Johansson.
-\newblock Persistence modules: Algebra and algorithms.
-\newblock {\em CoRR}, abs/1302.2015, 2013.
-
-\bibitem{SPORNS2004418}
-Olaf Sporns, Dante~R. Chialvo, Marcus Kaiser, and Claus~C. Hilgetag.
-\newblock Organization, development and function of complex brain networks.
-\newblock {\em Trends in Cognitive Sciences}, 8(9):418--425, 2004.
-
-\bibitem{emily}
-{Gavin J.} Taylor, Pierre Tichit, {Marie D.} Schmidt, {Andrew J.} Bodey,
-  Christoph Rau, and Emily Baird.
-\newblock Bumblebee visual allometry results in locally improved resolution and
-  globally improved sensitivity.
-\newblock {\em eLife}, 8, February 2019.
-
-\bibitem{vejdemo}
-Mikael Vejdemo-Johansson.
-\newblock Sketches of a platypus: persistent homology and its algebraic
-  foundations.
-\newblock In {\em ALGEBRAIC TOPOLOGY: APPLICATIONS AND NEW DIRECTIONS}, page
-  295–320, 2014.
-\newblock QC 20151005.
-
-\bibitem{strogatz}
-D.J. Watts and S.H. Strogatz.
-\newblock Collective dynamics of 'small-world' networks.
-\newblock {\em Nature}, (393):440--442, 1998.
-
-\bibitem{weibel1994}
-Charles Weibel.
-\newblock {\em An introduction to homological algebra}.
-\newblock Cambridge University Press, Cambridge England New York, 1994.
-
-\bibitem{Zomorodian2005}
-Afra Zomorodian and Gunnar Carlsson.
-\newblock Computing persistent homology.
-\newblock {\em Discrete {\&} Computational Geometry}, 33(2):249--274, February
-  2005.
-
-\end{thebibliography}

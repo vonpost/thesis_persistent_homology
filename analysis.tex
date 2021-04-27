@@ -1,9 +1,21 @@
 \chapter{Two Applications of Persistent Homology}
-Since our purpose with thesis is not only to give an introduction to persistent homology in terms of theory, but also display how it can be used with actual real-world data, we have investigated two different situations where the theory we have expanded upon so far serve as our main tool for data analysis.
+
+Since our purpose with thesis is not only to give an introduction to persistent homology in terms of theory, but also display how it can be used with actual real-world data, we illustrate this pipeline two different case studies where persistent homology serve as our main tool for data analysis.
 
 In the first case we quantify differences in morphology between different-sized individuals of the bumblebee \textit{Bombus terrestris} by computing the persistent homology of 3D volumes of their corneas. To our knowledge this is the first use of persistent homology in data pertaining to insects, although materials \cite{moon2019, delgadofriedrichs2014}, reconstructions of 3D volumes \cite{gutierrez2012, gutierrez2014} and plants \cite{plants} have been investigated with approaches that are similar in spirit.
 
 In the second case we try to understand the network structure of the striatum, a part of the basal ganglia in the brain. Due to the sheer computational power needed to compute persistent homology for this data our analysis is more of a holistic summary of the resulting simplicial structure rather than focusing solely on persistent homology. Our approach is largely inspired by \cite{reimann}, in which a similar analysis is done but for a different part of the brain.
+
+The application of persistent homology to a data-set is not entirely trivial. In order to compute persistent homology we need to construct a persistence complex on the data at hand. This can be done in a multitude of ways, but the basic pipeline can be seen in Figure \ref{pipeline}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.8]{pipeline.pdf}
+  \caption{\label{pipeline} The pipeline of computing persistent homology of data.}
+\end{figure}
+
+A central part of this pipeline is the formulation of a filtration function which yields a sequence of complex and hence a persistence complex. The filtration provides the translation of data into an algebraic object we can compute persistent homology of. This means that when we analyze results from persistent homology, perhaps by comparing metrics between two barcodes or reading directly of a persistence diagram, the semantic meaning of those results is intimately connected to how the filtration creates the resulting complex. Dually, this means that in order to formulate the filtration we need to have a strong understanding of the data itself so that our filtration captures essential properties of the data. The complex constructed on the data-set is an approximation of it topologically, but since it is not the ``true'' space in which the data lives care has to be taken so that any conclusions made from the barcode are meaningful.
+
 
 \section{Corneas of Bombus terrestris}
 It has been found that the size of individuals of the species \textit{Bombus terrestris} affects aspects of their visual capabilities \cite{emily}. By applying persistent homology we can investigate whether this difference in size also translates to a difference in persistent homology, and so by proxy a difference in topology. If so, this could serve to strengthen the hypothesis that larger individuals have superior, or at the very least different, visual capabilities than smaller individuals. Persistent homology is a good candidate for this purpose as metrics on persistence diagrams are indifferent to differences in scale but rather measures differences in shape.
@@ -115,13 +127,13 @@ The resulting topological summaries we get are persistence diagrams. While these
 
 Our hypothesis is that there is some relationship between the distances given by the absolute difference in ITW and their persistent homologies. But since different homology dimensions and metrics provide different summaries of the objects we first need to figure out which one of them is most suited for our applications.
 
-We determine which metric we will rely on by doing a so called \textbf{Mantel test}. A Mantel test is a non-parametric test of distance matrices, in which we compute the Spearman rank correlation of the two matrices under the null hypothesis that the matrices are uncorrelated. We can then derive a test statistic by permuting the one of the matrices in both rows and columns and computing their respective correlations.  The results of a Mantel test is a correlation coefficient indicating the strength of the correlation and $p$-value indicating how likely it is  that this coefficient would appear in a random permutation of one of the matrices.
+We determine which metric we will rely on by doing a so called \textbf{Mantel test}. A Mantel test is a non-parametric test of distance matrices, in which we compute the Spearman rank correlation of the two matrices under the null hypothesis that the matrices are uncorrelated. We can then derive a test statistic by permuting one of the matrices in both rows and columns and computing correlations for each such permutation.  The results of a Mantel test is a correlation coefficient indicating the strength of the correlation and $p$-value indicating how likely it is  that this coefficient would appear in a random permutation of one of the matrices.
 
 We then perform clustering of the persistent homology distance matrix based on \textbf{hierarchical clustering}. It is a simple algorithm where we first consider each sample as its own cluster, and then group together clusters depending on the distance between them. The distance between two clusters is given as the minimum distance between any two samples between the two clusters. Our hope then is that the final clustering reflects the ITW of the \textit{Bombus terrestris} samples.
 
 
 \subsection{Results}
-The Mantel tests in Table \ref{mantelc} reveal that the highest correlation is given by the bottleneck distance on $H_{2}$. Perhaps this is not too surprising, our objects are volumes and the most distinguishing aspects of volumes will be how they encode voids. Interestingly, the $H_{1}$ bottleneck distance matrix shows a very high $p$-value indicating that the largest distance between holes are not very telling in drawing a conclusion about correlation between size and persistent homology. This could be explained again by the fact that our object is a volume of a single connected component namely a cornea, and so any existence of holes will at best be local geometric information and at worst simply noise.
+The Mantel tests in Table \ref{mantelc} reveal that the highest correlation is given by the bottleneck distance on $H_{2}$. Perhaps this is not too surprising, our objects are volumes and the most distinguishing aspects of volumes will be how they encode voids. Interestingly, the $H_{1}$ bottleneck distance matrix shows a very high $p$-value indicating that the largest distance between holes is not very telling in drawing a conclusion about correlation between size and persistent homology. This could be explained again by the fact that our object is a volume of a single connected component namely a cornea, and so any existence of holes will at best be local geometric information and at worst simply noise.
 
 \begin{table}[h]
 \begin{center}
@@ -215,22 +227,23 @@ The \textbf{Watts-Strogatz (WS)} model is parameterized by the number of vertice
   \[
     \frac{\deg(v_{j})}{\sum_{k} \deg(v_{k})}
   \]
+  Hence, at each addition of a vertex an older vertex with a high degree has a higher chance of having its degree increased.
 \end{definition}
-ER can be considered the baseline null model, since it is an arbitrary random graph among all possible graphs. WS is said to have \textbf{small-world properties}, which means that there are clusters of highly connected nodes and that the average path between two vertices is short. BA is said to be \textbf{scale-free} which means that most vertices have a low degree, but some ``hubs'' have a high degree. Both scale-free and small-world properties have been observed in brain networks \cite{SPORNS2004418}. Figure \ref{graphexamples} gives an example of each model generated with $100$ vertices.
+ER can be considered the baseline model, since it is an arbitrary random graph among all possible graphs. WS is said to have \textbf{small-world properties}, which means that there are clusters of highly connected nodes and that the average path between two vertices is short. BA is said to be \textbf{scale-free} which means that most vertices have a low degree, but some ``hubs'' have a high degree. Both scale-free and small-world properties have been observed in brain networks \cite{SPORNS2004418}. Figure \ref{graphexamples} gives an example of each model generated with $100$ vertices.
 
 In this analysis we compare we will compare the three models above with the synthetic network generated from the striatum, which we will refer to as ST. In Table \ref{graphmodels} we can see our choice parameters for the models and the resulting number of edges and vertices. For ER and WS our parameter choices were made to match the number of edges in ST. However, for the BA model we instead choose parameters in order to match the number of dimensions in the simplicial complex on ST as seen in Figure \ref{count50k}.
 \begin{figure}[ht]
   \centering
-  \begin{subfigure}{.3 \linewidth}
+  \begin{subfigure}{.33 \linewidth}
     \includegraphics[scale=0.2]{random_graphs/erdos100v500e.pdf}
     \caption{Erdos-Rényi}
   \end{subfigure}%
-  \begin{subfigure}{.3 \linewidth}
+  \begin{subfigure}{.33 \linewidth}
 
     \includegraphics[scale=0.2]{random_graphs/strogatz100v5m05prob.pdf}
     \caption{Watts-Strogatz}
   \end{subfigure}%
-  \begin{subfigure}{.3 \linewidth}
+  \begin{subfigure}{.33 \linewidth}
 
     \includegraphics[scale=0.2]{random_graphs/barabasi100em5.pdf}
     \caption{Barabási-Albert}

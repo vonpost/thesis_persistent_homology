@@ -4,11 +4,11 @@ In the world of data we rarely have a topological description of the space our d
 \begin{figure}[ht]
   \centering
   \begin{subfigure}[t]{.5\linewidth}
-    \includegraphics[scale=.5]{annulus.pdf}
+    \includegraphics[scale=.45]{annulus.pdf}
     \caption{\label{annulus:points}}
  \end{subfigure}%
   \begin{subfigure}[t]{.5\linewidth}
-    \includegraphics[scale=.5]{annulus_rips.pdf}
+    \includegraphics[scale=.45]{annulus_rips.pdf}
     \caption{\label{annulus:imposed}}
  \end{subfigure}
   \caption{\label{annulus} Imposing a simplicial complex \textbf{(b)} on data sampled from an annulus \textbf{(a)}.}
@@ -83,7 +83,7 @@ For $i<j$ the inclusion $\iota: R_{\epsilon_i} \to R_{\epsilon_{j}}$ induces a m
   Given $\epsilon > 0$ there is a chain of inclusions
   \[R_{\epsilon} \hookrightarrow C_{\epsilon \sqrt{2}} \hookrightarrow R_{\epsilon \sqrt{2}}\]
 \end{lemma}
-Hence, any cycle that persists through the induced map $H_{k}(R_{\epsilon}) \to H_{k}(R_{\epsilon'})$ for $\epsilon'  \geq \sqrt{2} \epsilon$ is also present in the Čech complex $\text{Č}_{\epsilon}'$.
+Hence, any cycle that persists through the induced map $H_{k}(R_{\epsilon}) \to H_{k}(R_{\epsilon'})$ for $\epsilon'  \geq \sqrt{2} \epsilon$ is also present in the Čech complex $\text{Č}_{\epsilon'}$.
 
 The insight that the homological features that persist tell us more than the individual homology groups themselves are central to the idea of persistent homology. Before we give the formal definition of persistent homology we must first generalize the concept of endowing a space with a complex.
 
@@ -148,10 +148,10 @@ Let $\iota^{i,p}_k: H^{i}_{k} \to H^{p}_{k}$ be the module homomorphism that tak
 \end{proof}
 
 \begin{definition}[\cite{Zomorodian2005}]
-We say a persistence module $(M^{k}, \phi^{k})$ is of \textbf{finite type} if each component $M^{k}_{n}$ is a finitely generated $R$-module and the maps $\phi^{k}$ are isomorphisms for $k \geq N$ for some integer $N$.
+We say a persistence module $(M^{k}, \phi^{k})$ is of \textbf{finite type} if each component $M^{k}$ is a finitely generated $R$-module and the maps $\phi^{k}$ are isomorphisms for $k > N$ for some integer $N$.
 \end{definition}
 
-When we start with a finite simplicial complex $K$ we get that $C_{*}(K)$ is consists of finitely generated $R$-modules, since the number of simplices in each dimension is finite, and so the resulting persistence complex and persistence modules are of finite type.
+When we start with a finite simplicial complex $K$ we get that $C_{*}(K)$ consists of finitely generated $R$-modules since the number of simplices in each dimension is finite, hence the resulting persistence complex and persistence modules are of finite type.
 
 The most important theoretic result is just around the corner, but before that we need to recall some definitions regarding graded rings and modules.
 
@@ -167,12 +167,12 @@ A non-zero element $r$ in a graded ring $R$ is said to be homogeneous of degree 
 
 In other words, the homogeneous elements of a graded ring are those elements that are contained to a single component. Adding elements from different components give us elements that are not homogeneous.
 \begin{definition}
-  Let $R = \bigoplus_{{i}} R_{i}$ be a graded ring and $M$ a left $R-module$. We say that $M$ is a \textbf{graded $R$-module} if
+  Let $R = \bigoplus_{{i}} R_{i}$ be a graded ring and $M$ an $R$-module. We say that $M$ is a \textbf{graded $R$-module} if $M$ decomposes as
   \[M = \bigoplus_{i} M_{i} \]
   where $M_{i}$ are submodules of $M$, such that $R_{i}M_{j} \subseteq M_{i+j}$.
 \end{definition}
 
-Most of the ordinary algebraic constructions on modules hold for graded modules as well. The only additional requirement is that they preserve homogeneous elements in the obvious way. For example, a morphism of graded modules is a morphism of modules such that it preserves degree. In other words, a morphism takes an element in a graded module of degree $n$ to an element in another graded module of degree $n$. Similarly, a graded submodule of a module is simply a graded module such that each component is a submodule of the corresponding module.
+Most of the ordinary algebraic constructions on modules hold for graded modules as well. The only additional requirement is that they preserve homogeneous elements in the obvious way. For example, a morphism of graded modules is a morphism of modules such that it preserves degree. In other words, a morphism takes an element in a graded module of degree $n$ to an element in another graded module of degree $n$. Similarly, a graded submodule of a module is simply a graded module such that each component is a submodule of the corresponding component in the parent module.
 
 We can now see that if we have a persistence module $M$ over some ring $R$ and we give $R$ a graded structure by considering $R[t]$ then a graded module structure on $M$ is given by
 \[ \alpha(M) = \bigoplus^{\infty}_{k=0} M^{k}\]
@@ -182,7 +182,7 @@ and so we get that $R[t]_{p}M^{k} = Rt^{p}M^{k} \subseteq M^{k+p}$ which satisfi
 
 The map $\alpha$ is actually a functor between the category of persistence modules and graded modules \cite{ghirst} which becomes an isomorphism of categories when considering persistence modules of finite type over a field. Hence, for ease of notation we will simply consider a persistence module to be a graded module when the aforementioned conditions are fulfilled. This gives us a lot for free: we do not have to be afraid of taking quotients or direct sums of persistence modules as we know what objects they correspond to in the category of graded modules. For example, we write $H$ for the direct sum of the persistence modules $H_{k}$ and similarly we write $C$ for the persistence complex given by the sum of the persistence modules $C_{k}$.
 
-We now arrive at the result which fully characterizes the algebraic structure of persistent homology. This result sadly comes with the restriction that makes $\alpha$ an isomorphism of categories, namely that it only characterizes persistence modules of finite type over a field. The more general problem is under the functor $\alpha$ equivalent to characterizing graded $\mathcal{R}[t]$ modules over an arbitrary ring $\mathcal{R}$, which is known to be a hard problem \cite{ghirst}.
+We now arrive at the result which fully characterizes the algebraic structure of persistent homology. This result sadly comes with the restriction that makes $\alpha$ an isomorphism of categories, namely that it only characterizes persistence modules of finite type over a field. The more general problem is under the functor $\alpha$ equivalent to characterizing graded $R[t]$ modules over an arbitrary ring $R$, which is known to be a hard problem \cite{ghirst}.
 \begin{theorem}[{\cite{Zomorodian2005}}] \label{structurethm1}
   For a persistence module $M$ of \textit{finite type} over a field $\mathbb{F}$,
   \[M \cong \bigoplus_{i} t^{p_{i}} \cdot \mathbb{F}[t] \oplus (\bigoplus_{j} (t^{r_{j}} \cdot \mathbb{F}[t]) / (t^{s_{j}}) \]
@@ -242,8 +242,8 @@ A matrix with coefficients in $\mathbb{F}[t]$ is in \textbf{graded Smith normal}
 \end{definition}
 
 We will now describe an algorithm for computing the graded Smith normal form. Since the resulting matrix will consist of linearly independent columns and rows they define a basis for the column and row space.
-
-\begin{algorithm}
+\clearpage
+\begin{algorithm}[h]
 \caption{Reduction to graded Smith normal form \cite{skraba, Zomorodian2005}}\label{smith}
 \begin{algorithmic}[1]
   \State \textbf{Input:} Matrix $ \in \mathbb{F}[t]^{n \times m}$ with homogeneous entries with columns and rows sorted in order of ascending degree.
@@ -254,8 +254,9 @@ We will now describe an algorithm for computing the graded Smith normal form. Si
   \EndFor
 \end{algorithmic}
 \end{algorithm}
+
 \begin{proof}(\textbf{Correctness of Algorithm 1.})
-  To show the correctness of the algorithm it suffices to show that we can eliminate entries and that such elimination does not change the degrees of the homogeneous basis elements given by the rows and columns.
+  To show the correctness of the algorithm it suffices to show that we can eliminate entries and that such elimination does not change the degrees of the homogeneous basis elements given by the rows and columns. Since columns and rows are finite, we will eventually terminate.
 
   Suppose we wish to eliminate some entry in row $j$ with an element in row $i$. This implies that $ i > j$ by the algorithm itself. Let the entries be denoted $a_{i}= c \cdot t^{r_{i}}$ and $b_{j} = d \cdot t^{s_{j}}$ respectively. Since the columns and rows are chosen to be homogeneous, we know that they can be written this way. The matrix is sorted in ascending degree order in both rows and columns, which implies that $\deg(a_{i}) \leq \deg(b_{j})$, hence we can always eliminate $b_{j}$ by adding $t^{s_{j}-r_{i}} \frac{-d}{c} \cdot a_{i}$. Furthermore, if $\gamma_{i},\gamma_{j}$ are the basis elements of rows $i,j$ then we know from linear algebra that the addition causes a change of basis $\gamma'_{i}:=\gamma_{i}-t^{s_{j}-r_{i}} \frac{-d}{c} \cdot \gamma_{j}$. We get that $\deg(\gamma'_{i})=\max\{\deg(\gamma_{i}), (s_{j}-r_{i}+\deg(\gamma_{j})\}$, but since $a_{i},b_{j}$ are entries of the same homogeneous column this implies that $r_{i} + \deg(\gamma_{i}) = s_{j} + \deg(\gamma_{j})$, hence $\deg(\gamma'_{i}) = \deg(\gamma_{i})$. An identical argument holds for if we wish to eliminate by column additions, with the exception that it is $\gamma_{j}$ that changes basis.
 \end{proof}
@@ -269,14 +270,34 @@ We are now ready to prove \textbf{Theorem \ref{structurethm1}}.
 
   What remains to show is that the decomposition is unique no matter our choice of basis for $G$ and $K$. This actually follows from a much more general result, the Krull-Schmidt Theorem \cite[p. ~115]{jacobson2009basic}, but we will give an elementary proof. Suppose that we have two different decompositions of $M$ that we denote $C,D$. We claim that they are identical up to permutation of components and modulo trivial components. We have homomorphisms
   \[
-    f_{ij} := C_{i} \hookrightarrow C \cong M  \cong D  \twoheadrightarrow D_{j},
+    f_{ij} := C_{i} \overset{\iota_{C_{i}}}{\hookrightarrow} \overset{\phi}{C \cong M  \cong D}  \overset{\pi_{D_{j}}}{\twoheadrightarrow} D_{j},
+  \]
+\[
+  g_{ij} := D_{j} \overset{\iota_{D_{j}}}{\hookrightarrow} \overset{\phi^{-1}}{D \cong M  \cong C}  \overset{\pi_{C_{i}}}{\twoheadrightarrow} C_{i},
+  \]
+  % \[
+  %   g_{ij} :=  D_{j} \hookrightarrow D \cong M  \cong C  \twoheadrightarrow C_{i}
+  % \]
+  where the maps are the obvious inclusions and projections from and onto components and the isomorphism through the decomposition of $M$. Then for at least one pair $i,j$ the homomorphism $f_{ij}$ cannot be the zero map since $\bigoplus_{i,j} g_{ij} \circ f_{ij}: C \to C$ is an automorphism of $C$. Assume that $i=1,j=1$, if this is not the case we can just permute the summands.  Then $f_{11}$ (by symmetry all arguments below hold for $g_{ij}$ as well) is an isomorphism $C_{1} \cong D_{1}$ since the graded isomorphism $\bigoplus_{i,j} f_{ij}$ takes a homogeneous element $t^{a} \to c \cdot t^{a}$ for some $c \in \mathbb{F}$.
+
+  Looking at \[f_{2_{+}}:= \bigoplus_{i=2,j=2} f_{ij}: \oplus_{i=2}C_{i} \to \oplus_{j=2} D_{j}\] we can deduce that it is also an isomorphism.
+
+  For injectivity, note that if $\hat c = (c_{2},c_{3},\dots) \in \ker f_{2+}$ then $\phi$ has to map $\oplus_{i=2} \iota_{C_{i}} \hat c=(0,c_{2},c_{3},\dots)$ to $(d_{1},0,0,\dots)$ for some $d_{1} \in D_{1}$ since the final map is just the projections $\oplus_{j=2}\pi_{D_{j}}$. By post-composing $\iota_{C_{1}} \phi^{-1}$ we get
+
+  \[\iota_{D_{1}}(d_{1})= \phi \oplus_{i=2}\iota_{C_{i}}(\hat c) \iff
   \]
   \[
-    g_{ij} :=  D_{j} \hookrightarrow D \cong M  \cong C  \twoheadrightarrow C_{i}
-  \]
-  where the maps are the obvious inclusions and projections from and onto components. Then for at least one pair $i,j$ the homomorphism $f_{ij}$ cannot be the zero map since $\bigoplus_{i,j} g_{ij} \circ f_{ij}: C \to C$ is an automorphism of $C$. Assume that $i=1,j=1$, if this is not the case we can just permute the summands.  Then $f_{11}$ is an isomorphism $C_{1} \cong D_{1}$ since the graded isomorphism $\bigoplus_{i,j} f_{ij}$ takes a homogeneous element $t^{a} \to c \cdot t^{a}$ for some $c \in \mathbb{F}$.
+    \pi_{C_{1}} \phi^{-1} \iota_{D_{1}}(d_{1})=  \pi_{C_{1}} \phi^{-1} \phi \oplus_{i=2}\iota_{C_{i}}(\hat c) \iff
+      g_{11}(d_{1}) = 0
+    \]
+    which gives us that $\hat c = 0$. Hence, $f_{2_{+}}$ is injective.
 
-  By now looking at $\bigoplus_{i=2,j=2} g_{ij} \circ f_{ij}: C \to C$ and iterating the argument above we will find isomorphisms $f_{ij}$ for all non-trivial summands. Since the decomposition is a direct sum, there are a finite number of non-trivial modules and so we will eventually have exhausted all of them. By symmetry, the exact same reasoning holds for finding isomorphisms $g_{ij}$. The rest of the summands not covered by these isomorphisms must then consist of trivial modules and so we have proven the claim.
+    For surjectivity take any element $\hat d := (d_{2},d_{3},\dots)$ in $\oplus_{j=2}D_{j}$. Since $\phi$ is an isomorphism there exists some $d_{1} \in D_{1}$ such that
+
+    \[\hat c := (0,c_{2},c_{3},\dots) = \phi^{-1}(d_{1},d_{2},d_{3},\dots)\] for some $\hat c \in C$ and so we get
+    \[\oplus_{j=2} \pi_{D_{j}} \phi \oplus_{i=2}\iota_{C_{i}} (c_{2},c_{3},\dots) = f_{2+}(c_{2},c_{3},\dots)= \hat d.
+      \]
+  So we get that $f_{2_{+}}$ is an isomorphism and by symmetry $g_{2+}$ is also an isomorphism. Hence, $g_{2+} f_{2_{+}}$ is an automorphism and we can repeat the same argument to find new indices $i,j$ such that $f_{ij}$ and $g_{ij}$ are isomorphisms. Since the decomposition is a direct sum, there are a finite number of non-trivial modules and so we will eventually have exhausted all of them. The rest of the summands not covered by these isomorphisms must then consist of trivial modules and so we have proven the uniqueness of the decomposition up to permutation and trivial modules.
 
 \end{proof}
 Now for explicitly computing persistent homology we have the presentation
@@ -287,8 +308,8 @@ Now for explicitly computing persistent homology we have the presentation
 and so we could theoretically apply the proof above and get a decomposition of $H$, but this comes with one caveat: to give a presentation matrix of $H$ requires us to first have a basis of $Z$, which we typically do not have. Instead we have the boundary map $\partial: C \to C$ which has as its image $B$ and $Z$ as its kernel. Hence, we must first compute the Smith graded normal form of the map $\partial$ which gives us a compatible basis in both $B$ and $Z$. Then we compute the Smith normal form of the inclusion map $B \to Z$ from which we can derive the barcode $\mathbf{B}_{H}$.
 
 \begin{example}\label{bddreduce}
-Consider the filtration given in Figure \ref{filtrationstack}. For simplicity we work in $\mathbb{F}=\mathbb{Z}_{2}$. The persistence complex has basis given by the simplices $v_{0},v_{1},v_{2},v_{12},v_{20},v_{01},v_{03},v_{120}$. We get boundaries the following boundaries by evaluating the boundary map on the basis elements, \[v_{2}+v_{1},t(v_{1})+t^{2}(v_{0}),t(v_{2})+t^{2}(v_{0}),v_{3}+t^{2}v_{0}, t^{2}(v_{12})+t(v_{10})+t(v_{20}).\]
-hence we have the following matrix representing the map $\partial$:
+Consider the filtration given in Figure \ref{filtrationstack}. For simplicity we work in $\mathbb{F}=\mathbb{Z}_{2}$. The persistence complex has basis given by the simplices $v_{0},v_{1},v_{2},v_{12},v_{20},v_{01},v_{03},v_{120}$. We get the following boundaries by evaluating the boundary map $\partial$ on the simplices which generate the chain complex \[v_{2}+v_{1},t(v_{1})+t^{2}(v_{0}),t(v_{2})+t^{2}(v_{0}),v_{3}+t^{2}v_{0}, t^{2}(v_{12})+t(v_{10})+t(v_{20}).\]
+Hence we have the following matrix representing the map $\partial$:
 \[
   \bordermatrix{
     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{20} & v_{01} & v_{03} & v_{120}\cr
@@ -452,7 +473,7 @@ Algorithm 1 for a simplicial complex has, just like ordinary Gaussian eliminatio
 The persistent homology of a space is not a very easy algebraic object to work with in practical terms. Even when considered under the bijection with intervals it is a multiset of intervals and as such helpful visualizations allow us to analyze and compare persistent homology. There are two principal ways of visualizing the decomposition of a persistence module: barcode diagrams and persistence diagrams.
 
 \subsection{Barcodes}
-A barcode diagram is a visual depiction of $B_{H}$ where each bar depicts the birth and death of a particular generator in one of the homology modules. The diagram gets its name from the way the intervals occur one after another which resembles a barcode.
+A \textbf{barcode diagram} is a visual depiction of $\textbf{B}_{H}$ where each bar depicts the start end and end of an interval, or equivalently the birth and death of a particular generator in one of the homology modules.
 
 In Figure \ref{annulus_barcode} we see a barcode diagram generated from points sampled from an annulus. Note that for small values of $\epsilon$ there are many generators of $H_{0}$, this is because the vertices have not been connected into a single component yet.
 
@@ -522,7 +543,7 @@ One disadvantage of the bottleneck distance is that it is quite coarse, it does 
   A desired quality of these metrics are stability, ideally we want the metrics to actually reflect difference in the underlying spaces. There are stability theorems that under varying conditions fulfill a meta-theorem which guarantee this.
 
   \begin{definition}
-    A filtration function $X \to \mathbb{R}$ is a function from a simplicial or cubical complex $X$ such that the sublevel set $\{ f^{-1}(a,\infty) \mid a \in \mathbb{R} \}$ is a filtration.
+    A filtration function $X \to \mathbb{R}$ is a function from a simplicial or cubical complex $X$ such that the sublevel set $\{ f^{-1}(-\infty,a) \mid a \in \mathbb{R} \}$ is a filtration.
   \end{definition}
 
   \begin{theorem}[Stability meta-theorem \cite{vejdemo}]\label{stab}
