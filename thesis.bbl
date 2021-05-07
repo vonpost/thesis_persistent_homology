@@ -413,6 +413,34 @@
       \field{title}{Computational topology: an introduction}
       \field{year}{2010}
     \endentry
+    \entry{munkres}{book}{}
+      \name{author}{1}{}{%
+        {{hash=681c503f86c5b4758bc41fce37310d03}{%
+           family={Munkres},
+           familyi={M\bibinitperiod},
+           given={James\bibnamedelima R.},
+           giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Addison-Wesley}%
+      }
+      \strng{namehash}{681c503f86c5b4758bc41fce37310d03}
+      \strng{fullhash}{681c503f86c5b4758bc41fce37310d03}
+      \strng{bibnamehash}{681c503f86c5b4758bc41fce37310d03}
+      \strng{authorbibnamehash}{681c503f86c5b4758bc41fce37310d03}
+      \strng{authornamehash}{681c503f86c5b4758bc41fce37310d03}
+      \strng{authorfullhash}{681c503f86c5b4758bc41fce37310d03}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-201-04586-4}
+      \field{title}{Elements of algebraic topology.}
+      \field{year}{1984}
+      \field{pages}{I\bibrangedash IX\bibrangessep 1\bibrangedash 454}
+      \range{pages}{463}
+      \keyw{dblp}
+    \endentry
     \entry{weibel1994}{book}{}
       \name{author}{1}{}{%
         {{hash=c20a91f51653cb322a20f30af22a08a3}{%
@@ -681,8 +709,8 @@
       \strng{authorbibnamehash}{999012ec84a343d43df79e02a25af8df}
       \strng{authornamehash}{999012ec84a343d43df79e02a25af8df}
       \strng{authorfullhash}{999012ec84a343d43df79e02a25af8df}
-      \field{sortinit}{4}
-      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{booktitle}{IEEE International Conference on Image Processing (ICIP)}
@@ -1051,8 +1079,8 @@
       \strng{authorbibnamehash}{56e7df7b3e718a8b586cd522b9c39667}
       \strng{authornamehash}{56e7df7b3e718a8b586cd522b9c39667}
       \strng{authorfullhash}{56e7df7b3e718a8b586cd522b9c39667}
-      \field{sortinit}{5}
-      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{sortinit}{6}
+      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Science (New York, N.Y.)}
@@ -1094,8 +1122,8 @@
       \strng{authorbibnamehash}{df63701723152e4b6525293308a85ac0}
       \strng{authornamehash}{e5a8063887e37ecf91a1151d63780725}
       \strng{authorfullhash}{df63701723152e4b6525293308a85ac0}
-      \field{sortinit}{5}
-      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{sortinit}{6}
+      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Recent research has revealed general principles in the structural and functional organization of complex networks which are shared by various natural, social and technological systems. This review examines these principles as applied to the organization, development and function of complex brain networks. Specifically, we examine the structural properties of large-scale anatomical and functional brain networks and discuss how they might arise in the course of network growth and rewiring. Moreover, we examine the relationship between the structural substrate of neuroanatomy and more dynamic functional and effective connectivity patterns that underlie human cognition. We suggest that network analysis offers new fundamental insights into global and integrative aspects of brain function, including the origin of flexible and coherent cognitive states within the neural architecture.}

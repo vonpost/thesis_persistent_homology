@@ -1,7 +1,7 @@
 \chapter{Homology}
-Before go into what \textit{persistent} homology is, it is well worth our time to clearly state what we mean by homology. Broadly speaking, homology is an invariant of topological spaces which is concerned with cycles in the space which are not boundaries. Or more abstractly, homology captures the notion $n$-dimensional holes in the space.
+Before going into what \textit{persistent} homology is, it is well worth our time clearly stating what we mean by homology. Broadly speaking, homology is an invariant of topological spaces which is concerned with cycles in the space which are not boundaries. Or more abstractly, homology captures the notion of ``$n$-dimensional holes'' in the space.
 
-In \textit{persistent} homology we generally work without predefined topological spaces and start with a basic data-set which at most contains some metric structure which we endow with some form of complex. The main complex we will be working with is the simplicial complex, since computationally we can approximate a such a complex on a set of data-points. We will also review homology of cubical complexes as this relates to one of the case studies. Therefore the classical definitions involving concepts such as singular homology are not something we will dwell on, but rather we refer the reader to Hatcher's excellent exposition in \cite{hatcher2002}.
+In \textit{persistent} homology we generally work without predefined topological spaces and start with a basic data-set which at most contains some metric structure which we endow with some form of complex. The main complex we will be working on is the simplicial complex, since computationally we can approximate such a complex on a set of data-points. We will also review homology of cubical complexes as this relates to one of the case studies in Chapter 4. Therefore the classical definitions involving concepts such as singular homology are not something we will dwell on, but rather we refer the reader to Hatcher's excellent exposition in \cite{hatcher2002}.
 
 
 \section{Simplices}
@@ -21,19 +21,19 @@ As seen in Figure \ref{simplices} the $0,1,2$ and $3$-dimensional simplices are 
 \begin{definition}[{\cite[p. ~62]{edels}}]
 A \textbf{face} of a simplex is the convex hull of a subset of its vertices. If $\tau$ is a face of $\sigma$ we write $\tau \subseteq \sigma$.
 \end{definition}
-Since higher dimensional simplices are made up of simplices of lower dimensions we can always decompose a simplex into its faces, in other words the lower dimensional simplices that make up the simplex. For example, a 2-simplex can be decomposed into the three edges that make up the triangle.
+Since higher dimensional simplices are made up of simplices of lower dimensions we can always decompose a simplex into its faces, in other words the lower dimensional simplices that form the simplex. For example, a 2-simplex can be decomposed into the three edges that make up the triangle.
 \section{Simplicial complex}
 By gluing together simplices at their faces as seen in Figure \ref{complex2} we can construct higher-order objects which we call simplicial complexes.
 \begin{definition}[{\cite[p. ~63]{edels}}] \label{defsimcomp}
 A \textbf{simplicial complex} $K$ is a finite collection of simplices such that
 
 \begin{itemize}
-    \item $\sigma \in K$ and $\tau \subset \sigma$ implies that $\tau \in K$
+    \item $\sigma \in K$ and $\tau \subset \sigma$ implies that $\tau \in K$,
     \item $\sigma_{1}, \sigma_{2} \in K$ implies that $\sigma_{1} \cap \sigma_{2}$ is either empty or a face of both.
 \end{itemize}
-
+The \textbf{dimension} of the simplicial complex $\dim(K)$ is the largest dimension of any simplex in the complex.
 \end{definition}
-The first requirement tells us that a simplicial complex contains the faces of all its simplices. The second requirement tells us that the simplices are only glued together at common faces, in other words we do not allow simplices to intersect other than at their boundary.
+The first requirement tells us that a simplicial complex contains the faces of all its simplices. The second requirement tells us that the simplices are only glued together at common faces, in other words we do not allow simplices to intersect other than at their boundaries.
 
 
 We will refer to the construction in Definition \ref{defsimcomp} as a \textbf{geometric simplicial complex}. This is to distinguish it from a simplicial complex where we discard the geometric connotations. It is possible to define a combinatorial simplicial complex by only considering the ordering of the vertices and what higher-dimensional simplices they make up.
@@ -44,7 +44,7 @@ We will refer to the construction in Definition \ref{defsimcomp} as a \textbf{ge
   \caption{ \label{complex2} Example of a simplicial complex consisting of two 2-simplices glued together with an attached 1-simplex.}
 \end{figure}
 
-\begin{definition}[{\cite[p. ~62]{edels}}]
+\begin{definition}[{\cite[p. ~62]{edels}}]  \label{defabstractsimcomp}
 An \textbf{abstract simplicial complex} $K$ is a finite collection of ordered sets such that $\alpha \in A$ and $\beta \subseteq \alpha$ implies that $\beta \in A$.
 \end{definition}
 
@@ -53,15 +53,15 @@ This abstract definition coincides with the geometric definition by calling the 
 \begin{definition}
 Given a geometric simplicial complex $K$, we can construct an abstract simplicial complex $A$ by translating each simplex $\sigma_{i} \in K$ to the ordered set $[v_{0},\dots,v_{n}]$ where each $v_{i}$ is an algebraic object simply denoting the presence of a vertex. We call $K$ the \textbf{geometric realization} of $A$.
 \end{definition}
-Hence, we can always transition from a geometric simplicial complex to an abstract simplicial complex. There is an elementary result which allows for the construction in other direction.
+Hence, we can always transition from a geometric simplicial complex to an abstract simplicial complex. There is an elementary result which allows the construction in the other direction.
 \begin{theorem}[{\cite[Geometric Realization Theorem, p. ~64]{edels}}]\label{geometricthm}
-Every abstract simplicial complex of dimension $n$ has a geometric realization in $\mathbb{R}^{2d+1}$.
+Every abstract simplicial complex of dimension $n$ has a geometric realization in $\mathbb{R}^{2n+1}$.
 \end{theorem}
-Of course, for a given abstract simplicial complex there might be many different ways of giving a geometric realization for it, but at least Theorem \ref{geometricthm} guarantees the existence of one such realization.
+While there are many different possible geometric realizations for a given abstract simplicial complex, any two realizations of the same abstract simplicial complex are homeomorphic to each other \cite[Theorem 3.1, p. ~15]{munkres}. Hence, Theorem \ref{geometricthm} guarantees the existence of a geometric realization unique up to topological equivalence.
 
 From here on we will simply refer to an abstract simplicial complex as a simplicial complex unless stated otherwise. This allows us to state our definitions and work with simplices solely as combinatorial objects.
 \section{Simplicial homology}
-Roughly speaking, in topology when two spaces homeomorphic they share the same topological properties. One invariant that is the algebraic structure of the higher dimensional holes in the space.
+Roughly speaking, in topology when two spaces are homeomorphic they share the same topological properties. One such invariant is the algebraic structure of the holes, voids and higher-dimensional equivalents in the space.
 Homology can generally thought of as being the characterization of these holes in a topological space. Beyond that however, it is a way of associating algebraic objects to topological spaces. In the context of simplicial complexes, we first need some algebraic machinery in order to define precisely what we mean by holes in a simplicial complex.
 
 \begin{definition}[\cite{Zomorodian2005}]
@@ -74,23 +74,40 @@ Homology can generally thought of as being the characterization of these holes i
   \in \mathbb{Z}}$ with $R$-module maps $\partial_{k}: C_{k} \to C_{k-1}$ such that the composition $\partial_{k-1} \circ \partial_{k}$ is the zero map. We call the maps $\partial_{k}$ the \textbf{differentials} of the chain complex.
 \end{definition}
 
-\begin{theorem}\label{simpchainthm}
-Given a simplicial complex $K$ and a ring $R$ the sequence of chain modules
+In other words, a chain complex is just a sequence of modules with maps between them such that the maps cannot carry an element further than one level below in the complex.
+\begin{example}
+  The sequence of $\mathbb{Z}$-modules
 \begin{center}
 \begin{tikzcd}
-  \dots \arrow[]{r}{\partial_{k+1}} & C_k(K) \arrow[]{r}{\partial_{k}} & C_{k-1}(K) \arrow[]{r}{\partial_{k-1}} & C_{k-2}(K) \arrow[]{r}{\partial_{k-2}} & \dots \arrow[]{r}{\partial_{1}} & C_0(K)
+  \dots \arrow[]{r}{\partial_{k+1}} & \mathbb{Z} \arrow[]{r}{\partial_{k}} & \mathbb{Z} \arrow[]{r}{\partial_{k-1}} & \mathbb{Z} \arrow[]{r}{\partial_{k-2}} & \dots \arrow[]{r}{\partial_{1}} & \mathbb{Z} \arrow[]{r}{\partial_0} & \mathbb{Z}
 \end{tikzcd}
 \end{center}
-with differentials defined as
+with differentials
+\[ \partial_{k}(n)
+  \begin{cases} k \cdot n & \text{if }k \text{ is odd} \\
+                0 & \text{if }k \text{ is even}
+    \end{cases}
+  \]
+is a chain complex since the composition of any consecutive differentials $\partial_{k-1}\partial_{k}$ necessitates that either $k-1$ or $k$ is even, hence the composition has to be the zero map.
+\end{example}
+
+\begin{theorem}\label{simpchainthm}
+Given a sequence $C_{*}$ of chain modules with coefficients in a ring $R$ on a simplicial complex $K$
+\begin{center}
+\begin{tikzcd}
+  \dots \arrow[]{r}{\partial_{k+1}} & C_k(K) \arrow[]{r}{\partial_{k}} & C_{k-1}(K) \arrow[]{r}{\partial_{k-1}} & C_{k-2}(K) \arrow[]{r}{\partial_{k-2}} & \dots \arrow[]{r}{\partial_{1}} & C_0(K) \arrow[]{r}{\partial_0} & 0
+\end{tikzcd}
+\end{center}
+where we define the maps between the modules as below and where $[v_{0},\dots,\hat v_{i}, \dots, v_{k}]$ denotes the face of the simplex given by dropping the vertex $v_{i}$:
 \begin{align*}
 & \partial_{k}:  C_{k}(K) \to C_{k-1}(K) \\
 & \partial_{k}(\sigma) =  \sum^{k}_{{i=0}} (-1)^{i} [v_{0},\dots,\hat v_{i}, \dots, v_{k}]
 \end{align*}
-is a chain complex.
+Then $C_{*}$ is a chain complex, or equivalently $\partial_{k-1}\partial_{k}=0$ for all $k$.
 \end{theorem}
 
 \begin{proof}
-  All we need to show is that $\partial \partial \sigma = 0 $ for any simplex $\sigma$ and it extends to arbitrary chains since $\partial$ is a homomorphism. By linearity of the homomorphism we get
+  For convenience we drop the subscripts on the differentials and so what we need to show becomes $\partial \partial \sigma = 0 $ for any simplex $\sigma$. Given such a result it extends to arbitrary chains in the chain module in which $\sigma$ lives since $\partial$ is a homomorphism. By linearity of a homomorphism we get
   \begin{align*}
     \partial \partial \sigma =& \sum_{i} (-1)^{i} \partial [v_{0}, \dots, \hat v_{i}, \dots v_{n}] \\
     =& \sum_{j < i} (-1)^{i} (-1)^{j} [ \dots,  \hat v_{j}, \dots , \hat v_{i}, \dots ] \\ &+ \sum_{i < j} (-1)^{i} (-1)^{j-1}  [ \dots,  \hat v_{i}, \dots , \hat v_{j}, \dots ] \\
@@ -138,7 +155,7 @@ and so $\sigma \in \ker \partial_{k} = Z_{k}$.
 This tells us that if we can find the cycles and ignore those which are just boundaries, then we have identified the holes. This motivates the following definition of homology.
 \begin{definition}
   Given a simplicial chain complex \hspace{0.05cm}$C_{*}$ the homology module $H_{k}$ is defined as
-  \[H_{k}(K) := \ker(\partial_{k})/\text{im}(\partial_{k+1})\]
+  \[H_{k}(K) := Z_{k} / B_{k} = \ker(\partial_{k})/\text{im}(\partial_{k+1})\]
 \end{definition}
 Hence, the $k$th homology group captures precisely those cycles which are not in the image of the higher dimensional differential. In other words, the non-trivial equivalence classes represent the cycles which are not boundaries.
 \begin{example}
@@ -195,13 +212,13 @@ Much like in the case with the simplicial complexes, working with the actual geo
 Furthermore, since elementary cubes consist of finite cartesian products of elementary intervals, we need a corresponding notion on elementary chains.
 
 \begin{definition}[{\cite[Definition 2.23, p. ~51]{kaczynski2004}}]
-Given two elementary cubes $P,Q$ The cubical product is defined as \[\hat P \diamond \hat Q:= \widehat{P \times Q}\]
+Given two elementary cubes $P,Q$ the \textbf{cubical product} of the corresponding elementary $k$-chains $\hat P, \hat Q$ is defined as \[\hat P \diamond \hat Q:= \widehat{P \times Q}\]
 \end{definition}
-Fix some ring $R$ with additive unit $0$ and multiplicative unit $1$ and then we can proceed as for the simplicial case.
+If we now fix some ring $R$ with additive unit $0$ and multiplicative unit $1$ we can proceed as for the simplicial case.
 \begin{definition}[{\cite[Definition 2.27, p. ~53]{kaczynski2004}}]
   The \textbf{$k$th chain module} of a cubical complex $\mathcal{K}(X)$ is the free $R$-module $C_{k}(\mathcal{K}(X))$ whose elements are formal sums
-  \[ \sum \alpha_{i} Q_{i}\]
-  known as \textbf{$k$-chains} where $\alpha_{i} \in R$ and $Q_{i} \in K_{k}(X)$.
+  \[ \sum_{i} \alpha_{i} \hat Q_{i}\]
+  known as \textbf{$k$-chains} where $\alpha_{i} \in R$ and $Q_{i} \in \mathcal{K}_{k}(X)$.
 \end{definition}
 
 The cubical product extends to $k$-chains in the following way.
@@ -256,7 +273,7 @@ where $\partial \partial \hat P = 0$ follows from the induction hypothesis since
 \end{align*}
 where $\dim \partial \hat I = 0$ since $ I$ is an elementary interval. Since we have now shown the induction hypothesis holds for $n+1$ given it holds for $n$, this concludes the proof by induction.
 \end{proof}
-We now have everything we need to construct a chain complex on cubical complexes: a sequence of $R$-modules, the $k$-chain modules on cubical complexes, and module homomorphisms $\partial$ which have the property of $\partial \partial = 0$. Since our prior definitions with regards to \textit{homology} were entirely stated in terms of chain complexes we can be assured that homology on chain complexes given by cubical complexes is well-defined.
+We now have everything necessary to construct a chain complex on cubical complexes: a sequence of $R$-modules, the $k$-chain modules on cubical complexes, and module homomorphisms $\partial$ which have the property of $\partial \partial = 0$. Since our prior definitions with regards to \textit{homology} were entirely stated in terms of chain complexes we can be assured that homology on chain complexes given by cubical complexes is well-defined.
 
 %%% Local Variables:
 %%% mode: latex
