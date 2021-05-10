@@ -615,7 +615,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{note}{Preprint}
-      \field{title}{Ripser: efficient computation of Vietoris-Rips persistence barcodes}
+      \field{title}{Ripser: efficient computation of {Vietoris-Rips} persistence barcodes}
       \field{year}{2021}
       \verb{eprint}
       \verb 1908.02518v2
@@ -908,6 +908,36 @@
       \endverb
       \keyw{allometry,computational biology,computational geometry,eyes,MicroCT,neuroscience,optical model,systems biology,vision}
     \endentry
+    \entry{mantel}{book}{}
+      \name{author}{2}{}{%
+        {{hash=d97fe0cfa1798ad6a2f0196ff95cf74e}{%
+           family={Sokal},
+           familyi={S\bibinitperiod},
+           given={Robert\bibnamedelima R.},
+           giveni={R\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=b3d6e5b21f8cd208c6373a5ad61032a2}{%
+           family={Rohlf},
+           familyi={R\bibinitperiod},
+           given={F.\bibnamedelimi James},
+           giveni={F\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Freeman}%
+      }
+      \strng{namehash}{81cfb08e726b6193f1c99066e26859da}
+      \strng{fullhash}{81cfb08e726b6193f1c99066e26859da}
+      \strng{bibnamehash}{81cfb08e726b6193f1c99066e26859da}
+      \strng{authorbibnamehash}{81cfb08e726b6193f1c99066e26859da}
+      \strng{authornamehash}{81cfb08e726b6193f1c99066e26859da}
+      \strng{authorfullhash}{81cfb08e726b6193f1c99066e26859da}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3rd ed}
+      \field{title}{Biometry}
+      \field{year}{1995}
+    \endentry
     \entry{Hjorth202000671}{article}{}
       \name{author}{12}{}{%
         {{hash=8204c2453b66ae726354883998c4c930}{%
@@ -1001,23 +1031,23 @@
     \endentry
     \entry{erdos}{article}{}
       \name{author}{2}{}{%
-        {{hash=129486f184038f7ffbd6479868ff6105}{%
-           family={Erdos},
+        {{hash=6bdf16ead0815d7b7b3548f89f0f1355}{%
+           family={Erdős},
            familyi={E\bibinitperiod},
            given={Paul},
            giveni={P\bibinitperiod}}}%
-        {{hash=79cb6e4dc79030455cf1fb9769079453}{%
-           family={Renyi},
+        {{hash=0f8cd086bfc9bbca90e53ec63b297796}{%
+           family={Rényi},
            familyi={R\bibinitperiod},
            given={Alfred},
            giveni={A\bibinitperiod}}}%
       }
-      \strng{namehash}{b16888644b726b583cb8bc2fc2118807}
-      \strng{fullhash}{b16888644b726b583cb8bc2fc2118807}
-      \strng{bibnamehash}{b16888644b726b583cb8bc2fc2118807}
-      \strng{authorbibnamehash}{b16888644b726b583cb8bc2fc2118807}
-      \strng{authornamehash}{b16888644b726b583cb8bc2fc2118807}
-      \strng{authorfullhash}{b16888644b726b583cb8bc2fc2118807}
+      \strng{namehash}{20a31bf2ade3cac6d4124574d1622043}
+      \strng{fullhash}{20a31bf2ade3cac6d4124574d1622043}
+      \strng{bibnamehash}{20a31bf2ade3cac6d4124574d1622043}
+      \strng{authorbibnamehash}{20a31bf2ade3cac6d4124574d1622043}
+      \strng{authornamehash}{20a31bf2ade3cac6d4124574d1622043}
+      \strng{authorfullhash}{20a31bf2ade3cac6d4124574d1622043}
       \field{sortinit}{5}
       \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
       \field{labelnamesource}{author}
@@ -1048,8 +1078,8 @@
       \strng{authorbibnamehash}{77b73d4b0a046bc376129b9277be61d4}
       \strng{authornamehash}{77b73d4b0a046bc376129b9277be61d4}
       \strng{authorfullhash}{77b73d4b0a046bc376129b9277be61d4}
-      \field{sortinit}{5}
-      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{sortinit}{6}
+      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Nature}

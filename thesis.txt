@@ -1,0 +1,1031 @@
+
+
+
+
+
+Daniel Collin
+Brains and Bugs: Two Applications of Persistent Homology in the Life Sciences
+theoremTheorem
+lemma[theorem]Lemma
+corollaryCorollary[theorem]
+definition
+definitionDefinition[section]
+exampleExample[section]
+
+thesis.bib
+homo-logy ap-proxi-mate ap-proxi-mations Techno-logy simpli-cial
+
+roman
+
+
+
+        
+          Persistent homology is a way of giving a topological summary of a data-set. We give an introduction to   persistent homology, including a proof of its algebraic decomposition as a finitely generated graded module with respect to a polynomial ring with a field as its underlying ring. This proof is constructive and yields an algorithm for computing persistent homology in a practical sense.
+
+          In order to provide examples of the practical applications of persistent homology, we present two case studies. In the first case study we investigate the relationship between size and persistent homology of the bumblebee Bombus terrestris. We find that the difference in size between samples is in some ways highly correlated to differences in persistent homology. In the second case study we analyze the persistent homology of a synthetic model of the striatum, a part of the basal ganglia in the brain. Here we find that the synthetic model differs in size and complexity from a number of control models when viewed through the lens of persistent homology and the accompanying theory. 
+
+
+
+        
+          First of all I would like to thank my supervisor Yishao Zhou for supporting my ideas, helping me find data for the case studies and helping me acquire computational resources to complete this project. I would also  like to thank the Insect Sensory Ecology and Cognition Lab at the Department of Zoology (Stockholm University) and the Division of Computational Science and Technology (KTH) for providing me with the data for the two case studies. In particular, I would like to thank Johannes Hjorth and Emily Baird for giving me insight into their respective domains. Finally I would like to thank my girlfriend Mira, who put up with me through all of this.
+
+          The computations in Section 4.2 were enabled by resources provided by the Swedish National Infrastructure for Computing (SNIC) at the High Performance Computing Center North (HPC2N) partially funded by the Swedish Research Council through grant agreement no. 2021-22166.
+        
+arabic
+Introduction
+Although ordinary statistical analysis and machine learning continue to see great success, the ever-changing modern digital landscape suggests that there is some value in exploring other avenues in mathematics for understanding data. One such avenue is Topological Data Analysis (TDA), an umbrella term for data analysis achieved through topological methods. While topology and algebraic topology in particular might be seen as something relegated to realms of mathematics, the perhaps most popular technique of TDA, persistent homology, is based on the concept of homology in algebraic topology and has been successfully applied in areas such as neuroscience, biology and material science.
+
+In persistent homology we approximate a non-trivial topological space, often with a simplicial complex, on the data of interest. From this complex "holes" in the resulting space can be found, and these holes are what constitute homology. Now this approximation is not perfect and there are multiple ways we can approximate a topological space on a data set. In order to alleviate this imperfection we define a sequence of complexes ordered by inclusion, all of them valid approximations, and then compute for how many complexes in the sequence a hole persists.
+
+While the high-level idea is not very complicated, the devil is in the details. In order to rigorously define this notion of homology persisting through approximations, as well as keep it flexible for other complexes than simplicial ones, we need to build a robust framework. We do this by defining the general framework of  persistence complexes, a sort of complex of complexes, from which we retrieve the holes that persist when going from one complex to another.
+
+
+Our goal with this thesis is partly to provide an introduction to persistent homology as we would have liked it before we started this journey which is done in Chapters 2 and 3. As such, we have tried to keep a balance between the older material in the field of persistent homology that is foundational and newer material that is more up-to-date. Most of the definitions and results are accompanied by commentary, hopefully providing help along the way. We try to make the theoretical part somewhat self-contained, but some familiarity with linear algebra, category theory, commutative algebra and module theory is needed.
+
+The other part of the thesis is given by Chapter 4 and consists of two case studies. In the first study we analyze the eyes of the bumblebee Bombus terrestris, in the second study we analyze a synthetic microcircuit of the striatum in the basal ganglia of the brain. Our goal is to show through these two case studies, despite small, that persistent homology has potential as a tool in the toolbox of data analysis. We have taken care to conduct our analysis in such a way that we highlight how persistent homology enables our approaches.
+
+We owe a lot to a variety of sources that are cited throughout the thesis. The algebraic framework that we present in Chapter 3 was first developed in, although it borrows heavily from the more computational view presented in. The articles have been of extra importance, as they provide clear overviews of the theory generalized to modules. Our novel contributions are our methodologies in the two case studies, although it we would not be surprised if similar approaches have been conducted before in other domains.
+
+
+
+
+
+
+
+Homology
+Before going into what persistent homology is, it is well worth our time clearly stating what we mean by homology. Broadly speaking, homology is an invariant of topological spaces which is concerned with cycles in the space which are not boundaries. Or more abstractly, homology captures the notion of "-dimensional holes" in the space.
+
+In persistent homology we generally work without predefined topological spaces and start with a basic data-set which at most contains some metric structure which we endow with some form of complex. The main complex we will be working on is the simplicial complex, since computationally we can approximate such a complex on a set of data-points. We will also review homology of cubical complexes as this relates to one of the case studies in Chapter 4. Therefore the classical definitions involving concepts such as singular homology are not something we will dwell on, but rather we refer the reader to Hatcher's excellent exposition in.
+
+
+Simplices
+We start with what will constitute our atoms in simplicial homology, namely the simplices.
+[]
+An -simplex is the smallest possible convex set in  containing  points  such that the vectors  are linearly independent. The points  are known as the vertices of the simplex. The number  is the dimension of a simplex.
+As seen in Figure  the  and -dimensional simplices are familiar shapes consisting of vertices, edges, triangles and tetrahedrons.
+
+
+      
+  0-simplex (left), 1-simplex (middle left), 2-simplex (middle right) and 3-simplex (right).
+  []
+A face of a simplex is the convex hull of a subset of its vertices. If  is a face of  we write .
+Since higher dimensional simplices are made up of simplices of lower dimensions we can always decompose a simplex into its faces, in other words the lower dimensional simplices that form the simplex. For example, a 2-simplex can be decomposed into the three edges that make up the triangle.
+Simplicial complex
+By gluing together simplices at their faces as seen in Figure  we can construct higher-order objects which we call simplicial complexes.
+[] A simplicial complex  is a finite collection of simplices such that
+
+
+     and  implies that ,
+     implies that  is either empty or a face of both.
+The dimension of the simplicial complex  is the largest dimension of any simplex in the complex.
+The first requirement tells us that a simplicial complex contains the faces of all its simplices. The second requirement tells us that the simplices are only glued together at common faces, in other words we do not allow simplices to intersect other than at their boundaries.
+
+
+We will refer to the construction in Definition  as a geometric simplicial complex. This is to distinguish it from a simplicial complex where we discard the geometric connotations. It is possible to define a combinatorial simplicial complex by only considering the ordering of the vertices and what higher-dimensional simplices they make up.
+
+
+        Example of a simplicial complex consisting of two 2-simplices glued together with an attached 1-simplex.
+
+[]  An abstract simplicial complex  is a finite collection of ordered sets such that  and  implies that .
+
+This abstract definition coincides with the geometric definition by calling the elements of  its simplices. The simplices of  are no longer geometric objects in Euclidean space, but simply combinatorial objects consisting of vertex sets.
+
+
+Given a geometric simplicial complex , we can construct an abstract simplicial complex  by translating each simplex  to an ordered set  where each  is an algebraic object simply denoting the presence of a vertex. We call  a geometric realization of .
+Hence, we can always transition from a geometric simplicial complex to an abstract simplicial complex. There is an elementary result which allows the construction in the other direction.
+[]Every abstract simplicial complex of dimension  has a geometric realization in .
+While there are many different possible geometric realizations for a given abstract simplicial complex, any two realizations of the same abstract simplicial complex are homeomorphic to each other. Hence, Theorem  guarantees the existence of a geometric realization unique up to topological equivalence.
+
+From here on we will simply refer to an abstract simplicial complex as a simplicial complex unless stated otherwise. This allows us to state our definitions and work with simplices solely as combinatorial objects.
+Simplicial homology
+Roughly speaking, in topology when two spaces are homeomorphic they share the same topological properties. One such invariant is the algebraic structure of the holes, voids and higher-dimensional equivalents in the space.
+Homology can generally thought of as being the characterization of these holes in a topological space. Beyond that however, it is a way of associating algebraic objects to topological spaces. In the context of simplicial complexes, we first need some algebraic machinery in order to define precisely what we mean by holes in a simplicial complex.
+
+[]  The th chain module  on a simplicial complex  is the free module with basis given by the -dimensional simplices in  with coefficients in some ring  with additive unit  and multiplicative unit . In other words, the elements of  are formal sums
+  
+  where  and  is a -dimensional simplex in . Furthermore, there is an equivalence of elements in the chain module such that  if  is given by an even permutation of the vertices of .
+
+[]
+  A chain complex  over a ring  is a family of -modules  with -module maps  such that the composition  is the zero map. We call the maps  the differentials of the chain complex.
+
+In other words, a chain complex is just a sequence of modules with maps between them such that the maps cannot carry an element further than one level below in the complex.
+
+  The sequence of -modules
+
+
+  []r_k+1 & Z []r_k & Z []r_k-1 & Z []r_k-2 & []r_1 & Z []r_0 & Z
+with differentials
+
+
+
+
+
+is a chain complex since the composition of any consecutive differentials  necessitates that either  or  is even, hence the composition has to be the zero map.
+
+Given a sequence  of chain modules with coefficients in a ring  on a simplicial complex 
+
+
+  []r_k+1 & C_k(K) []r_k & C_k-1(K) []r_k-1 & C_k-2(K) []r_k-2 & []r_1 & C_0(K) []r_0 & 0
+where we define the differential  is defined as below and where  denotes the face of the simplex given by dropping the vertex .
+*
+Then  is a chain complex, or equivalently  for all .
+
+
+  For convenience we drop the subscripts on the differentials and so what we need to show becomes  for any simplex . Given such a result it extends to arbitrary chains in the chain module in which  lives since  is a homomorphism. By linearity of a homomorphism we get
+  *
+  The first sum comes from when  since if remove  the position of  is unchanged in the resulting simplex, whereas the second sum comes from the other possible case where  and so removing  causes the position of  to shift by one. Hence, the sums cancel out and so . 
+
+Given a simplicial complex  consisting of a triangle without interior as in Figure , a chain in  would be a linear combination of edges. For example, an element of  is  which is highlighted in green.
+
+       A simplicial complex in which the 1-chain  is highlighted in green.
+
+
+Given a -simplex as in Figure  we get the differential of the interior of the simplex as  which geometrically is the boundary of the simplex. For this reason we refer to the differential of a chain complex of a simplicial complex as the boundary map or boundary operator.
+
+       Illustration of how the differential maps a -simplex to its boundary.
+The notion of the differential being a map from a simplex to its boundary motivates the following definition.
+[]
+  Given a chain complex  the -cycles   and the -boundaries  of  are the -modules
+  
+  
+  Just as for a chain complex we will sometimes refer to the collection of  and  as  or  respectively.
+Our overarching goal is to characterize -cycles which are not -boundaries. Hence, a vital result is this corollary to Theorem .
+
+
+  The -boundaries are a submodule of the -cycles.
+
+
+
+Let  then for some  we have that . Hence,
+
+and so .
+
+This tells us that if we can find the cycles and ignore those which are just boundaries, then we have identified the holes. This motivates the following definition of homology.
+
+  Given a simplicial chain complex  the homology module  is defined as
+  
+Hence, the th homology group captures precisely those cycles which are not in the image of the higher dimensional differential. In other words, the non-trivial equivalence classes represent the cycles which are not boundaries.
+
+Consider the chain complex over  resulting from the simplicial complex in Figure .
+
+       Illustration of a simplicial complex with a 1-cycle in green consisting of a square without interior.
+There are two 1-cycles, the boundary of the filled triangle and the square. Since the boundary of the filled triangle is in  we get that this element belongs to the trivial class in . But there is one non-trivial element given by the square without interior. So  contains one non-trivial element generated by the cycle in green.
+
+To quantify the number of linearly independent generators in a homology module  we say that the th Betti number is denoted  where .
+
+Cubical Homology
+The definition of a chain complex is general enough that we need not limit ourselves to chain complexes arising from simplicial complexes. Since homology was defined on chain complex, regardless of how the chain complex was constructed, this means we get a well-defined notion of homology for free. Another type of complex which we can define chain complexes on are cubical complexes. As the atoms of simplicial complexes are simplices, the atoms of cubical complexes are cubes.
+
+[]
+An elementary interval is a unit interval  or a degenerate interval  for .
+
+[]
+  An elementary cube  is the cartesian product of  elementary intervals
+  
+  and where  is known as the embedding number .
+
+[]
+The dimension  of an elementary cube  is the number of non-degenerate intervals in the product of elementary intervals that make up .
+
+Note that under this definition a -dimensional cube is a degenerate elementary interval and a -dimensional cube is a non-degenerate elementary interval. This corresponds to our notion of vertices and edges in simplicial complexes.
+
+We let  denote the set of all elementary cubes in . The set of all possible elementary cubes is then denote  defined as
+
+Additionally, we define
+
+
+where it is important to note that  since  contains any elementary cube embedded in . For instance , but  since  only consists of degenerate intervals and so .
+
+
+[]
+  A cubical set  is a finite union of elementary cubes. Given a cubical set  a cubical complex  is defined as
+  
+  Additionally we define the -skeleton of the cubical complex as
+  
+
+Much like in the case with the simplicial complexes, working with the actual geometric objects can be unwieldy when doing algebraic calculations. For this reason we introduce an abstract object for each elementary cube, called an elementary chain.
+[]
+  Given a cube  the elementary -chain  is a map
+  
+
+Furthermore, since elementary cubes consist of finite cartesian products of elementary intervals, we need a corresponding notion on elementary chains.
+
+[]
+Given two elementary cubes  the cubical product of the corresponding elementary -chains  is defined as 
+If we now fix some ring  with additive unit  and multiplicative unit  we can proceed as for the simplicial case.
+[]
+  The th chain module of a cubical complex  is the free -module  whose elements are formal sums
+  
+  known as -chains where  and .
+
+The cubical product extends to -chains in the following way.
+
+
+The cubical product  of two -chains  of a chain module on a cubical complex is 
+
+It can be shown with relative ease that the cubical product on -chains is distributive, associative and is equal to 0 if one of its arguments is 0, see.
+
+All we need to do in order for the machinery of homology to be applicable is to define a boundary operator on the elements of the chain modules of a cubical complex which has the property that .
+[]
+  The boundary map of an elementary cube is defined inductively on the embedding number cube in the following way. Let  be an elementary cube, we then have that
+  
+
+
+
+
+
+
+  which extends linearly on -chains.
+[]
+The composed boundary map  is the zero map.
+
+  Let  be an elementary cube. If  then by the definition of the boundary map . If  then
+  *
+We prove it for higher embedding numbers by induction. Assume it holds for , we want to prove that it also holds for .
+*
+Now assume that  then  is a degenerate interval and so we get
+*
+where  follows from the induction hypothesis since . Now, let us assume the other case, namely that  then we get
+*
+where  since  is an elementary interval. Since we have now shown the induction hypothesis holds for  given it holds for , this concludes the proof by induction.
+We now have everything necessary to construct a chain complex on cubical complexes: a sequence of -modules, the -chain modules on cubical complexes, and module homomorphisms  which have the property of . Since our prior definitions with regards to homology were entirely stated in terms of chain complexes we can be assured that homology on chain complexes given by cubical complexes is well-defined.
+
+
+
+
+
+
+Persistence
+In the world of data we rarely have a topological description of the space our dataset lives in. At most, we could consider a set of data points as having the discrete topology but that is not very informative. What if there is an underlying topological space with a non-trivial topology? If so, figuring out properties of this space could provide us with indications of how the data is related globally. Consider for example the points sampled from an annulus in Figure .
+
+
+    [t].5
+        
+ 
+  [t].5
+        
+    Imposing a simplicial complex (b) on data sampled from an annulus (a).
+
+If we were ignorant of the fact that the underlying space has a the shape of an annulus, which is the situation we more often than not would have in a real-world scenario, being able to deduce the topological properties of this space would tell us that data only lies around a hole. This is where persistent homology comes in, a way of approximating the homology of a space without anything other than the data itself.
+
+The basic principle is quite simple. Using the theory of simplicial homology we can impose a simplicial complex on our dataset as in Figure . A natural way of doing this is defining some form of measure of distance on our data-set, such that when samples are sufficiently close to each other we say they belong to the same simplex.
+
+However, there is a problem with the idea in its naive form. How large is "sufficiently close"? If we use too large of a distance we end up with all points in a single simplex and retrieve no valuable homological information. On the other hand, if the distance is too small we end up with a simplicial complex with very few connections between vertices and this too could prove uninformative. As we will see, persistent homology circumvents this problem by simply considering all possible distances and encoding the homology of the resulting simplicial complexes in a single mathematical object.
+
+
+
+
+
+
+
+
+
+Endowing Data with a Complex
+
+A data-set can often be considered as a set of points in Euclidean space. A natural way of endowing a space of points in  with a simplicial structure is the following construction.
+[]
+For a family of points  in some Euclidean space  the Čech complex
+ is given by the abstract simplicial complex whose -simplices are given by subsets of  points  such that  where  is the closed ball of radius  centered at .
+The Čech complex is a special case of something called the nerve of a topological space, which guarantees that it has the same homology modules as the union of balls centered at the points.
+
+However, the Čech complex is for practical purposes not feasible to compute. The reason being that we need to keep the entire simplicial complex in memory and this can be quite large.
+
+A sort of compromise is the Vietoris-Rips complex as seen in Figure . This complex is a simplification where we do not look for points in common between all balls, but rather say that if  have balls that intersect pairwise they form a -simplex.
+
+
+    [t].5
+        
+ 
+  [t].5
+        
+   [b].49
+        
+   [b].5
+        
+  The Vietoris-Rips complex at different -values.
+ 
+
+
+
+[]
+For a family of points  in some Euclidean space  the Vietoris-Rips complex
+ is given by the abstract simplicial complex whose -simplices are given by a subfamily of  points  such that for any two points in the collection  we have that  where  is the closed ball of radius  centered at .
+
+The Vietoris-Rips complex does not come with the same guarantee of fidelity to the underlying space as the Čech complex does. However, it is entirely defined by the vertices and the edges of the simplicial complex, allowing it to be stored as a graph.
+
+Given a monotonically increasing sequence of real numbers  we can for each  associate to a finite set of points  the Vietoris-Rips complex . Then as illustrated in Figure  we have inclusions
+
+
+R__1 [hookrightarrow]r & R__2 [hookrightarrow]r & [hookrightarrow]r & R__n-1 [hookrightarrow]r & R__n.
+For  the inclusion  induces a map  and the image of this map tell us which equivalence classes in  survive when going from  to , in other words the homological features that persist going from resolution  to resolution  in the Vietoris-Rips construction. The following result then lends some credibility to the Vietoris-Rips complex through its relationship with the Čech complex.
+[]
+  Given  there is a chain of inclusions
+  
+Hence, any cycle that persists through the induced map  for  is also present in the Čech complex .
+
+The insight that the homological features that persist tell us more than the individual homology groups themselves are central to the idea of persistent homology. Before we give the formal definition of persistent homology we must first generalize the concept of endowing a space with a complex.
+
+
+A filtration  of a simplicial (or cubical) complex  is a totally ordered set of subcomplexes  for  such that if  then .
+
+Note that the Čech and Vietoris-Rips constructions over a sequence of resolutions are two instances of filtrations, but with this definition we are not restricted to them alone. With this definition in place, we can state the formal definition of persistent homology.
+
+  For  the -persistent th homology module of filtration  is given as
+  
+  where  are the cycle and boundary modules of the resulting chain complexes 
+This module is well-defined since the inclusion  induces inclusions  hence we have inclusions  and so  is a submodule of . Furthermore, it captures precisely what we have been alluding to earlier: the  persistent homology modules are exactly the equivalence classes that survive up to some filtration .
+
+
+Persistence Module
+While Definition  serves as a sufficient framework for persistent homology, it is still particular in the sense that it is stated in terms of filtrations and chain complexes arising from them. It is possible to make the notion of persistence even more general which allows us to understand its algebraic structure. This does not mean that we should entirely discard our anchoring of persistent homology in the realm of simplicial complexes, as it relates closely to how we will do persistent homology in practice, but rather we should let this more abstract approach serve as the theoretical underpinning which opens up the possibility of other types of approximation of data than simplicial complexes.
+
+[]
+  Let  be chain complexes over some ring . A chain map  is a family of -module homomorphisms  such that the following diagram commutes
+  
+
+
+[r, "_k+2"] & C_k+1 [d, "u_k+1"] [r, "_k+1"] & C_k [r, "_k"] [d, "u_k"] & C_k-1 [d, "u_k-1"] [r, "_k-1"] & 
+
+[r, "_k+2"] & D_k+1 [r, "_k+1"]                      & D_k [r, "_k"]                    & D_k-1 [r, "_k-1"]                      &   
+
+  A persistence complex is a family of chain complexes  together with chain maps  that go between them in the following way
+
+
+
+                                     & [d, "_k+2"]                                 & [d, "_k+2"]                                       &       
+
+[r, "^i-1", hook] & C^i_k+1 [d, "_k+1"] [r, "^i", hook] & C^i+1_k+1 [d, "_k+1"] [r, "^i+1", hook] & 
+
+[r, "^i-1", hook] & C^i_k [r, "^i", hook] [d, "_k"]         & C^i+1_k [r, "^i+1", hook] [d, "_k"]       & 
+
+                                     & & &
+
+
+
+
+[]
+  A persistence module  is a family of -modules  together with module homomorphisms .
+With the definition of the persistence module we arrive at an alternate definition of persistent homology, the persistent homology of a persistence complex.
+ For  the -persistent homology of a persistence complex  is denoted  and is defined to be the images of the induced homomorphisms .
+In the light of this definition, we see that the -persistent homology of a persistence complex is a persistence module where the module homomorphisms  are the maps induced by the chain maps . The objects given in definitions  and  are in fact isomorphic.
+
+Let  be the module homomorphism that takes a class in  to the class which contains that class in . Then .
+
+  Note that the kernel of  are exactly those classes of cycles which become boundaries at some index , hence . So by the first isomorphism theorem for modules we get that
+  
+  where last isomorphism follows from the fact that .
+
+[]
+We say a persistence module  is of finite type if each component  is a finitely generated -module and the maps  are isomorphisms for  for some integer .
+
+When we start with a finite simplicial complex  we get that  consists of finitely generated -modules since the number of simplices in each dimension is finite, hence the resulting persistence complex and persistence modules are of finite type.
+
+The most important theoretic result is just around the corner, but before that we need to recall some definitions regarding graded rings and modules.
+
+
+  Let  be a ring. We say  is a graded ring if it can be decomposed as a direct sum
+  
+  of abelian groups .
+Note that given a ring  the polynomial ring  is always a graded ring, since it can be decomposed into  where .
+
+
+A non-zero element  in a graded ring  is said to be homogeneous of degree  if  and  for all .
+
+In other words, the homogeneous elements of a graded ring are those elements that are contained to a single component. Adding elements from different components give us elements that are not homogeneous, for example the sum  does not live in a single component of the graded ring .
+
+  Let  be a graded ring and  an -module. We say that  is a graded -module if  decomposes as
+  
+  where  are submodules of , such that .
+In the exact same way as for a graded ring we say an element of a graded module is homogeneous if lives in a single component.
+
+Most of the ordinary algebraic constructions on modules hold for graded modules as well. The only additional requirement is that they preserve homogeneous elements in the obvious way. For example, a morphism of graded modules is a morphism of modules such that it preserves degree. In other words, a morphism takes an element in a graded module of degree  to an element in another graded module of degree . Similarly, a graded submodule of a module is simply a graded module such that each component is a submodule of the corresponding component in the parent module.
+
+We can now see that if we have a persistence module  over some ring  and we give  a graded structure by considering the polynomial ring  then a graded module structure on  is given by
+
+The action  sends  by  repeated applications of , in other words  shifts the elements up in the graduation by its power
+
+and so we get that  which satisfies the condition required in the definition of a graded module.
+
+
+The map  is actually a functor between the category of persistence modules and graded modules which becomes an isomorphism of categories when considering persistence modules of finite type over any field . Hence, for ease of notation we will simply consider a persistence module to be a graded module when the aforementioned conditions are fulfilled. This gives us a lot for free: we do not have to be afraid of taking quotients or direct sums of persistence modules as we know what objects they correspond to in the category of graded modules. For example, we write  for the direct sum of the persistence modules  and similarly we write  for the persistence complex given by the sum of the persistence modules .
+
+We now arrive at the result which fully characterizes the algebraic structure of persistent homology. This result sadly comes with the restriction that makes  an isomorphism of categories, namely that it only characterizes persistence modules of finite type over a field. The more general problem is under the functor  equivalent to characterizing graded  modules over an arbitrary ring , which is known to be a hard problem.
+[]   For a persistence module  of finite type over a field ,
+  
+
+
+While the restriction to a field  somewhat limits the usefulness of the decomposition, we often in practice prefer working in  due to computational aspects and hence in most cases it poses no real problem.
+
+The proof of Theorem  is constructive and ultimately leads to an algorithm for computing persistent homology in terms of linear algebra. Hence, persistent homology is computable in practical applications even for large data-sets. Due to the intimate relation between the proof and the computational aspects we will give it an appropriate treatment in the next section.
+
+Theorem  has an intuitive explanation in terms of filtrations: when  is the persistent homology  given by some filtration , the free part consists of generators which appear in the subcomplex  and continue to exist for all future filtrations. The torsional part consists of generators which appear at in the subcomplex  and disappear in  . Furthermore, the decomposition provides the -persistent homology for all  and so we circumvent the problem of having to choose an optimal step of the filtration of which to compute homology.
+
+We can make this association of the decomposition of a persistence module with intervals more precise through the following definitions.
+
+
+  For a persistence module  as in Theorem  we associate the interval , where  and  are elements of  , to  in the following way:
+  
+
+  
+  Furthermore, given a multiset of intervals  we say that
+  
+  The barcode  is the multiset of intervals .
+
+
+In the obvious way,  is a bijection which maps each summand in the decomposition of a persistence module to an interval. This gives us a correspondence between infinite intervals and generators of the free part and finite intervals and generators of the torsional part.
+
+
+Proof of the Structure Theorem
+As promised we will now derive the connection between linear algebra and persistence modules. For this part we will abuse the isomorphism of categories between persistence modules and graded modules over  and readily switch between the two perspectives.  A key observation is that for every (graded) module  there is an exact sequence
+
+where  is the free module on the generators of  and  is the free module on the generators of . By the first isomorphism theorem this exact sequence yields an isomorphism , and hence we can characterize  by only knowing  and . We call such a sequence a presentation of .
+[]
+  For a finitely generated graded module  over  a presentation of  yields a short exact sequence
+  
+  where  are finitely generated.
+
+First of all, note that since  is the free module on the generators of  and  has a finite set of generators so does .
+
+A standard result due to Hillbert (see for example) is that any submodule of a finitely generated module over  is finitely generated. This means in particular that  is finitely generated, as it is a submodule of  over .
+
+We start by proving that  is free. Suppose for contradiction that  is not free, then for a finite set of generators  of  the assumption implies linear dependence such that
+
+where  and the last implication follows from that  is a submodule of the free module . Then for some term in the sum we have that  and  which gives us that
+
+
+
+But then  can be given as a linear sum of generators of  so it can be excluded from the list of generators. Iterating the argument above then exhausts the finite set of generators until the set consists of linear independent generators, hence  is free.
+
+We have that  by the exactness of the presentation. Since  is the free module on the generators of this finitely generated and free image it follows that . Hence  is injective and  is finitely generated.
+When  are free and finitely generated the presentation yields a map , in other words it can for a given choice of bases be represented by a matrix in  which we call a presentation matrix of . This is the vital connection between persistence modules and linear algebra. By reducing this matrix, much like in the process of Gaussian elimination, we end up with a matrix that describes compatible bases in  and . Then  is generated by the basis in  with relations given by the basis in .
+
+
+A matrix with coefficients in  is in graded Smith normal if its only non-zero entries are on the (possibly permuted) diagonal and these entries are homogeneous elements.
+
+We will now describe an algorithm for computing the graded Smith normal form. Since the resulting matrix will consist of linearly independent columns and rows they define a basis for the column and row space.
+
+
+(Correctness of Algorithm 1.)
+  To show the correctness of the algorithm it suffices to show that we can eliminate entries and that such elimination does not change the degrees of the homogeneous basis elements given by the rows and columns. Since columns and rows are finite, we will eventually terminate.
+
+  Suppose we wish to eliminate some entry in row  with an element in row . This implies that  by the algorithm itself. Let the entries be denoted  and  respectively. Since the columns and rows are chosen to be homogeneous, we know that they can be written this way. The matrix is sorted in ascending degree order in both rows and columns, which implies that , hence we can always eliminate  by adding . Furthermore, if  are the basis elements of rows  then we know from linear algebra that the addition causes a change of basis . We get that , but since  are entries of the same homogeneous column this implies that , hence . An identical argument holds for if we wish to eliminate by column additions, with the exception that the change of basis occurs in .
+When a presentation matrix of  is put into graded Smith normal form by Algorithm 1 it gives us compatible bases for  and  and the isomorphism becomes 
+To understand how we can intrepret the presentation matrix as such, consider that the rows give a basis for  under the inclusion . The non-zero rows tell us which basis elements of  are hit by the inclusion when shifted in the grading by their corresponding non-zero entry. Hence, these shifted basis elements of  generate the elements that are killed in the projection .
+
+We are now ready to prove Theorem .
+
+
+  The module  is of finite type so it has a presentation matrix . By reducing  to graded Smith normal form with Algorithm 1 we get a matrix . Since  by the first isomorphism theorem we have that free part of  is given by the basis elements of  associated with the zero rows of , as these are basis elements which are not hit by the inclusion  in any part of the grading. Furthermore, the torsional part in the decomposition is given by the non-zero rows which define basis elements of  that when shifted by their entry are basis elements of  and thus are killed in . This proves the existence of the decomposition.
+
+  What remains to show is that the decomposition is unique no matter our choice of basis for  and . This actually follows from a much more general result, the Krull-Schmidt Theorem, but we will give an elementary proof. Suppose that we have two different decompositions of  that we denote . We claim that they are identical up to permutation of components and modulo trivial components. We have homomorphisms
+  
+
+
+
+
+
+  
+  
+  
+  where the maps are the obvious inclusions and projections from and onto components and the isomorphism through the decomposition of . Then for at least one pair  the homomorphism  cannot be the zero map since  is an automorphism of . Assume that , if this is not the case we can just permute the summands.  Then  (by symmetry all arguments below hold for  as well) is an isomorphism  since the graded isomorphism  takes a homogeneous element  for some .
+
+  Furthermore, we claim that the map  defined below is also an isomorphism
+  
+   where  denotes the inclusion .
+
+  For injectivity, note that if  then  has to map  to  for some  since the final maps are just the projections onto components and inclusion into . By post-composing with  we get
+
+  
+
+  
+
+
+
+    where the last equality implies that  since  is injective. Hence  and so  is injective.
+
+    For surjectivity take any element  in . Since  is an isomorphism there exists some  such that
+
+     for some . Then surjectivity follows from
+    *
+
+  So we get that  is an isomorphism and by symmetry  is also an isomorphism. Hence,  is an automorphism of  and we can repeat the same argument to find new indices  such that  and  are isomorphisms. Since the decompositions  are direct sums there are a finite number of non-trivial modules thus this process will eventually exhaust all of them. The rest of the summands in the decompositions not covered by these isomorphisms must then consist of trivial modules which proves the uniqueness of the decomposition up to permutation and trivial modules.
+
+Now for explicitly computing persistent homology we have the presentation
+
+
+
+
+and so we could theoretically apply the proof above and get a decomposition of , but this comes with one caveat: to give a presentation matrix of  requires us to first have a basis of , which we typically do not have. Instead we have the boundary map  which has as its image  and  as its kernel. Hence, we must first compute the Smith graded normal form of the map  which gives us a compatible basis in both  and . Then we compute the Smith normal form of the inclusion map  from which we can derive the barcode .
+
+Consider the filtration given in Figure . For simplicity we work in . The persistence complex has basis given by the simplices . We get the following boundaries by evaluating the boundary map  on the simplices which generate the chain complex 
+Hence we have the following matrix representing the map :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Reducing this matrix to graded Smith normal form while keeping track of basis changes gives us the matrix
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+  From the reduction to normal form we can read off a basis for  given by the zero columns and the basis of  given by the non-zero rows together with their non-zero entry. This gives us a presentation matrix of  from the inclusion 
+
+  
+
+
+
+
+
+
+
+
+
+  Reduction of this matrix to Smith normal form gives us
+  
+
+
+
+
+
+
+
+
+
+  
+
+ We see that there is one zero row given by  which gives us the interval . This is because  is the -cycle in Figure  that eventually becomes the connected component of the entire simplicial complex, hence it never dies. We additionally have two intervals  and  from the rows with  as their entry. The first one is the other connected component given by  which is born at filtration step  and dies when it becomes part of the single connected component given by  in filtration step 3. The interval  corresponds to the triangle without interior at filtration step  which later dies at filtration step  when the triangle is filled in.
+
+
+
+       Filtration of a simplicial complex showing the intermediate simplicial complex at each filtration step. A blue simplex indicates the simplex was added in that filtration step.
+
+
+
+
+Algorithm 1 for a simplicial complex has, just like ordinary Gaussian elimination over fields, worst case time complexity  where  is the  number of simplices. However, as seen in Example  the boundary matrix is sparse. Furthermore, the decomposition of  can be read entirely from the reduced boundary matrix without constructing an explicit presentation matrix. These are some areas where the algorithm usually is made more efficient, but dwelling on such optimizations is outside the scope of this thesis. For more in-depth treatments on this subject see  for the theoretical underpinnings and for the de facto solution on which many software libraries are based.
+
+
+Visualizing Persistence
+The persistent homology of a space is not a very easy algebraic object to work with in practical terms. Even when considered under the bijection with intervals it is a multiset of intervals and as such helpful visualizations allow us to analyze and compare persistent homology. There are two principal ways of visualizing the decomposition of a persistence module: barcode diagrams and persistence diagrams.
+
+Barcodes
+A barcode diagram is a visual depiction of  where each bar depicts the start end and end of an interval, or equivalently the birth and death of a particular generator in one of the homology modules.
+
+In Figure  we see a barcode diagram generated from points sampled from an annulus. Note that for small values of  there are many generators of , this is because the vertices have not been connected into a single component yet.
+
+  We see that there some short intervals appearing for  at around  and we can see that these are not the hole that would represent the annulus, but rather noise that appears before  has become large enough. At around  the simplicial complex now captures the shape of the annulus and indeed the barcode diagram shows that we have one generator of , the only connected component, and one generator of  which is the hole in the middle of the annulus.
+
+  Note how this hole in the middle of the annulus is gone when  which highlights that it is difficult to find an optimal .
+
+  
+ Persistence barcode showing the birth and death of generators in the homology groups of a Vietoris-Rips complex approximated from points sampled from an annulus at different . 
+  Persistence Diagrams
+  Another way of illustrating persistent homology is the persistence diagram as seen in Figure .
+
+  
+    The persistence diagram  of a persistence module  is a multiset of points in  defined as
+    
+
+
+  In other words, it is the set of (birth,death) pairs given by the intervals associated with the decomposition of  together with all points on the diagonal.
+
+When visualized as in Figure  it serves alternative to the barcode in Figure  where we instead plot the -value on both axes and for each generator we draw a point given by its corresponding interval. When we have a lot of intervals this is a preferable way of visualizing the persistent homology, since unlike the barcode it does not grow vertically with the number of intervals. Generators that never die are mapped at a line representing infinity.
+
+Just like in the barcode in Figure  we can see in Figure  that the only two generators that live for a considerable amount of time is a single connected component in  and a single hole in . This is consistent with the topology that we expect from an annulus. At around  we see a lot of  generators being born and dying at almost the same time. Since the number of generators of  tells us the number of connected components in the topology this clearly illustrates how the sampled points go from being isolated islands to being incorporated in a larger simplex.
+
+       A persistence diagram over the birth and death of generators in the homology groups of a Vietoris-Rips complex approximated from points sampled from an annulus. The closer a point is to the diagonal line the shorter it lived. 
+
+  Metrics
+  As persistent homology is often used as a topological summary of some data, it can be beneficial to be able to compare two different data samples with respect to their persistent homology. There are two commonly used metrics for doing this, the bottleneck distance and the Wasserstein distance.
+  
+    The bottleneck distance between two persistence diagrams  is
+    
+    where  is a bijection from  to .
+  In other words, the bottleneck distance finds a matching, in the space of possible matchings, between the two persistence diagrams such that the largest distance in the matching is the smallest one possible. Since there could be more intervals in one persistence diagram, any point can also be matched with an infinite number of points on the diagonal which are included in the persistence diagram. Its name is derived from the fact that there is only one matching of points which contributes to the actual value of the distance, the largest one, and hence the distance is "bottlenecked" by that matching.
+
+One disadvantage of the bottleneck distance is that it is quite coarse, it does not tell us very much about the other distances between other matched points. An alternative is the -Wasserstein distance which instead incorporates all distances in the best matching.
+  
+    The q-Wasserstein distance between two persistence diagrams  is
+    
+    Both the Wasserstein and bottleneck distance serve a purpose as the bottleneck distance can be considered more robust to noise since small changes in the matchings are ignored in favor of the largest matching.
+
+  A desired quality of these metrics are stability, ideally we want the metrics to actually reflect difference in the underlying spaces. There are stability theorems that under varying conditions fulfill a meta-theorem which guarantee this.
+
+  
+    A filtration function  is a function from a simplicial or cubical complex  such that the sublevel set  is a filtration.
+  
+  [Stability meta-theorem]    For a nice enough space  and nice enough filtration functions , a nice enough norm of the difference of  serves as an upper bound to the distances between the persistence diagrams given by .
+  
+  In other words, a small perturbation of the filtering functions will at most be as large as the difference between the functions themselves. The term nice is intentionally vague, since these conditions vary. For an overview of the particular scenarios in which the meta-theorem is applicable see, including a formulation which allows for general persistence modules under certain conditions. In practical applications we are often only considering finitely many sublevel sets from a filtration function which motivates the following definition.
+
+  
+    A filtration function is called tame if the persistence complex arising from the filtration function is of finite type.
+  
+Then we have the following corollary of the meta-theorem.
+
+      If  given as in Theorem  are tame then the meta-theorem holds for the bottleneck distance with norm given by the -norm and for the -Wasserstein distance with the -norm.
+    As the proofs of Corollary  require a lot of tedious and technical details which would detract from the overall theme of this thesis, we instead refer the reader to elementary proofs regarding the -Wasserstein distance in and the bottleneck distance in.
+
+
+
+
+
+Two Applications of Persistent Homology
+
+Since our purpose with thesis is not only to give an introduction to persistent homology in terms of theory, but also display how it can be used with actual real-world data, we illustrate this pipeline two different case studies where persistent homology serve as our main tool for data analysis.
+
+In the first case we quantify differences in morphology between different-sized individuals of the bumblebee Bombus terrestris by computing the persistent homology of 3D volumes of their corneas. To our knowledge this is the first use of persistent homology in data pertaining to insects, although materials, reconstructions of 3D volumes and plants have been investigated with approaches that are similar in spirit.
+
+In the second case we try to understand the network structure of the striatum, a part of the basal ganglia in the brain. Due to the sheer computational power needed to compute persistent homology for this data our analysis is more of a holistic summary of the resulting simplicial structure rather than focusing solely on persistent homology. Our approach is largely inspired by, in which a similar analysis is done but for a different part of the brain.
+
+The application of persistent homology to a data-set is not entirely trivial. In order to compute persistent homology we need to construct a persistence complex on the data at hand. This can be done in a multitude of ways, but the basic pipeline can be seen in Figure .
+
+
+       The pipeline of computing persistent homology of data.
+
+A central part of this pipeline is the formulation of a filtration function which yields a sequence of complex and hence a persistence complex. The filtration provides the translation of data into an algebraic object we can compute persistent homology of. This means that when we analyze results from persistent homology, perhaps by comparing metrics between two barcodes or reading directly of a persistence diagram, the semantic meaning of those results is intimately connected to how the filtration creates the resulting complex. Dually, this means that in order to formulate the filtration we need to have a strong understanding of the data itself so that our filtration captures essential properties of the data. The complex constructed on the data-set is an approximation of it topologically, but since it is not the "true" space in which the data lives care has to be taken so that any conclusions made from the barcode are meaningful.
+
+
+Corneas of Bombus terrestris
+It has been found that the size of individuals of the species Bombus terrestris affects aspects of their visual capabilities. By applying persistent homology we can investigate whether this difference in size also translates to a difference in persistent homology, and so by proxy a difference in topology. If so, this could serve to strengthen the hypothesis that larger individuals have superior, or at the very least different, visual capabilities than smaller individuals. Persistent homology is a good candidate for this purpose as metrics on persistence diagrams are indifferent to differences in scale but rather measures differences in shape.
+
+Our questions we wish to investigate in this case study are
+
+  Is there a correlation between the size of the bumblebees and their persistent homology?
+  Can we with persistent homology identify subgroups of bumblebees, and if so are these subgroups related to their size?
+
+Data
+The data consists of binary 3-dimensional volumes (see Figure  for renderings of some of the samples) of the corneas acquired by micro-CT scans of the samples described in Table . The main focus of the analysis will be on samples from the bumblebee Bombus terrestris, but in total there are 20 samples belonging to 8 different species of insects. The additional samples from other species will be used to verify our topological findings.
+
+    .3 
+      TA60204
+  
+  .3 
+      MQ60209
+  
+  ).3 )
+      BT77970)
+     Example renderings of cornea volumes.)
+
+
+
+Table over the data samples used in the analysis. The ID column gives a unique ID to each sample and the ITW column gives the intertegular width of each sample.
+Methodology
+Since the data we are working with are 3-dimensional volumes a natural choice is to endow it with the structure of a cubical complex. Our strategy is similar to the Vietoris-Rips complex, but instead of working with distances between points we work with adjacent cubes. Each voxel can be considered as a degenerate interval (or vertex) in a cubical complex, where  pairwise adjacent voxels give rise to a square and  pairwise adjacent voxels give rise to a cube.
+
+In order to compute persistent homology we need a filtration which defines subcomplexes of the cubical complex. Since the volumes are binary, we give the volume a bit more structure by giving each voxel the distance to the closest point on the boundary of the volume.
+
+  Given a subset  we define the Euclidean Distance Transform, or EDT, as
+   
+   where  is the boundary of .
+
+Our filtration is a sequence of cubical complexes  given by including voxels of at most value  as degenerate intervals. Higher dimensional cubes such as edges, squares and geometric cubes are, similarly to the Vietorix-Rips complex, included whenever there is a sufficient amount of pairwise adjacent voxels.
+
+
+  To calculate the EDT of the binary image in Figure  we simply calculate the difference vector from a pixel of value  to the closest pixel with value . For example, to get  in the top left corner we need to walk one step in to the left and two steps upwards which translates to the vector  which has Euclidean norm . We then compute the filtration of the transformed image, which gives us cubical complexes for each value of . Since there are five distinct values of the pixels, we find  five subsequent cubical complexes ordered by inclusion.
+
+  
+             Transformation of a binary image into a filtration of cubical complexes based on the Euclidean Distance Transform.
+  
+
+Our filtration on the volumes will describe the structure of the cornea starting at it the void surrounding it, then including the hollow shell which is its boundary, and then as the threshold increases the cubical complex will include more and more of the denser parts within the volume. An illustration of the thresholding at different values is seen in Figure .
+
+
+    .3 
+      
+  
+  .3 
+      
+  
+  .3 
+      
+     EDT thresholding of BT77976. Cooler colors indicate denser parts of the volume relative to the rest of the volume.
+
+The resulting topological summaries we get are persistence diagrams. While these are in themselves interesting, in order to answer whether there is any relation between the size of an individual and the persistent homology of its cornea, we compute a distance matrix giving the distance of each sample to another. Since we have a number of dimensions of homology to compare and two different distance metrics between persistent homology we get a total of 6 distance matrices. For each of these distance matrices, we divide them into two submatrices, one group consisting of the submatrix with entries from Bombus terrestris and the other group consisting of all the other samples to act as a control group on the first.
+
+Our hypothesis is that there is some relationship between the distances given by the absolute difference in ITW and their persistent homologies. But since different homology dimensions and metrics provide different summaries of the objects we first need to figure out which one of them is most suited for our applications.
+
+We determine which metric we will rely on by doing a so called Mantel test of the distance matrix with respect to homology and the distance matrix with respect to ITW. A Mantel test is a non-parametric test of distance matrices, in which we compute the Spearman rank correlation of the two matrices under the null hypothesis that the matrices are uncorrelated. We can then derive a test statistic by permuting one of the matrices in both rows and columns and computing correlations for each such permutation.  The results of a Mantel test is a correlation coefficient indicating the strength of the correlation and -value indicating how likely it is  that this coefficient would appear in a random permutation of one of the matrices.
+
+We then perform clustering of the persistent homology distance matrix based on hierarchical clustering. It is a simple algorithm where we first consider each sample as its own cluster, and then group together clusters depending on the distance between them. The distance between two clusters is given as the minimum distance between any two samples between the two clusters. Our hope then is that the final clustering, based on persistent homology, reflects the ITW of the Bombus terrestris samples.
+
+
+Results
+The Mantel tests in Table  reveal that the highest correlation is given by the bottleneck distance on . Perhaps this is not too surprising, our objects are volumes and the most distinguishing aspects of volumes will be how they encode voids. Interestingly, the  bottleneck distance matrix shows a very high -value indicating that the largest distance between holes is not very telling in drawing a conclusion about correlation between size and persistent homology. This could be explained again by the fact that our object is a volume of a single connected component namely a cornea, and so any existence of holes will at best be local geometric information and at worst simply noise.
+
+
+
+
+
+
+ Table displaying the statistics computed in the Mantel test of the pairwise distances in different dimensions of persistent homology and the ITW for the species Bombus terrestris. The symbol  denotes the Spearman rank correlation coefficient computed between the two distance matrices. 
+
+The -Wasserstein metric does not provide a low enough -value for us to draw any conclusions from the tests when it comes to Bombus terrestris, this perhaps indicates that the sample size of the Bombus terrestris submatrix is too small. It is possible that the more sensitive nature in the -Wasserstein metric, since it records not only the largest differences in the persistence diagrams but all of them, makes it less robust to a smaller sample size.
+
+Since the bottleneck distance on  has a strong correlation with the ITW distance matrix we proceed with a hierarchical clustering on its distance matrix as seen in Figure . We see that there are two groups formed where one of the groups contains an additional cluster. The first group, which does not contain a subgroup, consists of two samples BT77967 and BT77976. These are the largest samples in terms of ITW and the remaining group contains two subgroups both in which the ITWs are smaller. It is worth repeating that this clustering is done without knowledge of the actual ITW, these clusterings are purely based on the bottleneck distance of the  persistent homology and as such a differences here indicate differences based solely on the fact that their persistence diagrams differ.
+
+
+       Hierarchical single-link clustering of the bottleneck distance matrix derived from the persistent homologies of the Bombus terrestris in .
+
+In order to further clarify in what way the persistence diagrams of the Bombus terrestris are differing we can look at visualizations of the bijections done under the bottleneck distance and which pair of generators are the ones to determine the metric.
+
+In Figure  we see the matchings produced for the elements within each of the identified clusters. We see that within the group the optimal matching always gives the largest distance as a matching between a point and the diagonal.
+
+On the other hand, if we look at the distances from samples between groups in Figure  we see that there is one generator that is responsible for the bottleneck distance in all of these matchings. That is the longest living generator which is born at filtration value . At filtration value  the only voxels in the volume are the empty voxels constituting the background, which means that the void is left by the space where the cornea will be at a higher filtration value. As the filtration value increases the volume gets filled in with denser and denser parts of the cornea, but as seen in Figures  and  it lives for a long time before the cornea is entirely filled out. This difference in lifetime, which can somewhat be translated to the density of the cornea, appears to be the distinguishing factor between the three identified clusters of samples.
+
+
+    .49 
+    
+  .49 
+      .49 
+       Visualisations of bottleneck distances within clusters on persistence diagrams of .
+
+    .49 
+    
+  .49 
+      .49 
+       Visualisations of bottleneck distances between clusters on persistence diagrams of .
+
+
+
+
+While the purpose of this analysis is mostly to showcase persistent homology in the wild, these results  do support to the idea that different sized Bombus terrestris do not only have larger eyes, but also that they are topologically different. Our clustering results on  group the larger individuals together and we find a strong correlation with bottleneck distance in  and ITW. Furthermore, we find that there is one generator born at the beginning of the filtration that is responsible for the "bottleneck" when comparing samples from the different clusters whereas within the same cluster other generators with much shorter lifetime are the contributors.
+The Simplicial Structure of the Striatum
+
+
+There is much reason for considering simplicial complexes when it comes to networks related to the brain. An extensive field of study when it comes to network analysis of the brain are motifs, which at a high-level simply means a repeated pattern in a network which might have some form of semantic meaning to the network. Simplices capture such patterns at a micro-level through the connectivity of its faces. Furthermore, homology captures another type of patterns at a meso-level through cycles of simplices. Armed with persistent homology we arrive at a comprehensive summary of the network through the lens of the filtration of our choice.
+
+In this analysis we follow by observing the high-dimensional simplicial structure of the brain by constructing a particular simplicial complex on the connectivity matrix of a synthetically generated microcircuit of the striatum as described in, a part of the basal ganglia in the brain. By computing the resulting persistent homology we hope to discover distinguishing features of our network from a few selected control models. Furthermore, our aim is that this analysis serves as yet another example of the breadth of possible scenarios in which persistent homology is applicable outside the realm of theory. While we only investigate the mentioned microcircuit, our methodology is general enough for it to be applicable in any scenario where we data can be interpreted as directed graphs.
+
+Data
+
+Recall that a directed graph  consists of a set of vertices  and a set of edges , where an edge is an ordered set  for some vertices . The degree of a vertex in a directed graph is the sum of the number of outgoing and incoming edges from and to the vertex.
+
+
+In this case analysis our main object of study is a synthetic network of generated based on empirical findings regarding the micro-circuitry of the striatum realized as a directed graph, see for further details. We compare this network to a three different models of directed graphs that all have different qualities common to networks of the brain.
+
+[]
+The Erdős–Rényi (ER) model generates a directed graph through the choice of two parameters: the number of vertices  and the number of edges . The graph is then selected uniformly from the set of all graphs with  vertices and  edges.
+
+[]
+The Watts-Strogatz (WS) model is parameterized by the number of vertices , the average out-degree  and a rewiring probability . A directed graph is constructed by first creating a graph of  vertices, such that for every vertex there is an outgoing edge to its  closest neighbours modulo , meaning that the graph is circular. Then finally each edge has a probability  of being rewired to a different, uniformly selected, endpoint.
+
+[]
+  The Barabási–Albert (BA) model is parameterized by the number of vertices  and , the average out-degree of each vertex. It is constructed by first adding  vertices and successively adding vertices until there are  vertices. For each new vertex  we add an edge   with a probability of
+  
+
+
+  Hence, at each addition of a vertex an older vertex with a high degree has a higher chance of having its degree increased.
+ER can be considered the baseline model, since it is an arbitrary random graph among all possible graphs. WS is said to have small-world properties, which means that there are clusters of highly connected nodes and that the average path between two vertices is short. BA is said to be scale-free which means that most vertices have a low degree, but some "hubs" have a high degree. Both scale-free and small-world properties have been observed in brain networks. Figure  gives an example of each model generated with  vertices.
+
+In this analysis we compare we will compare the three models above with the synthetic network generated from the striatum, which we will refer to as ST. In Table  we can see our choice parameters for the models and the resulting number of edges and vertices. For ER and WS our parameter choices were made to match the number of edges in ST. However, for the BA model we instead choose parameters in order to match the number of dimensions in the simplicial complex on ST as seen in Figure .
+
+    .33 
+        Erdos-Rényi
+  
+  .33 
+
+        Watts-Strogatz
+  
+  .33 
+
+        Barabási-Albert
+     An example of the ER, WS and BA models on 100 vertices.
+
+
+
+ Breakdown of the ST, ER, WS and BA graphs compared in the analysis.
+
+Methodology
+It is not entirely clear how we should define a simplicial complex on a directed graph. The asymmetry is important as connections between neurons in the brain do not necessarily go both ways. While we could simply consider the network as a undirected graph by adding missing edges it is likely that important qualities of the network might be lost. There are a number of different ways to go about defining a similar complex on a directed graph . In our case we follow and construct something called the directed flag complex of a directed graph.
+
+[]
+  A directed clique is a directed graph  such that every vertex has at least an outgoing or incoming edge to every other vertex in the graph. 
+Recall that an abstract simplicial complex as in Definition  is given by ordered sets such that each subset of is also part of the entire complex. Hence, by taking a directed graph and introducing a partial order on the vertices we can construct an an abstract simplicial complex.
+
+[]
+  Let G=V,E be a directed graph. The directed flag complex dFl(G) is defined to be the simplicial complex whose -simplices are all directed cliques with vertices  such that 
+  and . The vertices  are called the source and the sink of a -simplex.
+
+The directed flag complex is essentially the same construction given by the Vietoris-Rips complex where pairwise intersection is given by an edge. However, there are some notable difference due to the fact that the underlying graph is directed. One difference is that we only create a simplex from cliques of simplices whose edges flow "upwards" in the order. In Figure  we see how the left clique has a source and sink and thus defines a -simplex in the directed flag complex, but the right clique has one edge going in the wrong direction hence it is not a -simplex.
+
+The th chain module on a directed flag complex is defined in the exact same way as in Definition  with the exception that we do not have equivalences between simplices that are permutations of the same vertices. As a result of this the chain complex has certain oddities like  being a cycle whereas in the case of simplicial homology it would be a trivial chain due to the equivalence. In the context of a directed graph derived from the brain this makes sense: a connection between neurons is only one-way and the presence of a reciprocal edge indicates two different connections in both directions and thus is a cycle in its own right.
+
+
+       Two directed cliques where the left clique does create a 3-simplex in the directed flag complex and the right clique does not.
+
+We investigate the graphs ST, ER, WS, and BA in three different ways: the number of simplices in each dimension, their Betti numbers and their persistence diagrams.
+
+For computing persistent homology, we need to define a filtration on the directed flag complexes.
+We use a simple filtration function
+
+
+
+
+
+ where we add vertices in ascending order of degrees and their resulting higher-dimensional simplices whenever all their vertices have been included in the complex. The degree of the vertex indicates how central a vertex is to the graph, which means that the filtration will describe the network in its most basic building blocks and then add less and less important vertices.
+Results
+First we note the large number of simplices in ST as seen in Figure , where we find as much as over a hundred billion simplices in dimension  and . This phenomena was also observed in, however not of the same magnitude.  Furthermore, we see that the number of dimensions is significantly larger in ST compared to ER and WS. The graph BA was chosen so that its directed flag complex had the same dimension as ST's, but we see that the number of simplices in each dimension is notably lower. So while the BA model seems to capture the complexity of connectivity in ST it does not capture the magnitude. ER and WS present a lot fewer simplices and a lot fewer dimensions than ST. In this sense ER is the simplest model, but this is to be expected since it is a random graph we expect there to be less of simplicial complexity.
+
+One thing that has to be mentioned is that the computation of homology and even more so persistent homology becomes extremely computationally expensive due to the number of simplices in ST. As seen in Section 3.3 reducing the boundary matrix in a dimension is at worst case given by a cubical amount of field operations in proportion to the number of simplices in one dimension above. Hence, computing something like  for ST would involve a computation of the magnitude  field operations. Even worse, in practice computation persistent homology is not only affected by the number of simplices in the resulting simplicial complex, but also the number of simplicial complexes in the filtration. For this reason we only present persistence diagrams and Betti numbers for  and additionally the Betti number for .
+
+In Table  we see that ST has a lower  than any of the other graphs. Curiously, even though BA has a lot fewer edges it still has a higher Betti number in dimension 1. It is possible that the low amount of -cycles is a feature that distinguishes brain networks from other types of networks, but no such result is presented in since  was never computed due to computational limitations. If we turn to  we see that  has the largest change from , while the other graphs are pretty close to their  however with a larger error. This dramatic increase from dimension 1 to dimension 2, both in Betti number and number of simplices, could also be seen as a feature of  compared to the other models. The distribution of simplices in Figure  hints that this dramatic increase likely continues for several dimensions.
+
+We see in Figure  that ST is markedly different from all other models in terms of persistent homology. The persistence diagram of  is not very informative due to all of its vertices essentially having the same degree. However, WS and ER display similar persistence diagrams in which the distribution of holes is concentrated to a small interval of filtration steps from degree  to degree . In comparison, ST shows a much larger spread of both birth and death of holes, with some holes even being born or dying close to degree .
+
+To conclude, we have found that directed flag complex on  differs in several ways from the other three graphs: it has a much larger number of simplices in each dimension, it has simplices in high dimensions, it has lower  than all models and lower  than all models but BA. Furthermore, the persistence diagram of ST shows a distinct spread of the birth and death of generators of , whereas for BA they are all born at the same time due to nature of the filtration and for ER and WS they are all restricted within a small interval of degrees.
+
+
+    .49 
+        ST
+  
+  .49 
+        ER
+    .45 
+        WS
+    .49 
+        BA
+    The total number of simplices in each dimension for the directed flag complex on ST, ER, WS and BA. For ER, WS and BA the counts are the result of the mean number of simplices in each dimension over 100 computations.
+
+
+ Table over the first and second Betti numbers for the graphs ST, ER, WS and BA. The computation column denotes the number of instances of the model over which the result was averaged, hence the Betti numbers are given by an average value and its standard deviation. For ST the approximation seen in was used in order to reduce computational time in which some columns were not reduced to Smith normal form. Every such non-reduced column can at most subtract or add one Betti number.
+
+
+  
+  .49 
+        ST
+  
+  .49 
+        ER
+    .49 
+        WS
+    .49 
+        BA
+     Persistence diagrams over  and  for ST,ER,WS and BA given by inclusion of vertices and their resulting higher order simplices in the negative order of their degrees.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Conclusion
+
+
+Our goal with this thesis is to provide both an introduction to theory of persistent homology, as well as examples of applications to real-world data. We believe this is achieved.
+
+We provide an exposition of persistent homology through the concept of a persistence module. We then state and finally prove the unique decomposition of persistence modules into a direct sum of free and torsional parts.  Furthermore, the proof of this theorem yields a concrete algorithm for computing persistent homology of a given filtration through the computation of graded Smith normal form. By associating the decomposition with barcodes, and further on persistence diagrams, we illustrate how persistent homology can be visualized. Furthermore, we review the bottleneck distance and -Wasserstein distance which allows us to compare different barcodes with each other.
+
+On the application side, we present two case studies. These studies are not to be seen as stand-alone results in their respective domains, but rather as examples of how persistent homology can be applied to achieve fruitful insights into data. By using these non-traditional ways of exploring data we hope that we show there is some merit to considering persistent homology as a way of enhancing a traditional data analysis.
+
+In the first case study we analyze 3D scans of the corneas of the bumblebee Bombus terrestris. This analysis shows how persistent homology can be applied to volumetric data and how it can be used to perform a clustering and similarity analysis. Furthermore, we are able to find that the persistent homology, specifically the barcode of  compared across samples with the bottleneck distance, reinforces the already shown hypothesis in, namely that the shape of the eyes of Bombus terrestris differs between smaller and larger individuals. We also interpret this result as implying that it is the density of the cornea which is a distinguishing factor between differently-sized individuals.
+
+In the second case study we analyze a synthetically generated network made to mimic the micro-circuitry of the striatum. By interpreting the network as a directed graph, we show how persistent homology can be used to compare real-world data given as graphs to control models generated in multiple ways. We reinforce the already established result in, that the resulting directed flag complex on the brain network displays a much richer simplicial structure in terms of dimensions and number of simplices compared to control models. Furthermore, we establish that  of the micro-circuitry is much lower than any of the control models. Finally, we see that the distribution of the persistent homology in  of the micro-circuitry is spread across the entire spectrum of possible degrees, whereas control models only have holes in small intervals of degrees. These observations could act as points of differentiation when it comes to characterizing the striatum.
+
+For some further directions in the first case study, one could extend the methodology to see if  is always the distinguishing factor within and between different species of insects. However, this would likely require a larger amount of samples.
+
+In the second case study a potential lane of investigation is whether other persistence diagrams of filtrations than the degree based filtration are as unique to the micro-circuitry compared to the other models. Some other filtrations that can be used with the exact same methodology are other measures of importance in a graph, such as the number of shortest path through an edge or the number of neighbors which are neighbors to each other. This is something we wanted to do, but the computational demands together with time restraints made it unfeasible.
+
+Additionally, it could prove fruitful to see whether micro-circuitry in the actual biological striatum displays a similar signature to the synthetic model in terms of persistent homology. Should this be the case, then it strengthens the result of the case study as a signature for the networks of neurons in the striatum. If it is not the case, then persistent homology could perhaps be a parameter to take into account when further calibrating the synthetic model.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
