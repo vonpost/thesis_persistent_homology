@@ -212,7 +212,7 @@ We can make this association of the decomposition of a persistence module with i
 \end{definition}
 
 
-In the obvious way, $Q$ is a bijection which maps each summand in the decomposition of a persistence module to an interval. This gives us a correspondence between infinite intervals and generators of the free part and finite intervals and generators of the torsional part.
+In the obvious way, $Q$ is a bijection which maps each summand in the decomposition of a persistence module to an interval. This gives us a correspondence between infinite intervals and generators of the free part and finite intervals and generators of the torsion part.
 
 
 \section{Proof of the Structure Theorem}
@@ -265,14 +265,16 @@ We will now describe an algorithm for computing the graded Smith normal form. Si
   Suppose we wish to eliminate some entry in row $j$ with an element in row $i$. This implies that $ i > j$ by the algorithm itself. Let the entries be denoted $a_{i}= c \cdot t^{r_{i}}$ and $b_{j} = d \cdot t^{s_{j}}$ respectively. Since the columns and rows are chosen to be homogeneous, we know that they can be written this way. The matrix is sorted in ascending degree order in both rows and columns, which implies that $\deg(a_{i}) \leq \deg(b_{j})$, hence we can always eliminate $b_{j}$ by adding $t^{s_{j}-r_{i}} \frac{-d}{c} \cdot a_{i}$. Furthermore, if $\gamma_{i},\gamma_{j}$ are the basis elements of rows $i,j$ then we know from linear algebra that the addition causes a change of basis $\gamma'_{i}:=\gamma_{i}-t^{s_{j}-r_{i}} \frac{-d}{c} \cdot \gamma_{j}$. We get that $\deg(\gamma'_{i})=\max\{\deg(\gamma_{i}), (s_{j}-r_{i}+\deg(\gamma_{j})\}$, but since $a_{i},b_{j}$ are entries of the same homogeneous column this implies that $r_{i} + \deg(\gamma_{i}) = s_{j} + \deg(\gamma_{j})$, hence $\deg(\gamma'_{i}) = \deg(\gamma_{i})$. An identical argument holds for if we wish to eliminate by column additions, with the exception that the change of basis occurs in $\gamma_{j}$.
 \end{proof}
 When a presentation matrix of $M$ is put into graded Smith normal form by Algorithm 1 it gives us compatible bases for $K$ and $G$ and the isomorphism becomes \[M\cong \frac{\text{basis  elements given by rows  }}{\text{basis elements given by non-zero rows times their entry}}\]
-To understand how we can intrepret the presentation matrix as such, consider that the rows give a basis for $G$ under the inclusion $K \hookrightarrow G$. The non-zero rows tell us which basis elements of $G$ are hit by the inclusion when shifted in the grading by their corresponding non-zero entry. Hence, these shifted basis elements of $G$ generate the elements that are killed in the projection $G \to M$.
+To understand how we can interpret the presentation matrix as such, consider that the rows give a basis for $G$ under the inclusion $K \hookrightarrow G$. The non-zero rows tell us which basis elements of $G$ are hit by the inclusion when shifted in the grading by their corresponding non-zero entry. Hence, these shifted basis elements of $G$ generate the elements that are killed in the projection $G \to M$.
 
 We are now ready to prove \textbf{Theorem \ref{structurethm1}}.
 
 \begin{proof}
-  The module $M$ is of finite type so it has a presentation matrix $P$. By reducing $P$ to graded Smith normal form with Algorithm 1 we get a matrix $P'$. Since $M \cong G/K$ by the first isomorphism theorem we have that free part of $M$ is given by the basis elements of $G$ associated with the zero rows of $P'$, as these are basis elements which are not hit by the inclusion $K \hookrightarrow G$ in any part of the grading. Furthermore, the torsional part in the decomposition is given by the non-zero rows which define basis elements of $G$ that when shifted by their entry are basis elements of $K$ and thus are killed in $M$. This proves the existence of the decomposition.
+  The module $M$ is of finite type so it has a presentation matrix $P$. By reducing $P$ to graded Smith normal form with Algorithm 1 we get a matrix $P'$. Since $M \cong G/K$ by the first isomorphism theorem we have that free part of $M$ is given by the basis elements of $G$ associated with the zero rows of $P'$, as these are basis elements which are not hit by the inclusion $K \hookrightarrow G$ in any part of the grading. Furthermore, the torsion part in the decomposition is given by the non-zero rows which define basis elements of $G$ that when shifted by their entry are basis elements of $K$ and thus are killed in $M$. This proves the existence of the decomposition.
 
-  What remains to show is that the decomposition is unique no matter our choice of basis for $G$ and $K$. This actually follows from a much more general result, the Krull-Schmidt Theorem \cite[p. ~115]{jacobson2009basic}, but we will give an elementary proof. Suppose that we have two different decompositions of $M$ that we denote $C,D$. We claim that they are identical up to permutation of components and modulo trivial components. We have homomorphisms
+  What remains to show is that the decomposition is unique no matter our choice of basis for $G$ and $K$. This actually follows from a much more general result, the Krull-Schmidt Theorem \cite[p. ~115]{jacobson2009basic}, but we will give an elementary proof.
+
+  Suppose that we have two different decompositions of $M$ that we denote $C,D$. We claim that they are identical up to permutation of components and modulo trivial components. We have homomorphisms
   \[
     f_{ij} := C_{i} \overset{\iota_{C_{i}}}{\hookrightarrow} \overset{\phi}{C \cong M  \cong D}  \overset{\pi_{D_{j}}}{\twoheadrightarrow} D_{j},
   \]
@@ -282,32 +284,43 @@ We are now ready to prove \textbf{Theorem \ref{structurethm1}}.
   % \[
   %   g_{ij} :=  D_{j} \hookrightarrow D \cong M  \cong C  \twoheadrightarrow C_{i}
   % \]
-  where the maps are the obvious inclusions and projections from and onto components and the isomorphism through the decomposition of $M$. Then for at least one pair $i,j$ the homomorphism $f_{ij}$ cannot be the zero map since $\sum_{i,j} \iota_{C_{i}} g_{ij} f_{ij}: C \to C$ is an automorphism of $C$. Assume that $i=1,j=1$, if this is not the case we can just permute the summands.  Then $f_{11}$ (by symmetry all arguments below hold for $g_{ij}$ as well) is an isomorphism $C_{1} \cong D_{1}$ since the graded isomorphism $\phi$ takes a homogeneous element $t^{a} \to c \cdot t^{a}$ for some $c \in \mathbb{F}$.
+  where the maps are the obvious inclusions and projections from and onto components through the isomorphism between the decompositions of $M$.
+
+  First, we note that for at least one $j$ the composed map $g_{1j}f_{1j}$ cannot be the zero map since
+\[\sum_j g_{1j} f_{1j} = \sum_{j} g_{1j} (\pi_{D_j} \phi \iota_{C_1}) = \sum_{j} (\pi_{C_1} \phi^{-1} \iota_{D_j}) (\pi_{D_j} \phi \iota_{C_1}) =\]
+ \[\pi_{C_1} \phi^{-1} (\sum_{j} \iota_{D_j} \pi_{D_j}) \phi \iota_{C_1} = \pi_{C_1} \phi^{-1} \phi \iota_{C_1} = 1_{C_1}. \]
+ Let us assume that $j=1$, if not we can just reorder the summands in $D$ such that this is the case. Then $g_{11}f_{11}$ is an automorphism of $C_{1}$. To see this, note that $g_{11}f_{11}$ is a \textit{graded} non-zero endomorphism of $C_{1}$, hence if $C_{1} = t^{a} \mathbb{F}[t] / (t^{b})$ then $g_{11}f_{11}$ must take $t^{a} \to c t^{a}$, which generates the entirety of $C_{1}$ for some non-zero $c \in \mathbb{F}$.
+ \clearpage
+ By symmetry, if $f_{11}g_{11}$ is non-zero then it is also an automorphism. However, $f_{11}g_{11}$ cannot be zero since $g_{11}f_{11}$ being an isomorphism gives us that
+ \[ g_{11}(f_{11}g_{11})f_{11} = (g_{11}f_{11})(g_{11}f_{11}) \neq 0.\]
+ Hence, $f_{11}g_{11}$ is also an automorphism. Then by force $f_{11}$ and $g_{11}$ are isomorphisms.
+
+ % For contradiction, suppose that $f_{11}g_{11}$ is zero. We know that neither $f_{11}$ nor $g_{11}$ are zero from the fact that $g_{11}f_{11}$ is non-zero. The only possibility left is that $\ker f_{11} = \text{im }g_{11}$. However, $g_{11}f_{11}$ being an isomorphism forces surjectivity of $g_{11}$  and injectivity of $f_{11}$ which would imply that $\text{im } g_{11} = C_{1} = \ker f_{11}$. This contradicts that $g_{11}f_{11}$ is non-zero, hence $f_{11}g_{11}$ cannot be zero.
+ % Furthermore, we can conclude that both $f_{11}$ and $g_{11}$ are isomorphisms since $g_{11}f_{11}$ and $f_{11}g_{11}$ are isomorphisms.
 
   Furthermore, we claim that the map $f_{2_{+}}$ defined below is also an isomorphism
-  \[ f_{2_{+}}: \oplus_{i=2}C_{i} \to \oplus_{j=2} D_{j} \]
-  \[f_{2_{+}}(c_{2},c_{3},\dots) = \sum_{i=2,j=2} \iota'_{D_{j}}f_{ij}(c_{i}) \] where $\iota'_{D_{j}}$ denotes the inclusion $D_{j} \hookrightarrow \bigoplus_{j=2} D_{j}$.
+  \[ f_{2_{+}}: \oplus_{i \geq 2}C_{i} \to \oplus_{j \geq 2} D_{j} \]
+  \[f_{2_{+}}(c_{2},c_{3},\dots) = \sum_{i \geq 2,j \geq 2} \iota'_{D_{j}}f_{ij}(c_{i}) \] where $\iota'_{D_{j}}$ denotes the inclusion $D_{j} \hookrightarrow \bigoplus_{j \geq 2} D_{j}$.
 
-  For injectivity, note that if $\hat c = (c_{2},c_{3},\dots) \in \ker f_{2+}$ then $\phi$ has to map $\sum_{i=2} \iota_{C_{i}} \hat c=(0,c_{2},c_{3},\dots)$ to $(d_{1},0,0,\dots)$ for some $d_{1} \in D_{1}$ since the final maps are just the projections onto components and inclusion into $\oplus_{j=2}D_{j}$. By post-composing with $\pi_{C_{1}} \phi^{-1}$ we get
+  For injectivity, note that if $\hat c = (c_{2},c_{3},\dots) \in \ker f_{2+}$ then $\phi$ has to map $\sum_{i \geq 2} \iota_{C_{i}} \hat c_{i}=(0,c_{2},c_{3},\dots)$ to $(d_{1},0,0,\dots)$ for some $d_{1} \in D_{1}$ since the final maps are just the projections onto components and inclusion into $\oplus_{j \geq 2}D_{j}$. By post-composing with $\pi_{C_{1}} \phi^{-1}$ we get
 
-  \[(d_{1},0,0,\dots) = \iota_{D_{1}}(d_{1})= \phi \sum_{i=2}\iota_{C_{i}}(\hat c) \iff
+  \[(d_{1},0,0,\dots) = \iota_{D_{1}}(d_{1})= \phi \sum_{i \geq 2}\iota_{C_{i}}(\hat c_{i}) \iff
   \]
   \[
-    \pi_{C_{1}} \phi^{-1} \iota_{D_{1}}(d_{1})=  \pi_{C_{1}} \phi^{-1} \phi \sum_{i=2}\iota_{C_{i}}(\hat c) \iff
-      g_{11}(d_{1}) = 0
+    \pi_{C_{1}} \phi^{-1} \iota_{D_{1}}(d_{1})=  \pi_{C_{1}} \phi^{-1} \phi \sum_{i \geq 2}\iota_{C_{i}}(\hat c_{i}) \iff \]
+    \[  g_{11}(d_{1}) = 0
     \]
     where the last equality implies that $d_{1}=0$ since $g_{11}$ is injective. Hence $\hat c = 0$ and so $f_{2_{+}}$ is injective.
 
-    For surjectivity take any element $\hat d := (d_{2},d_{3},\dots)$ in $\oplus_{j=2}D_{j}$. Since $\phi$ is an isomorphism there exists some $d_{1} \in D_{1}$ such that
-
+    For surjectivity take any element $\hat d := (d_{2},d_{3},\dots)$ in $\oplus_{j \geq 2}D_{j}$. Since $\phi$ is an isomorphism with $C_{1} \cong D_{1}$ there exists some $d_{1} \in D_{1}$ such that
     \[\phi (0,c_{2},c_{3},\dots) = (d_{1},d_{2},d_{3},\dots)\] for some $ c_{i} \in C_{i}$. Then surjectivity follows from
     \begin{align*}
-       f_{2_{+}}(c_{2},c_{3}, \dots) = & \sum_{i=2,j=2} \iota'_{D_{j}}f_{ij}(c_{2},c_{3},\dots) &= \\
-      \sum_{i=2,j=2} \iota'_{D_{j}}\pi_{D_{j}} \phi \iota_{C_{i}} (c_{2},c_{3},\dots) = &  \sum_{j=2} \iota'_{D_{j}}\pi_{D_{j}} \phi \sum_{i=2} \iota_{C_{i}} (c_{2},c_{3},\dots)  &=\\
-                                       \sum_{j=2} \iota'_{D_{j}}\pi_{D_{j}} (d_{1},d_{2},\dots)   = & \hat d
+       f_{2_{+}}(c_{2},c_{3}, \dots) = & \sum_{i \geq 2,j \geq 2} \iota'_{D_{j}}f_{ij}(c_{i}) &= \\
+      \sum_{i \geq 2,j \geq 2} \iota'_{D_{j}}\pi_{D_{j}} \phi \iota_{C_{i}} (c_{i}) = &  \sum_{j \geq 2} \iota'_{D_{j}}\pi_{D_{j}} \phi \sum_{i \geq 2} \iota_{C_{i}} (c_{i})  &=\\
+                                       \sum_{j \geq 2} \iota'_{D_{j}}\pi_{D_{j}} (d_{1},d_{2},\dots)   = & \hat d
     \end{align*}
 
-  So we get that $f_{2_{+}}$ is an isomorphism and by symmetry $g_{2+}$ is also an isomorphism. Hence, $g_{2+} f_{2_{+}}$ is an automorphism of $\bigoplus_{i=2} C_{i}$ and we can repeat the same argument to find new indices $i,j$ such that $f_{ij}$ and $g_{ij}$ are isomorphisms. Since the decompositions $C,D$ are direct sums there are a finite number of non-trivial modules thus this process will eventually exhaust all of them. The rest of the summands in the decompositions not covered by these isomorphisms must then consist of trivial modules which proves the uniqueness of the decomposition up to permutation and trivial modules.
+  So we get a new isomorphism $f_{2_{+}}$ of the remaining components of $C$ and $D$. Hence, we can repeat the argument above to find a new index $j \geq 2$ such that $f_{2j}$ and $g_{2j}$ are isomorphisms. Since the decompositions $C$ and $D$ are direct sums there are a finite number of non-trivial components, thus this process will eventually exhaust all of them. The rest of the summands in the decompositions not covered by these isomorphisms must then consist of trivial modules, which proves the uniqueness of the decomposition up to permutation and trivial modules.
 
 \end{proof}
 Now for explicitly computing persistent homology we have the presentation
@@ -541,16 +554,16 @@ Just like in the barcode in Figure \ref{annulus_barcode} we can see in Figure \r
     \[W_{\infty}(X,Y) = \inf_{\beta: X \to Y} \sup_{x \in X} ||x-\beta(x)||_{\infty}\]
     where $\beta$ is a bijection from $X$ to $Y$.
   \end{definition}
-In other words, the bottleneck distance finds a matching, in the space of possible matchings, between the two persistence diagrams such that the largest distance in the matching is the smallest one possible. Since there could be more intervals in one persistence diagram, any point can also be matched with an infinite number of points on the diagonal which are included in the persistence diagram. Its name is derived from the fact that there is only one matching of points which contributes to the actual value of the distance, the largest one, and hence the distance is ``bottlenecked'' by that matching.
+In other words, the bottleneck distance finds a matching, in the space of possible matchings, between the two persistence diagrams such that the largest distance in the matching is the smallest one possible. Since there could be more intervals in one persistence diagram, any point can also be matched with an infinite number of points on the diagonal which are included in the persistence diagram. Its name is derived from the fact that there is only one matching of points that contributes to the actual value of the distance, the largest one, and hence the distance is ``bottlenecked'' by that matching.
 
-One disadvantage of the bottleneck distance is that it is quite coarse, it does not tell us very much about the other distances between other matched points. An alternative is the $q$-Wasserstein distance which instead incorporates all distances in the best matching.
+One disadvantage of the bottleneck distance is that it is quite coarse, it does not tell us much about the other distances between other matched points. An alternative is the $q$-Wasserstein distance which instead incorporates all distances in the best matching.
   \begin{definition}
     The q-Wasserstein distance between two persistence diagrams $X,Y$ is
     \[W_{q}(X,Y) = (\inf_{\beta: X \to Y} \sum_{x \in X}  ||x-\beta(x)||_{\infty}^{q})^{\frac{1}{q}}\]
   \end{definition}
   Both the Wasserstein and bottleneck distance serve a purpose as the bottleneck distance can be considered more robust to noise since small changes in the matchings are ignored in favor of the largest matching.
 
-  A desired quality of these metrics are stability, ideally we want the metrics to actually reflect difference in the underlying spaces. There are stability theorems that under varying conditions fulfill a meta-theorem which guarantee this.
+  A desired quality of these metrics are stability, ideally we want the metrics to reflect differences in the underlying spaces. There are stability theorems that under varying conditions fulfill a meta-theorem which guarantee this.
 
   \begin{definition}
     A filtration function $X \to \mathbb{R}$ is a function from a simplicial or cubical complex $X$ such that the sublevel set $\{ f^{-1}(-\infty,a) \mid a \in \mathbb{R} \}$ is a filtration.

@@ -1,12 +1,12 @@
 \chapter{Two Applications of Persistent Homology}
 
-Since our purpose with thesis is not only to give an introduction to persistent homology in terms of theory, but also display how it can be used with actual real-world data, we illustrate this pipeline two different case studies where persistent homology serve as our main tool for data analysis.
+Our purpose with thesis is not only to give an introduction to persistent homology in terms of theory, but also display how it can be used with actual real-world data. As such, we illustrate the practical workflow of persistent homology with two different case studies where the analysis of persistent homology serve as our main tool.
 
 In the first case we quantify differences in morphology between different-sized individuals of the bumblebee \textit{Bombus terrestris} by computing the persistent homology of 3D volumes of their corneas. To our knowledge this is the first use of persistent homology in data pertaining to insects, although materials \cite{moon2019, delgadofriedrichs2014}, reconstructions of 3D volumes \cite{gutierrez2012, gutierrez2014} and plants \cite{plants} have been investigated with approaches that are similar in spirit.
 
 In the second case we try to understand the network structure of the striatum, a part of the basal ganglia in the brain. Due to the sheer computational power needed to compute persistent homology for this data our analysis is more of a holistic summary of the resulting simplicial structure rather than focusing solely on persistent homology. Our approach is largely inspired by \cite{reimann}, in which a similar analysis is done but for a different part of the brain.
 
-The application of persistent homology to a data-set is not entirely trivial. In order to compute persistent homology we need to construct a persistence complex on the data at hand. This can be done in a multitude of ways, but the basic pipeline can be seen in Figure \ref{pipeline}.
+The application of persistent homology to a data set is not entirely trivial. In order to compute persistent homology we need to construct a persistence complex on the data at hand. This can be done in a multitude of ways, but the basic pipeline can be seen in Figure \ref{pipeline}.
 
 \begin{figure}[h]
   \centering
@@ -14,7 +14,7 @@ The application of persistent homology to a data-set is not entirely trivial. In
   \caption{\label{pipeline} The pipeline of computing persistent homology of data.}
 \end{figure}
 
-A central part of this pipeline is the formulation of a filtration function which yields a sequence of complex and hence a persistence complex. The filtration provides the translation of data into an algebraic object we can compute persistent homology of. This means that when we analyze results from persistent homology, perhaps by comparing metrics between two barcodes or reading directly of a persistence diagram, the semantic meaning of those results is intimately connected to how the filtration creates the resulting complex. Dually, this means that in order to formulate the filtration we need to have a strong understanding of the data itself so that our filtration captures essential properties of the data. The complex constructed on the data-set is an approximation of it topologically, but since it is not the ``true'' space in which the data lives care has to be taken so that any conclusions made from the barcode are meaningful.
+A central part of this pipeline is the formulation of a filtration function that yields a sequence of complex and hence a persistence complex. The filtration provides the translation of data into an algebraic object we can compute persistent homology of. When we analyze results from persistent homology, perhaps by comparing metrics between two barcodes or reading directly of a persistence diagram, the semantic meaning of those results is intimately connected to how the filtration creates the resulting complex. Dually, this means that to formulate the filtration we need to have a strong understanding of the data itself so that our filtration captures essential properties of the data. The complex constructed on the data set is topologically an approximation, but since it is not the ``true'' space in which the data lives care has to be taken so that any conclusions made from the barcode are meaningful.
 
 
 \section{Corneas of Bombus terrestris}
@@ -27,7 +27,7 @@ Our questions we wish to investigate in this case study are
 
 \end{enumerate}
 \subsection{Data}
-The data consists of binary 3-dimensional volumes (see Figure \ref{corneas} for renderings of some of the samples) of the corneas acquired by micro-CT scans of the samples described in Table \ref{bees}. The main focus of the analysis will be on samples from the bumblebee \textit{Bombus terrestris}, but in total there are 20 samples belonging to 8 different species of insects. The additional samples from other species will be used to verify our topological findings.
+The data consists of binary 3-dimensional volumes (see Figure \ref{corneas} for renderings of some of the samples) of the corneas acquired by micro-CT scans of the samples described in Table \ref{bees}. The main focus of the analysis will be on samples from the bumblebee \textit{Bombus terrestris}, but in total there are 20 samples belonging to 8 different species of insects. We use the additional samples from other species to verify our topological findings.
 \begin{figure}[h]
   \centering
   \begin{subfigure}{.3 \linewidth}
@@ -81,14 +81,14 @@ TS\_60203 & 2.10 & Trigona spinipes \\
 \subsection{Methodology}
 Since the data we are working with are 3-dimensional volumes a natural choice is to endow it with the structure of a cubical complex. Our strategy is similar to the Vietoris-Rips complex, but instead of working with distances between points we work with adjacent cubes. Each voxel can be considered as a degenerate interval (or vertex) in a cubical complex, where $4$ pairwise adjacent voxels give rise to a square and $8$ pairwise adjacent voxels give rise to a cube.
 
-In order to compute persistent homology we need a filtration which defines subcomplexes of the cubical complex. Since the volumes are binary, we give the volume a bit more structure by giving each voxel the distance to the closest point on the boundary of the volume.
+In order to compute persistent homology we need a filtration which defines subcomplexes of the cubical complex. Since the volumes are binary, we give the volume a bit more structure by giving each voxel the distance to the closest point on the volume's boundary.
 \begin{definition}
   Given a subset $Y \subset \mathbb{R}^{n}$ we define the Euclidean Distance Transform, or EDT, as
    \[EDT(x) = \inf_{y \in \partial Y} ||x - y||_2\]
    where $\partial Y$ is the boundary of $Y$.
 \end{definition}
 
-Our filtration is a sequence of cubical complexes $K_{i}$ given by including voxels of at most value $\epsilon_{i}$ as degenerate intervals. Higher dimensional cubes such as edges, squares and geometric cubes are, similarly to the Vietorix-Rips complex, included whenever there is a sufficient amount of pairwise adjacent voxels.
+Our filtration is a sequence of cubical complexes $K_{i}$ given by including voxels of at most value $\epsilon_{i}$ as degenerate intervals. Higher dimensional cubes such as edges, squares and geometric cubes are, similarly to the Vietoris-Rips complex, included whenever there is a sufficient amount of pairwise adjacent voxels.
 
 \begin{example}
   To calculate the EDT of the binary image in Figure \ref{edt} we simply calculate the difference vector from a pixel of value $1$ to the closest pixel with value $0$. For example, to get $\sqrt 5$ in the top left corner we need to walk one step in to the left and two steps upwards which translates to the vector $(-1,2)$ which has Euclidean norm $\sqrt{1+4}=\sqrt{5}$. We then compute the filtration of the transformed image, which gives us cubical complexes for each value of $\epsilon$. Since there are five distinct values of the pixels, we find  five subsequent cubical complexes ordered by inclusion.
@@ -219,7 +219,7 @@ The \textbf{Erdős–Rényi (ER) model} generates a directed graph through the c
 \end{definition}
 
 \begin{definition}[{\cite{strogatz}}]
-The \textbf{Watts-Strogatz (WS)} model is parameterized by the number of vertices $n$, the average out-degree $m$ and a rewiring probability $p$. A directed graph is constructed by first creating a graph of $n$ vertices, such that for every vertex there is an outgoing edge to its $m$ closest neighbours modulo $n$, meaning that the graph is circular. Then finally each edge has a probability $p$ of being rewired to a different, uniformly selected, endpoint.
+The \textbf{Watts-Strogatz (WS)} model is parameterized by the number of vertices $n$, the average out-degree $m$ and a rewiring probability $p$. A directed graph is constructed by first creating a graph of $n$ vertices, such that for every vertex there is an outgoing edge to its $m$ closest neighbors modulo $n$, meaning that the graph is circular. Then finally each edge has a probability $p$ of being rewired to a different, uniformly selected, endpoint.
 \end{definition}
 
 \begin{definition}[{\cite{barabasi}}]
@@ -367,26 +367,6 @@ To conclude, we have found that directed flag complex on $ST$ differs in several
   \caption{\label{graphph} Persistence diagrams over $H_{0}$ and $H_{1}$ for ST,ER,WS and BA given by inclusion of vertices and their resulting higher order simplices in the negative order of their degrees.}
 \end{figure}
 
-% In Figures \ref{count1k} and \ref{count50k} we see that the synthetic brain networks have much more higher order structure in terms of high dimensional simplices than a network generated solely based on edge connectivity. For instance, we see in \ref{count50k} the presence of 17-dimensional cells in the synthetic network, which means directed cliques consisting of 18 participating neurons, whereas in the random network we see at most 4-dimensional cell.
-
-% In other to further investigate these higher order cells in the synthetic networks we can look at their persistent homology. However, a priori the directed brain network does not have any weights, and so it is not obvious what a filtration $f: V \to \mathbb{R_{+}}$ would look like. So we impose a metric space structure on the directed graph by giving the value of a directed edge between two vertices the Euclidean distance between the two neurons in the simulated model. This means that at low threshold values the filtration will only look at connections made by neurons very close to each other, but as the threshold increases we look at a larger and larger part of the network.
-
-% So what is a generator of a homology group in a brain network? It would have to be a $k$-simplex which is not the boundary of a $k+1$-simplex, which translated to the brain network means a clique of neurons that are in themselves an isolated source-sink network and not part of any other network.
-
-% Due to computational aspects it is not feasible to compute the persistent homology of the synthetic network with 50 001 vertices, so we restrict ourselves to a subnetwork of the full network consisting only of dSPN neurons as seen in Figure \ref{pers50k}. We also look at a full synthetic network generated with only 999 vertices in Figure \ref{pers1k}.
-
-% We see that the formation of higher order $(> 5)$ homology generators mostly happens over small distances, which reaffirms the notion of the brain having a small-world structure.
-% \begin{figure}[ht]
-%   \centering
-%   \includegraphics[scale=0.8]{./counts/5kdpsnap10k.png}
-%   \caption{\label{pers50k} Persistence diagram of the subnetwork of dSPNs extracted from a synthetic network of 50 001 vertices. }
-% \end{figure}
-
-% \begin{figure}[ht]
-%   \centering
-%   \includegraphics[scale=0.8]{./counts/1kap10000.png}
-%   \caption{\label{pers1k} Persistence diagram of the entire synthetic network consisting of 999 vertices. (this is scaled 1000 larger than in actual data, generate new diagram)}
-% \end{figure}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "thesis.tex"

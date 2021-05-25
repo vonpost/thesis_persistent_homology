@@ -1,14 +1,17 @@
 \chapter{Homology}
 Before going into what \textit{persistent} homology is, it is well worth our time clearly stating what we mean by homology. Broadly speaking, homology is an invariant of topological spaces concerned with cycles in the space that are not boundaries. More abstractly, homology captures the notion of ``$n$-dimensional holes'' in the space.
 
-In \textit{persistent} homology we generally work without predefined topological spaces and start with a basic data-set which, at best, has some metric structure that we can use to endow it with some type of complex. The main complex we will be working on is the simplicial complex, since computationally we can approximate such a complex on a set of data-points. We will also review homology of cubical complexes related to one of the case studies in Chapter 4. Therefore the classical definitions involving concepts such as singular homology are not something we will dwell on, but rather we refer the reader to Hatcher's excellent exposition in \cite{hatcher2002}.
+In \textit{persistent} homology we generally work without predefined topological spaces and start with a basic data set which, at best, has some metric structure that we can use to endow it with some type of complex. The main complex we will be working on is the simplicial complex, since computationally we can approximate such a complex on a set of data points. We will also review homology of cubical complexes related to one of the case studies in Chapter 4. Therefore the classical definitions involving concepts such as singular homology are not something we will dwell on, but instead we refer the reader to Hatcher's excellent exposition in \cite{hatcher2002}.
 
 
 \section{Simplices}
 We start with what will constitute our atoms in simplicial homology, namely the simplices.
 \begin{definition}[{\cite[p. ~62]{edels}}]
-An \textbf{$n$-simplex} is the smallest possible convex set in $\mathbb{R}^{m}$ containing $n+1$ points $v_{0},\dots,v_{n}$ such that the vectors $v_{1}-v_{0}, \dots, v_{n} - v_{0}$ are linearly independent. The points $v_{0},\dots,v_{n}$ are known as the \textbf{vertices} of the simplex. The number $n$ is the \textbf{dimension} of a simplex.
+  An \textbf{$n$-simplex} is the convex hull in $\mathbb{R}^{m}$ of $n+1$  points $v_{0},\dots,v_{n}$ such that the vectors $v_{1}-v_{0}, \dots, v_{n} - v_{0}$ are linearly independent. The points $v_{0},\dots,v_{n}$ are known as the \textbf{vertices} of the simplex. The number $n$ is the \textbf{dimension} of a simplex.
 \end{definition}
+
+The positions of a simplex vertices in Euclidean space are not very important in a topological sense: a bijection between two simplices' vertex sets induces a canonical homeomorphism between the two simplices.
+
 As seen in Figure \ref{simplices} the $0,1,2$ and $3$-dimensional simplices are familiar shapes consisting of vertices, edges, triangles and tetrahedrons.
 
 \begin{figure}
@@ -21,11 +24,15 @@ As seen in Figure \ref{simplices} the $0,1,2$ and $3$-dimensional simplices are 
 \begin{definition}[{\cite[p. ~62]{edels}}]
 A \textbf{face} of a simplex is the convex hull of a subset of its vertices. If $\tau$ is a face of $\sigma$ we write $\tau \subset \sigma$.
 \end{definition}
-Since higher dimensional simplices are formed by simplices of lower dimensions we can always decompose a simplex into its faces. For example, a 2-simplex can be decomposed into the three edges that make up the triangle.
-\section{Simplicial complex}
-By gluing together simplices at their faces as seen in Figure \ref{complex2} we can construct higher-order objects which we call simplicial complexes.
+% Since higher dimensional simplices are formed by simplices of lower dimensions we can always decompose a simplex into its faces. For example, a 2-simplex can be decomposed into the three edges that make up the triangle.
+%
+% Since the boundary of a simplex is formed by simplices of oneowdimension l, we can always decompose a simplex into its collection of faces. For example, a 2-simplex can be decomposed into the three edges that form a triangle, the boundary of a 2-simplex.
+Note that the boundary of a simplex can be decomposed as a union of faces of one dimension lower than the simplex itself. For example, the boundary of a 2-simplex is the union of the three edges that surround the interior of the triangle.
+\section{Simplicial Complex}
+By gluing together simplices at their faces as seen in Figure \ref{complex2} we can construct higher-order objects, which we call simplicial complexes.
+
 \begin{definition}[{\cite[p. ~63]{edels}}] \label{defsimcomp}
-A \textbf{simplicial complex} $K$ is a finite collection of simplices such that
+A (finite) \textbf{simplicial complex} $K$ is a finite collection of simplices such that
 
 \begin{itemize}
     \item $\sigma \in K$ and $\tau \subset \sigma$ implies that $\tau \in K$,
@@ -33,10 +40,6 @@ A \textbf{simplicial complex} $K$ is a finite collection of simplices such that
 \end{itemize}
 The \textbf{dimension} of the simplicial complex $\dim(K)$ is the largest dimension of any simplex in the complex.
 \end{definition}
-The first requirement tells us that a simplicial complex contains the faces of all its simplices. The second requirement tells us that the simplices are only glued together at common faces, in other words we do not allow simplices to intersect other than at their boundaries.
-
-
-We will refer to the construction in Definition \ref{defsimcomp} as a \textbf{geometric simplicial complex}. This is to distinguish the geometric simplicial complex from a simplicial complex where we discard the geometric connotations. It is possible to define a combinatorial simplicial complex by only considering the ordering of the vertices and what higher-dimensional simplices they make up.
 
 \begin{figure}
   \centering
@@ -44,14 +47,21 @@ We will refer to the construction in Definition \ref{defsimcomp} as a \textbf{ge
   \caption{ \label{complex2} Example of a simplicial complex consisting of two 2-simplices glued together with an attached 1-simplex.}
 \end{figure}
 
+The first requirement in the definition tells us that a simplicial complex contains the faces of all its simplices. The second requirement tells us that the simplices are only glued together at shared faces.
+
+It is possible to consider simplicial complexes which allow for an infinite number of simplices, however for our purposes it is sufficient to only consider \textit{finite} simplicial complexes. Hence, when we say ``simplicial complex'' it is to be understood as ``finite simplical complex'' in the sense of Definition \ref{defsimcomp}.
+
+
+We will refer to the construction in Definition \ref{defsimcomp} as a \textbf{geometric simplicial complex}. This is to distinguish the geometric simplicial complex from a simplicial complex where we discard the geometric connotations. It is possible to define a combinatorial simplicial complex by only considering the set of the vertices for each simplex.
+
 \begin{definition}[{\cite[p. ~62]{edels}}]  \label{defabstractsimcomp}
-An \textbf{abstract simplicial complex} $K$ is a finite collection of ordered sets such that $\alpha \in K$ and $\beta \subseteq \alpha$ implies that $\beta \in K$.
+An \textbf{abstract simplicial complex} $K$ is a finite collection of sets such that $\alpha \in K$ and $\beta \subseteq \alpha$ implies that $\beta \in K$.
 \end{definition}
 
 This abstract definition coincides with the geometric definition by calling the elements of $K$ its simplices. The simplices of $K$ are no longer geometric objects in Euclidean space, but simply combinatorial objects consisting of vertex sets.
 
 \begin{definition}
-Given a geometric simplicial complex $K$, we can construct an abstract simplicial complex $A$ by translating each simplex $\sigma_{i} \in K$ to an ordered set $[v_{0},\dots,v_{n}]$ where each $v_{i}$ is an algebraic object simply denoting the presence of a vertex. We call $K$ a \textbf{geometric realization} of $A$.
+Given a geometric simplicial complex $K$, we can construct an abstract simplicial complex $A$ by translating each simplex $\sigma_{i} \in K$ to a set $\{v_{0},\dots,v_{n}\}$ where each $v_{i}$  denotes the presence of a vertex. We call $K$ a \textbf{geometric realization} of $A$.
 \end{definition}
 Hence, we can always transition from a geometric simplicial complex to an abstract simplicial complex. There is an elementary result that allows the construction in the other direction.
 \begin{theorem}[{\cite[Geometric Realization Theorem, p. ~64]{edels}}]\label{geometricthm}
@@ -59,16 +69,25 @@ Every abstract simplicial complex of dimension $n$ has a geometric realization i
 \end{theorem}
 While there are many different possible geometric realizations for a given abstract simplicial complex, any two realizations of the same abstract simplicial complex are homeomorphic \cite[Theorem 3.1, p. ~15]{munkres}. Hence, Theorem \ref{geometricthm} guarantees the existence of a geometric realization unique up to topological equivalence.
 
-From here on we will simply refer to an abstract simplicial complex as a simplicial complex unless stated otherwise. This allows us to state our definitions and work with simplices solely as combinatorial objects.
-\section{Simplicial homology}
-Roughly speaking, in topology when two spaces are homeomorphic they share the same topological properties. One such invariant is the algebraic structure of the holes, voids and higher-dimensional equivalents in the space.
+It is helpful to be able to talk about a specific face of a simplex, but to do so we need some notion of order between the vertices. This motivates the following definition.
+\begin{definition}
+An \textbf{ordered} simplicial complex $K$ is an abstract simplicial complex together with a total order on the set of vertices of $K$.
+\end{definition}
+The total order on the set of vertices in an ordered simplicial complex induces orderings on each simplex such that the simplex $\sigma$ can be written as an ordered set $[v_{0},\dots,v_{n}]$. Therefore, the notion of the $i$th face of $\sigma$ is well-defined and is given by $[v_{0},\dots,\hat v_{i},\dots,v_{n}]$ where $\hat v_{i}$ denotes the exclusion of this particular vertex.
+
+
+From here on we will refer to an ordered simplicial complex as a simplicial complex unless stated otherwise. This allows us to state our definitions and work with simplices solely as combinatorial objects.
+\section{Simplicial Homology}
+Roughly speaking, in topology when two spaces are homeomorphic, they share the same topological properties. One such property is the algebraic structure of the holes, voids and higher-dimensional equivalents in the space.
 Homology can generally thought of as being the characterization of these holes in a topological space. Beyond that however, it is a way of associating algebraic objects to topological spaces. In the context of simplicial complexes, we first need some algebraic machinery to precisely define what we mean by holes in a simplicial complex.
 
 \begin{definition}[\cite{Zomorodian2005}]\label{chainmodulesimp}
-  The $k$th \textbf{chain module} $C_{k}(K)$ on a simplicial complex $K$ is the free module with basis given by the $k$-dimensional simplices in $K$ with coefficients in some ring $R$ with additive unit $0$ and multiplicative unit $1$. In other words, the elements of $C_{k}(K)$ are formal sums
-  \[ \sum_{i=1} r_{i}\sigma_{i}\]
-  where $r_{i} \in R$ and $\sigma_{i}$ is a $k$-dimensional simplex in $K$. Furthermore, there is an equivalence of elements in the chain module such that $\sigma = -\tau$ if $\tau$ is given by an even permutation of the vertices of $\sigma$.
+  The $k$th \textbf{chain module} $C_{k}(K)$ on a (ordered) simplicial complex $K$ is the free module with basis given by the $k$-dimensional simplices in $K$ with coefficients in some ring $R$ with additive unit $0$ and multiplicative unit $1$. In other words, the elements of $C_{k}(K)$ are formal sums
+  \[ \sum_{i} r_{i}\sigma_{i}\]
+  where $r_{i} \in R$ and $\sigma_{i}$ is a $k$-dimensional simplex in $K$. % Furthermore, there is an equivalence of elements in the chain module such that $\sigma = -\tau$ if $\tau$ is given by an odd permutation of the vertices of $\sigma$.
 \end{definition}
+
+% To see that the chain module $C_{k}(K)$ is still free under the relation note that
 
 \begin{definition}[{\cite[p. ~2]{weibel1994}}]
   A \textbf{chain complex} $C_{*}$ over a ring $R$ is a family of $R$-modules $\{C_{k}\}_{k
@@ -99,7 +118,7 @@ Given a sequence $C_{*}$ of chain modules with coefficients in a ring $R$ on a s
   \dots \arrow[]{r}{\partial_{k+1}} & C_k(K) \arrow[]{r}{\partial_{k}} & C_{k-1}(K) \arrow[]{r}{\partial_{k-1}} & C_{k-2}(K) \arrow[]{r}{\partial_{k-2}} & \dots \arrow[]{r}{\partial_{1}} & C_0(K) \arrow[]{r}{\partial_0} & 0
 \end{tikzcd}
 \end{center}
-where we define the differential $\partial_{k}$ is defined as below and where $[v_{0},\dots,\hat v_{i}, \dots, v_{k}]$ denotes the face of the simplex given by dropping the vertex $v_{i}$.
+where we define the differential $\partial_{k}$ as
 \begin{align*}
 & \partial_{k}:  C_{k}(K) \to C_{k-1}(K) \\
 & \partial_{k}(\sigma) =  \sum^{k}_{{i=0}} (-1)^{i} [v_{0},\dots,\hat v_{i}, \dots, v_{k}]
@@ -115,7 +134,7 @@ Then $C_{*}$ is a chain complex, or equivalently $\partial_{k-1}\partial_{k}=0$ 
     =& 0.
   \end{align*}
   The first sum comes from when $j<i$ since when removing $v_{i}$ the position of $v_{j}$ is unchanged in the resulting simplex, whereas the second sum comes from the other possible case where $i<j$ and so removing $v_{i}$ causes the position of $v_{j}$ to shift by one. Hence, the sums cancel out and so $\partial \partial = 0$. \end{proof}
-
+Note that the differential $\partial$ is well-defined since $\sigma$ comes from an ordered simplicial complex in which the notion of the $i$th face of $\sigma$ is well-defined.
 \begin{example}
 Given a simplicial complex $K$ consisting of a triangle without interior as in Figure \ref{trichain}, a chain in $C_{1}(K)$ would be a linear combination of edges. For example, an element of $C_{1}(K)$ is $[v_{0},v_{1}]+[v_{1},v_{2}]$ which is highlighted in green.
 \begin{figure}[ht]
@@ -126,7 +145,7 @@ Given a simplicial complex $K$ consisting of a triangle without interior as in F
 \end{example}
 
 \begin{example}
-Given a $2$-simplex as in Figure \ref{2simplex} we get the differential of the interior of the simplex as \[\partial_{2}([v_{0},v_{1},v_{2}])=[v_{1},v_{2}]-[v_{0},v_{2}]+[v_{1},v_{2}]\] which geometrically is the boundary of the simplex. For this reason we refer to the differential of a chain complex of a simplicial complex as the \textbf{boundary map} or \textbf{boundary operator}.
+Given a $2$-simplex as in Figure \ref{2simplex} we get the differential of the interior of the simplex as \[\partial_{2}([v_{0},v_{1},v_{2}])=[v_{1},v_{2}]-[v_{0},v_{2}]+[v_{1},v_{2}]\] which geometrically is the boundary of the simplex. For this reason we also refer to the differential of a chain complex as the \textbf{boundary map} or \textbf{boundary operator}.
 \begin{figure}[ht]
   \centering
   \includegraphics[scale=2]{partialtri.pdf}
@@ -142,7 +161,7 @@ The notion of the differential being a map from a simplex to its boundary motiva
 \end{definition}
 Our overarching goal is to characterize $k$-cycles which are not $k$-boundaries. Hence, a vital result is this corollary to Theorem \ref{simpchainthm}.
 
-\begin{corollary}
+\begin{corollary} \label{submodulecycle}
   The $k$-boundaries are a submodule of the $k$-cycles.
 \end{corollary}
 
@@ -153,7 +172,7 @@ Let $\sigma \in B_{k} = \textrm{im } \partial_{k+1}$ then for some $\tau \in C_{
 and so $\sigma \in \ker \partial_{k} = Z_{k}$.
 \end{proof}
 
-This tells us that if we can find the cycles and ignore those which are just boundaries, then we have identified the holes. This motivates the following definition of homology.
+ Corollary \ref{submodulecycle} tells us that if we can find the cycles and ignore those which are just boundaries, then we have identified the holes. This motivates the following definition of homology.
 \begin{definition}
   Given a simplicial chain complex \hspace{0.05cm}$C_{*}$ the homology module $H_{k}$ is defined as
   \[H_{k}(K) := Z_{k} / B_{k} = \ker(\partial_{k})/\text{im}(\partial_{k+1})\]
@@ -168,7 +187,7 @@ Consider the chain complex over $\mathbb{Z}_{2}$ resulting from the simplicial c
 \end{figure}
 There are two 1-cycles, the boundary of the filled triangle and the square. Since the boundary of the filled triangle is in $\text{im} (\partial_{2})$ we get that this element belongs to the trivial class in $H_{1}$. However, there is one non-trivial element given by the square without interior. So $H_{1}$ contains one non-trivial element generated by the cycle in green.
 
-To quantify the number of linearly independent generators in a homology module $H_{k}$ we say that the \textbf{$k$th Betti number} is denoted $\beta_{k}$ where $\beta_{k} = \text{rank }(H_{k})$.
+To quantify the number of linearly independent generators in a homology module $H_{k}$ we say that the \textbf{$k$th Betti number} is denoted $\beta_{k}$ where $\beta_{k} = \text{rank }(H_{k})$, the maximum number of linearily independent elements of $H_{k}$ as a module.
 
 \section{Cubical Homology}
 The definition of a chain complex is general enough that we need not limit ourselves to chain complexes arising from simplicial complexes. Since homology was defined on chain complex, regardless of how the chain complex was constructed, we get a well-defined notion of homology for free. Another type of complex which we can define chain complexes on are cubical complexes. As the atoms of simplicial complexes are simplices, the atoms of cubical complexes are cubes.
@@ -178,7 +197,7 @@ An elementary interval is a unit interval $[k,k+1]$ or a degenerate interval $[k
 \end{definition}
 
 \begin{definition}[{\cite[Definition 2.3-2.4, p. ~40]{kaczynski2004}}]
-  An \textbf{elementary cube} $Q$ is the cartesian product of $n$ elementary intervals
+  An \textbf{elementary cube} $Q$ is the Cartesian product of $n$ elementary intervals
   \[Q = \prod^{n}_{i=0} I_{i} \subset \mathbb{R}^{n}\]
   and where $n$ is known as the \textbf{embedding number} $emb(Q)$.
 \end{definition}
