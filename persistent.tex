@@ -35,28 +35,28 @@ A data-set can often be considered as a set of points in Euclidean space. An int
 For a family of points $X=\{x_{\alpha}\}_{\alpha}$ in some Euclidean space $\mathbb{R}^{n}$ the \textbf{Čech complex}
 $\text{Č}_{\epsilon}$ is given by the abstract simplicial complex whose $k$-simplices are given by subsets of $k+1$ points $\{x_{\alpha_{i}}\}$ such that \[\bigcap^{k}_{i=0} B_{\epsilon/2}(x_{\alpha_{i}}) \neq \emptyset\] where $B_{r}(x)$ is the closed ball of radius $r$ centered at $x$.
 \end{definition}
-The Čech complex is a special case of something called the nerve of a topological space, which guarantees that it has the same homology modules as the union of balls centered at the points \cite[p. ~71]{edels}.
+The Čech complex is a special case of something called the nerve of a topological space and its geometric realization is homotopy equivalent to the union of balls centered at the points \cite[p. ~71]{edels}.
 
 However, the Čech complex is for practical purposes not feasible to compute \cite{ghirst}. We need to keep the entire simplicial complex in memory and this can be quite large.
 
-A sort of compromise is the Vietoris-Rips complex as seen in Figure \ref{manyrips}. This complex is a simplification where we do not look for points in common between all balls, but rather say that if $k+1$ have balls that intersect \textit{pairwise} they form a $k$-simplex.
+A sort of compromise is the Vietoris-Rips complex as seen in Figure \ref{manyrips}. This complex is a simplification where we do not look for points in common between all balls, but rather say that if $k+1$ balls intersect \textit{pairwise} they form a $k$-simplex.
 
 \begin{figure}
   \centering
   \begin{subfigure}[t]{.5\linewidth}
-    \includegraphics[scale=.5]{rips_eps=01.pdf}
+    \includegraphics[scale=.5]{rips_eps=01-crop.pdf}
     \caption{$\epsilon=0.1$}
  \end{subfigure}%
   \begin{subfigure}[t]{.5\linewidth}
-    \includegraphics[scale=.5]{rips_eps=015.pdf}
+    \includegraphics[scale=.5]{rips_eps=015-crop.pdf}
     \caption{$\epsilon=0.15$}
  \end{subfigure}
   \begin{subfigure}[b]{.49\linewidth}
-    \includegraphics[scale=.5]{rips_eps=02.pdf}
+    \includegraphics[scale=.5]{rips_eps=02-crop.pdf}
     \caption{$\epsilon=0.2$}
  \end{subfigure}
   \begin{subfigure}[b]{.5\linewidth}
-    \includegraphics[scale=.5]{rips_eps=03.pdf}
+    \includegraphics[scale=.5]{rips_eps=03-crop.pdf}
     \caption{$\epsilon=0.3$}
  \end{subfigure}
  \caption{The Vietoris-Rips complex at different $\epsilon$-values.}
@@ -86,7 +86,7 @@ For $i<j$ the inclusion $\iota: R_{\epsilon_i} \to R_{\epsilon_{j}}$ induces a m
 \end{lemma}
 Hence, any cycle that persists through the induced map $H_{k}(R_{\epsilon}) \to H_{k}(R_{\epsilon'})$ for $\epsilon'  \geq \sqrt{2} \epsilon$ is also present in the Čech complex $\text{Č}_{\epsilon'}$.
 
-The insight that the homological features that persist tell us more than the individual homology groups themselves are central to the idea of persistent homology. Before we give the formal definition of persistent homology we must first generalize the concept of endowing a space with a complex.
+The insight that the homological features that persist tell us more than the individual homology groups themselves are central to the idea of persistent homology. Before we give the formal definition of persistent homology we must first generalize the concept of endowing a space with a filtration.
 
 \begin{definition}
 A \textbf{filtration} $F$ of a simplicial (or cubical) complex $K$ is a totally ordered set of subcomplexes $K^{i}  \subseteq K$ for $i \in \mathbb{N}$ such that if $i \leq j$ then $K^{i} \subseteq K^{j}$.
@@ -136,15 +136,15 @@ While Definition \ref{phfirstdef} serves as a sufficient framework for persisten
   A \textbf{persistence module} $M$ is a family of $R$-modules $M^{k}$ together with module homomorphisms $\phi: M^{k} \to M^{k+1}$.
 \end{definition}
 With the definition of the persistence module we arrive at an alternate definition of persistent homology, the persistent homology of a persistence complex.
-\begin{definition}\label{altdef} For $p>0$ the $p$-persistent homology of a persistence complex $(C_{*}, \iota)$ is denoted $H^{p}_{*}$ and is defined to be the images of the induced homomorphisms $\iota^{p-1}_{*} \circ \iota^{p-2}_{*} \circ \dots \circ \iota^{i}_{*}: H_{*}(C_{*}^{i}) \to H_{*}(C^{p}_{*})$.
+\begin{definition}\label{altdef} For $p>0$ the $p$-persistent homology of a persistence complex $(C_{*}, \iota)$ is denoted $H^{p}_{*}$ and is defined to be the images of the induced homomorphisms $\iota^{i+p-1}_{*} \circ \iota^{i+p-2}_{*} \circ \dots \circ \iota^{i}_{*}: H_{*}(C_{*}^{i}) \to H_{*}(C^{i+p}_{*})$.
 \end{definition}
 In the light of this definition, we see that the $p$-persistent homology of a persistence complex is a persistence module where the module homomorphisms $\phi$ are the maps induced by the chain maps $\iota: C^{i}_{*} \to C_{*}^{i+1}$. The objects given in definitions \ref{phfirstdef} and \ref{altdef} are in fact isomorphic.
 \begin{lemma}
-Let $\iota^{i,p}_k: H^{i}_{k} \to H^{p}_{k}$ be the module homomorphism that takes a class in $H^{i}$ to the class which contains that class in $H^{p}$. Then $Im (\iota^{i,p}_{k}) \simeq H^{p}_{k}$.
+Let $\iota^{i,p}_k: H^{i}_{k} \to H^{i+p}_{k}$ be the module homomorphism that takes a class in $H^{i}$ to the class which contains that class in $H^{i+p}$. Then $\text{im} (\iota^{i,p}_{k}) \simeq H^{p}_{k}$.
 \end{lemma}
 \begin{proof}
-  Note that the kernel of $\iota^{{i,p}}$ are exactly those classes of cycles which become boundaries at some index $i,i+1,\dots,p$, hence $\ker (\iota^{i,p}) = (B^{i+p} \cap Z^{i})$. So by the first isomorphism theorem for modules we get that
-  \[ Im (\iota^{i,p}) \simeq H^{i}_{k} / \ker(\iota^{i,p}) \simeq H^{i}_{k} / (B^{i+p} \cap Z_{k}^{i}) \simeq (Z^{i}_{k}/B^{i}_{k})/(B^{i+p}_{k}\cap Z^{i}_{k}) \simeq H^{i,p}_{k} \]
+  Note that the kernel of $\iota^{{i,p}}$ are exactly those classes of cycles which become boundaries at some index $i,i+1,\dots,i+p$, hence $\ker (\iota^{i,p}) = (B^{i+p} \cap Z^{i})$. So by the first isomorphism theorem for modules we get that
+  \[ \text{im}(\iota^{i,p}) \simeq H^{i}_{k} / \ker(\iota^{i,p}) \simeq H^{i}_{k} / (B^{i+p} \cap Z_{k}^{i}) \simeq (Z^{i}_{k}/B^{i}_{k})/(B^{i+p}_{k}\cap Z^{i}_{k}) \simeq H^{i,p}_{k} \]
   where last isomorphism follows from the fact that $B^{i}_{k} \subseteq B_{k}^{i+p} \cap Z^{i}_{k}$.
 \end{proof}
 
@@ -159,7 +159,7 @@ The most important theoretic result is just around the corner, but before that w
 \begin{definition}
   Let $R$ be a ring. We say $R$ is a \textbf{graded ring} if it can be decomposed as a direct sum
   \[ R = \bigoplus_{i} R_{i}\]
-  of abelian groups $R_{i}$.
+  of abelian groups $R_{i}$, such that $R_{i}R_{j} \subseteq R_{i+j}$.
 \end{definition}
 Note that given a ring $R$ the polynomial ring $R[t]$ is always a graded ring, since it can be decomposed into $R[t] = Rt^{0} \oplus Rt^{1} \oplus \dots$ where $Rt^{p}= \{rt^{p} \mid r \in R\}$.
 
@@ -177,19 +177,20 @@ In the exact same way as for a graded ring we say an element of a graded module 
 
 Most of the ordinary algebraic constructions on modules hold for graded modules as well. The only additional requirement is that they preserve homogeneous elements in the obvious way. For example, a morphism of graded modules is a morphism of modules such that it preserves degree. In other words, a morphism takes an element in a graded module of degree $n$ to an element in another graded module of degree $n$. Similarly, a graded submodule of a module is simply a graded module such that each component is a submodule of the corresponding component in the parent module.
 
-We can now see that if we have a persistence module $M$ over some ring $R$ and we give $R$ a graded structure by considering the polynomial ring $R[t]$ then a graded module structure on $M$ is given by
+We can now see that if we have a persistence module $M$ over some ring $R$ then a graded module structure over $R[t]$ on $M$ is given by
 \[ \alpha(M) = \bigoplus^{\infty}_{k=0} M^{k}\]
 The action $t^{p}$ sends $M^{k} \to M^{k+p}$ by $p$ repeated applications of $t$, in other words $t$ shifts the elements up in the graduation by its power
 \[ t \cdot (m^{0}, m^{1}, m^{2}, \dots  ) = (0, \phi^{0}(m^{0}), \phi^{1}(m^{1}),\phi^{2}(m^{2}),\dots) \]
 and so we get that $(R[t])_{p}M^{k} = Rt^{p}M^{k} \subseteq M^{k+p}$ which satisfies the condition required in the definition of a graded module.
 
 
-The map $\alpha$ is a functor between the category of persistence modules and graded modules \cite{ghirst} which becomes an isomorphism of categories when considering persistence modules of finite type over any field $\mathbb{F}$. Hence, for ease of notation we will simply consider a persistence module to be a graded module when the aforementioned conditions are fulfilled. The isomorphism of categories gives us a lot for free: we do not have to be afraid of taking quotients or direct sums of persistence modules as we know what objects they correspond to in the category of graded modules. For example, we write $H$ for the direct sum of the persistence modules $H_{k}$ and similarly we write $C$ for the persistence complex given by the sum of the persistence modules $C_{k}$.
+The map $\alpha$ is a functor between the category of persistence modules and graded modules \cite{ghirst} which becomes an equivalence of categories when considering persistence modules of finite type over any field $\mathbb{F}$. Hence, for ease of notation we will simply consider a persistence module to be a graded module when the aforementioned conditions are fulfilled. The equivalence of categories gives us a lot for free: we do not have to be afraid of taking quotients or direct sums of persistence modules as we know what objects they correspond to in the category of graded modules. For example, we write $H$ for the direct sum of the persistence modules $H_{k}$ and similarly we write $C$ for the persistence complex given by the sum of the persistence modules $C_{k}$.
 
-We now arrive at the result which fully characterizes the algebraic structure of persistent homology. Sadly, this result comes with the restriction that makes $\alpha$ an isomorphism of categories, namely that it only characterizes persistence modules of finite type over a field. The more general problem is under the functor $\alpha$ equivalent to characterizing graded $R[t]$ modules over an arbitrary ring $R$, which is known to be a hard problem \cite{ghirst}.
+We now arrive at the result which fully characterizes the algebraic structure of persistent homology. Sadly, this result comes with the restriction that makes $\alpha$ an equivalence of categories, namely that it only characterizes persistence modules of finite type over a field. The more general problem is under the functor $\alpha$ equivalent to characterizing graded $R[t]$ modules over an arbitrary ring $R$, which is known to be a hard problem \cite{ghirst}.
 \begin{theorem}[{\cite{Zomorodian2005}}] \label{structurethm1}
-  For a persistence module $M$ of \textit{finite type} over a field $\mathbb{F}$,
-  \[M \cong \bigoplus_{i} t^{p_{i}} \cdot \mathbb{F}[t] \oplus (\bigoplus_{j} (t^{r_{j}} \cdot \mathbb{F}[t]) / (t^{s_{j}}) \]
+  For a persistence module $M$ of \textit{finite type} over a field $\mathbb{F}$, there exists a decomposition of $M$ as a direct sum of graded modules
+  \[M \cong \bigoplus_{i} t^{p_{i}} \cdot \mathbb{F}[t] \oplus (\bigoplus_{j} (t^{r_{j}} \cdot \mathbb{F}[t]) / (t^{s_{j}})) \]
+  Furthermore, this decomposition is unique up to permutation of components and trivial components.
 
 \end{theorem}
 
@@ -199,63 +200,87 @@ The proof of Theorem \ref{structurethm1} is constructive and ultimately leads to
 
 Theorem \ref{structurethm1} has an intuitive explanation in terms of filtrations: when $M$ is the persistent homology $H$ given by some filtration $F$, the free part consists of generators which appear in the subcomplex $F_{p_{i}}$ and continue to exist for all future filtrations. The torsional part consists of generators which appear at in the subcomplex $F_{r_{j}}$ and disappear in  $F_{r_{j}+s_{j}}$. Furthermore, the decomposition provides the $p$-persistent homology for all $p$ and so we circumvent the problem of having to choose an optimal step of the filtration of which to compute homology.
 
-We can make this association of the decomposition of a persistence module with intervals more precise through the following definitions.
+We can make this association of the decomposition of a persistence module with intervals more precise through the following corollary of Theorem \ref{structurethm1}.
 
-\begin{definition}
-  For a persistence module $M$ as in Theorem \ref{structurethm1} we associate the interval $[i,j)$, where $i < j$ and $i,j$ are elements of  $\mathbb{N}\cup \{\infty\}$, to ${M}$ in the following way:
-  \[Q(i,j):= t^{i} \cdot \mathbb{F}[t]/t^{{j-i}},\]
+\begin{corollary}
+  For a persistence module $M$ as in Theorem \ref{structurethm1} there exists a unique multiset $\mathbf{B_{M}}$ of intervals of the form $[i,j)$ with $i, j \in \mathbb{N} \cup \{\infty\}$ and $i<j$ such that
+  \[M \cong \bigoplus_{[i,j) \in \mathbf{B_{M}}}t^{i}\mathbb{F}[t]/(t^{j}) \]
+  with the convention that $(t^{\infty}) = 0$.
 
-  \[Q(i,\infty):= t^{i} \cdot \mathbb{F}[t].\]
-  Furthermore, given a multiset of intervals $S = \{(i_{0},j_{0}),\dots,(i_{n},j_{n})\}$ we say that
-  \[Q(S) := \bigoplus_{k} Q(i_{k},j_{k}).\]
-  The \textbf{barcode} $\mathbf{B_{M}}$ is the multiset of intervals $Q^{-1}(M)$.
-\end{definition}
+\end{corollary}
+\begin{proof}
+  Let $\mathbf{B_{M}}$ be the union of the multisets \[\{ [i,\infty) \mid t^{i}\mathbb{F}[t] \text{ is a component of }M \} \cup \{ [i,j) \mid t^{i} \mathbb{F}[t] / (t^{j}) \text{ is a component of }M\}.\]
+The claim follows easily from Theorem \ref{structurethm1}.
+Since the decomposition of $M$ is unique in its non-trivial components it follows that $\mathbf{B_{M}}$ is well-defined. Then by the definition of $\mathbf{B_{M}}$ it is obvious that $M$ is isomorphic to the decomposition given as above, since its components are all non-trivial components of any  decompositions of $M$.
+\end{proof}
+% \begin{definition}
+%   For a persistence module $M$ as in Theorem \ref{structurethm1} we associate the interval $[i,j)$, where $i < j$ and $i,j$ are elements of  $\mathbb{N}\cup \{\infty\}$, to ${M}$ in the following way:
+%   \[Q(i,j):= t^{i} \cdot \mathbb{F}[t]/t^{{j-i}},\]
+
+%   \[Q(i,\infty):= t^{i} \cdot \mathbb{F}[t].\]
+%   Furthermore, given a multiset of intervals $S = \{(i_{0},j_{0}),\dots,(i_{n},j_{n})\}$ we say that
+%   \[Q(S) := \bigoplus_{k} Q(i_{k},j_{k}).\]
+%   The \textbf{barcode} $\mathbf{B_{M}}$ is the multiset of intervals $Q^{-1}(M)$.
+% \end{definition}
 
 
-In the obvious way, $Q$ is a bijection which maps each summand in the decomposition of a persistence module to an interval. This gives us a correspondence between infinite intervals and generators of the free part and finite intervals and generators of the torsion part.
+% In the obvious way, $Q$ is a bijection which maps each summand in the decomposition of a persistence module to an interval. This gives us a correspondence between infinite intervals and generators of the free part and finite intervals and generators of the torsion part.
 
 
 \section{Proof of the Structure Theorem}
 As promised we will now derive the connection between linear algebra and persistence modules. For this part we will abuse the isomorphism of categories between persistence modules and graded modules over $\mathbb{F}[t]$ and readily switch between the two perspectives.  A key observation is that for every (graded) module $M$ there is an exact sequence
 \[ K \to G \to M \to 0\]
-where $G$ is the free module on the generators of $M$ and $K$ is the free module on the generators of $\ker G \to M$. By the first isomorphism theorem this exact sequence yields an isomorphism $M \cong G/\text{im }(K \to G)$, and hence we can characterize $M$ by only knowing $K,G$ and $f$. We call such a sequence a \textbf{presentation} of $M$.
+where $G$ and $K$ are free modules. By the first isomorphism theorem this exact sequence yields an isomorphism $M \cong G/\text{im }(K \to G)$, and hence we can characterize $M$ by only knowing $K,G$ and $f$. We call such a sequence a \textbf{presentation} of $M$.
 \begin{lemma}[{\cite[Theorem 7]{skraba}}]
   For a finitely generated graded module $M$ over $\mathbb{F}[t]$ a presentation of $M$ yields a short exact sequence
   \[ 0 \to K \to G \to M \to 0\]
-  where $G,K$ are finitely generated.
+  where $G,K$ are finitely generated and free.
 \end{lemma}
 \begin{proof}
-First of all, note that since $G$ is the free module on the generators of $M$ and $M$ has a finite set of generators so does $G$.
+Choose a finite set of generators of $M$ and let $G$ be the free module generated by those generators. Then there is a canonical surjection $G \to M$. Now let $K := \ker(G \to M)$, this yields the short exact sequence. It remains to show that $K$ is free and finitely generated.
 
-A standard result due to Hillbert (see for example \cite[Theorem 4, p. ~76]{Cox+Others/1991/Ideals}) is that any submodule of a finitely generated module over $\mathbb{F}[t]$ is finitely generated. This means in particular that $\ker (G \to M)$ is finitely generated, as it is a submodule of $G$ over $\mathbb{F}[t]$.
+A standard result due to Hilbert (see for example \cite[Theorem 4, p. ~76]{Cox+Others/1991/Ideals}) is that any submodule of a finitely generated module over $\mathbb{F}[t]$ is finitely generated. This means in particular that $K$ is finitely generated, as it is a submodule of $G$ over $\mathbb{F}[t]$.
 
-We start by proving that $\ker (G \to M)$ is free. Suppose for contradiction that $\ker (G \to M)$ is not free, then for a finite set of generators $\{k_{i}\}^{n}_{i=0}$ of $\ker (G \to M)$ the assumption implies linear dependence such that
+Suppose for contradiction that $K$ is not free. Then for a finite set of generators $\{k_{i}\}^{n}_{i=0}$ of $K$ the assumption implies linear dependence such that
 \[\sum_{i} r_{i}t^{a_{i}}k_{i}=0  \iff t^{b} \sum_{i} r_{i}t^{a_{i}-b}k_{i} = 0 \implies \sum_{i} r_{i}t^{a_{i}-b}k_{i} = 0 \]
-where $b = \min\{a_{i} \mid r_{i} \neq 0\}, r_{i} \in \mathbb{F}$ and the last implication follows from that $\ker(G \to M)$ is a submodule of the free module $G$. Then for some term in the sum we have that $a_{j}=b$ and $ k_{j} \neq 0 $ which gives us that
+where $b = \min\{a_{i} \mid r_{i} \neq 0\}, r_{i} \in \mathbb{F}$ and the last implication follows from that $K$ is a submodule of the free module $G$. Then for some term in the sum we have that $a_{j}=b$ and $ k_{j} \neq 0 $ which gives us that
 \[
   r_{j}t^{a_{j}-b}k_{j}=r_{j}k_{j} \implies k_{j} = - r_{j}^{-1}\sum_{i \neq j} r_{i}t^{a_{i}-b}k_{i}.
 \]
-But then $k_{j}$ can be given as a linear sum of generators of $\ker (G \to M)$ so it can be excluded from the list of generators. Iterating the argument above then exhausts the finite set of generators until the set consists of linear independent generators, hence $\ker (G \to M)$ is free.
-
-We have that $\ker (G \to M) = \text{im } (K \to G)$ by the exactness of the presentation. Since $K$ is the free module on the generators of this finitely generated and free image it follows that $K \cong \text{im } K \to G$. Hence $K \to G$ is injective and $K$ is finitely generated.
+But then $k_{j}$ can be given as a linear sum of generators of $K$ so it can be excluded from the list of generators. Iterating the argument above then exhausts the finite set of generators until the set consists of linear independent generators, hence $K$ is free.
 \end{proof}
 When $K,G$ are free and finitely generated the presentation yields a map $\mathbb{F}[t]^{n} \to \mathbb{F}[t]^{m}$, in other words it can for a given choice of bases be represented by a matrix in $\mathbb{F}[t]^{n \times m}$ which we call a \textbf{presentation matrix} of $M$. This is the vital connection between persistence modules and linear algebra. By reducing this matrix, much like in the process of Gaussian elimination, we end up with a matrix that describes compatible bases in $K$ and $G$. Then $M$ is generated by the basis in $G$ with relations given by the basis in $K$.
 
 \begin{definition}
-A matrix with coefficients in $\mathbb{F}[t]$ is in \textbf{graded Smith normal} if its only non-zero entries are on the (possibly permuted) diagonal and these entries are homogeneous elements.
+  % A matrix with coefficients in $\mathbb{F}[t]$ is in \textbf{graded Smith normal} if its only non-zero entries are on the (possibly permuted) diagonal and these entries are homogeneous elements.
+  A matrix $M \in \mathbb{F}[t]$ is in \textbf{graded Smith normal form} if its rows and columns can be permuted into a matrix $M'$ such that
+  \[ M' = \begin{bmatrix}
+      t^{\alpha_{0}} & 0 & & \dots & &  0\\
+      0 & \ddots &  & & & 0 \\
+      &   &  t^{\alpha_{k}} & & &\\
+      \vdots &   &  & 0 & & \vdots \\
+      &   &  &   & \ddots & \\
+      0 &   & &  \dots  &  & 0
+     \end{bmatrix}\]
+  where $\alpha_{i} \in \mathbb{N}$.
 \end{definition}
+In the ordinary, non-graded definition of Smith normal form one usually assumes $M$ to already be permuted. However, in the graded case the order of the rows and columns have importance for the degree of the basis elements defined by the rows and columns, hence the somewhat convoluted definition above.
 
-We will now describe an algorithm for computing the graded Smith normal form. Since the resulting matrix will consist of linearly independent columns and rows they define a basis for the column and row space.
-\clearpage
+We will now describe an algorithm for computing the graded Smith normal form. Since the resulting matrix consists of linearly independent columns and rows they define a basis for the column and row space.
 \begin{algorithm}[h]
 \caption{Reduction to graded Smith normal form \cite{skraba, Zomorodian2005}}\label{smith}
 \begin{algorithmic}[1]
-  \State \textbf{Input:} Matrix $ \in \mathbb{F}[t]^{n \times m}$ with homogeneous entries with columns and rows sorted in order of ascending degree.
-  \State \textbf{Returns:} Matrix $ \in \mathbb{F}[t]^{n \times m}$ in graded Smith normal form with columns and rows sorted in order of ascending degree.
-  \For{$i < m, j < n$}
-  \State Eliminate all entries \textit{rightwards} by column additions in row $i$.
-  \State Eliminate all entries \textit{upwards} by row additions in column $j$.
-  \EndFor
+  \State \textbf{Input:} Matrix $ \in \mathbb{F}[t]^{n \times m}$ with homogeneous entries with columns sorted in descending order and rows sorted in ascending order of degree.
+  \State \textbf{Returns:} Matrix $ \in \mathbb{F}[t]^{n \times m}$ in graded Smith normal form.% with columns and rows sorted in order of ascending degree.
+  % \For{$i < n$}
+  % \If{column $i$ is not zero}
+  \While{there are untreated non-zero rows or columns}
+  \State Find the indices $i,j$ of the lowest degree entry in the lowest degree block of untreated columns.
+  \State Eliminate all entries \textit{upwards} by row additions in column $i$.
+  \State Eliminate all entries \textit{rightwards} by column additions in row $j$.
+  \State Mark column $i$ and row $j$ as treated.
+  % \EndIf
+  % \EndFor
 \end{algorithmic}
 \end{algorithm}
 
@@ -264,6 +289,7 @@ We will now describe an algorithm for computing the graded Smith normal form. Si
 
   Suppose we wish to eliminate some entry in row $j$ with an element in row $i$. This implies that $ i > j$ by the algorithm itself. Let the entries be denoted $a_{i}= c \cdot t^{r_{i}}$ and $b_{j} = d \cdot t^{s_{j}}$ respectively. Since the columns and rows are chosen to be homogeneous, we know that they can be written this way. The matrix is sorted in ascending degree order in both rows and columns, which implies that $\deg(a_{i}) \leq \deg(b_{j})$, hence we can always eliminate $b_{j}$ by adding $t^{s_{j}-r_{i}} \frac{-d}{c} \cdot a_{i}$. Furthermore, if $\gamma_{i},\gamma_{j}$ are the basis elements of rows $i,j$ then we know from linear algebra that the addition causes a change of basis $\gamma'_{i}:=\gamma_{i}-t^{s_{j}-r_{i}} \frac{-d}{c} \cdot \gamma_{j}$. We get that $\deg(\gamma'_{i})=\max\{\deg(\gamma_{i}), (s_{j}-r_{i}+\deg(\gamma_{j})\}$, but since $a_{i},b_{j}$ are entries of the same homogeneous column this implies that $r_{i} + \deg(\gamma_{i}) = s_{j} + \deg(\gamma_{j})$, hence $\deg(\gamma'_{i}) = \deg(\gamma_{i})$. An identical argument holds for if we wish to eliminate by column additions, with the exception that the change of basis occurs in $\gamma_{j}$.
 \end{proof}
+\clearpage
 When a presentation matrix of $M$ is put into graded Smith normal form by Algorithm 1 it gives us compatible bases for $K$ and $G$ and the isomorphism becomes \[M\cong \frac{\text{basis  elements given by rows  }}{\text{basis elements given by non-zero rows times their entry}}\]
 To understand how we can interpret the presentation matrix as such, consider that the rows give a basis for $G$ under the inclusion $K \hookrightarrow G$. The non-zero rows tell us which basis elements of $G$ are hit by the inclusion when shifted in the grading by their corresponding non-zero entry. Hence, these shifted basis elements of $G$ generate the elements that are killed in the projection $G \to M$.
 
@@ -290,7 +316,7 @@ We are now ready to prove \textbf{Theorem \ref{structurethm1}}.
 \[\sum_j g_{1j} f_{1j} = \sum_{j} g_{1j} (\pi_{D_j} \phi \iota_{C_1}) = \sum_{j} (\pi_{C_1} \phi^{-1} \iota_{D_j}) (\pi_{D_j} \phi \iota_{C_1}) =\]
  \[\pi_{C_1} \phi^{-1} (\sum_{j} \iota_{D_j} \pi_{D_j}) \phi \iota_{C_1} = \pi_{C_1} \phi^{-1} \phi \iota_{C_1} = 1_{C_1}. \]
  Let us assume that $j=1$, if not we can just reorder the summands in $D$ such that this is the case. Then $g_{11}f_{11}$ is an automorphism of $C_{1}$. To see this, note that $g_{11}f_{11}$ is a \textit{graded} non-zero endomorphism of $C_{1}$, hence if $C_{1} = t^{a} \mathbb{F}[t] / (t^{b})$ then $g_{11}f_{11}$ must take $t^{a} \to c t^{a}$, which generates the entirety of $C_{1}$ for some non-zero $c \in \mathbb{F}$.
- \clearpage
+
  By symmetry, if $f_{11}g_{11}$ is non-zero then it is also an automorphism. However, $f_{11}g_{11}$ cannot be zero since $g_{11}f_{11}$ being an isomorphism gives us that
  \[ g_{11}(f_{11}g_{11})f_{11} = (g_{11}f_{11})(g_{11}f_{11}) \neq 0.\]
  Hence, $f_{11}g_{11}$ is also an automorphism. Then by force $f_{11}$ and $g_{11}$ are isomorphisms.
@@ -321,7 +347,6 @@ We are now ready to prove \textbf{Theorem \ref{structurethm1}}.
     \end{align*}
 
   So we get a new isomorphism $f_{2_{+}}$ of the remaining components of $C$ and $D$. Hence, we can repeat the argument above to find a new index $j \geq 2$ such that $f_{2j}$ and $g_{2j}$ are isomorphisms. Since the decompositions $C$ and $D$ are direct sums there are a finite number of non-trivial components, thus this process will eventually exhaust all of them. The rest of the summands in the decompositions not covered by these isomorphisms must then consist of trivial modules, which proves the uniqueness of the decomposition up to permutation and trivial modules.
-
 \end{proof}
 Now for explicitly computing persistent homology we have the presentation
 
@@ -331,135 +356,144 @@ Now for explicitly computing persistent homology we have the presentation
 and so we could theoretically apply the proof above and get a decomposition of $H$, but this comes with one caveat: to give a presentation matrix of $H$ requires us to first have a basis of $Z$, which we typically do not have. Instead we have the boundary map $\partial: C \to C$ which has as its image $B$ and $Z$ as its kernel. Hence, we must first compute the Smith graded normal form of the map $\partial$ which gives us a compatible basis in both $B$ and $Z$. Then we compute the Smith normal form of the inclusion map $B \hookrightarrow Z$ from which we can derive the barcode $\mathbf{B}_{H}$.
 
 \begin{example}\label{bddreduce}
-Consider the filtration given in Figure \ref{filtrationstack}. For simplicity we work in $\mathbb{F}=\mathbb{Z}_{2}$. The persistence complex has basis given by the simplices $v_{0},v_{1},v_{2},v_{12},v_{20},v_{01},v_{03},v_{120}$. We get the following boundaries by evaluating the boundary map $\partial$ on the simplices which generate the chain complex \[v_{2}+v_{1},t(v_{1})+t^{2}(v_{0}),t(v_{2})+t^{2}(v_{0}),v_{3}+t^{2}v_{0}, t^{2}(v_{12})+t(v_{10})+t(v_{20}).\]
+  Consider the filtration given in Figure \ref{filtrationstack}. For simplicity we work in $\mathbb{F}=\mathbb{Z}_{2}$. The persistence complex has basis given by the simplices and we get the following boundaries by evaluating the boundary map $\partial$ on those basis elements:
+\begin{center}
+\begin{tabular}{l | *8l}
+  $C$ & $v_{0}$ & $v_{1}$ & $v_{2}$ & $v_{12}$ & $v_{02}$ & $v_{01}$ & $v_{03}$ & $v_{012}$ \\ \midrule
+  $\partial C$ & $0$ & $0$ & $0$ & $v_2 + v_{1}$ & $tv_{2}+t^2v_{0}$ & $tv_{1}+t^{2}v_{0}$ & $v_3+t^{2}v_{0}$ & $t^{2}v_{12}+tv_{01}+tv_{02}$
+\end{tabular}
+\end{center}
+  % \[v_{2}+v_{1},t(v_{1})+t^{2}(v_{0}),t(v_{2})+t^{2}(v_{0}),v_{3}+t^{2}v_{0}, t^{2}(v_{12})+t(v_{10})+t(v_{02}).\]
+
+
 Hence we have the following matrix representing the map $\partial$:
 \[
   \bordermatrix{
-    & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{20} & v_{01} & v_{03} & v_{120}\cr
+    & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{02} & v_{01} & v_{03} & v_{012}\cr
     v_{0}  &.&.&.&.&.&t^{2}&t^{2}&t^{2}&.\cr
     v_{1}  &.&.&.&.&1&.&t&.&.\cr
     v_{2}  &.&.&.&.&1&t&.&.&.\cr
     v_{3}  &.&.&.&.&.&.&.&1&.\cr
     v_{12} &.&.&.&.&.&.&.&.&t^{2}\cr
-    v_{20} &.&.&.&.&.&.&.&.&t\cr
+    v_{02} &.&.&.&.&.&.&.&.&t\cr
     v_{01} &.&.&.&.&.&.&.&.&t\cr
     v_{03} &.&.&.&.&.&.&.&.&.\cr
-    v_{120}&.&.&.&.&.&.&.&.&.
+    v_{012}&.&.&.&.&.&.&.&.&.
     }
   \]
   Reducing this matrix to graded Smith normal form while keeping track of basis changes gives us the matrix
 %     \[
 %       \to
 % \bordermatrix{
-%     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12}  & v_{20} + tv_{12}& v_{01} & v_{03} & v_{120}\cr
+%     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12}  & v_{02} + tv_{12}& v_{01} & v_{03} & v_{012}\cr
 %     v_{0}  &.&.&.&.&.&t^{2}&t^{2}&t^{2}&.\cr
 %     v_{1}  &.&.&.&.&1&t&t&.&.\cr
 %     v_{2}  &.&.&.&.&1&.&.&.&.\cr
 %     v_{3}  &.&.&.&.&.&.&.&1&.\cr
 %     v_{12} &.&.&.&.&.&.&.&.&t^{2}\cr
-%     v_{20} &.&.&.&.&.&.&.&.&t\cr
+%     v_{02} &.&.&.&.&.&.&.&.&t\cr
 %     v_{01} &.&.&.&.&.&.&.&.&t\cr
 %     v_{03} &.&.&.&.&.&.&.&.&.\cr
-%     v_{120}&.&.&.&.&.&.&.&.&.
+%     v_{012}&.&.&.&.&.&.&.&.&.
 %     }
 % \]
 
 %     \[
 % \bordermatrix{
-%     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{20}+tv_{12} & v_{01}+v_{20}+tv_{12} & v_{03} & v_{120}\cr
+%     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{02}+tv_{12} & v_{01}+v_{02}+tv_{12} & v_{03} & v_{012}\cr
 %     v_{0}  &.&.&.&.&.&t^{2}&.&t^{2}&.\cr
 %     v_{1}  &.&.&.&.&1&t&.&.&.\cr
 %     v_{2}  &.&.&.&.&1&.&.&.&.\cr
 %     v_{3}  &.&.&.&.&.&.&.&1&.\cr
 %     v_{12} &.&.&.&.&.&.&.&.&t^{2}\cr
-%     v_{20} &.&.&.&.&.&.&.&.&t\cr
+%     v_{02} &.&.&.&.&.&.&.&.&t\cr
 %     v_{01} &.&.&.&.&.&.&.&.&t\cr
 %     v_{03} &.&.&.&.&.&.&.&.&.\cr
-%     v_{120}&.&.&.&.&.&.&.&.&.
+%     v_{012}&.&.&.&.&.&.&.&.&.
 %     }
 %   \]
 
 %     \[
 % \bordermatrix{
-%     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{20}+tv_{12} & v_{01}+v_{20}+tv_{12} & v_{03} & v_{120}\cr
+%     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{02}+tv_{12} & v_{01}+v_{02}+tv_{12} & v_{03} & v_{012}\cr
 %     v_{0}  &.&.&.&.&.&t^{2}&.&t^{2}&.\cr
 %     v_{1}  &.&.&.&.&.&t&.&.&.\cr
 %     v_{2}+v_{1}  &.&.&.&.&1&.&.&.&.\cr
 %     v_{3}  &.&.&.&.&.&.&.&1&.\cr
 %     v_{12} &.&.&.&.&.&.&.&.&t^{2}\cr
-%     v_{20} &.&.&.&.&.&.&.&.&t\cr
+%     v_{02} &.&.&.&.&.&.&.&.&t\cr
 %     v_{01} &.&.&.&.&.&.&.&.&t\cr
 %     v_{03} &.&.&.&.&.&.&.&.&.\cr
-%     v_{120}&.&.&.&.&.&.&.&.&.
+%     v_{012}&.&.&.&.&.&.&.&.&.
 %     }
 %   \]
 
 %     \[
 % \bordermatrix{
-%     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{20}+tv_{12} & v_{01}+v_{20}+tv_{12} & v_{03} & v_{120}\cr
+%     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{02}+tv_{12} & v_{01}+v_{02}+tv_{12} & v_{03} & v_{012}\cr
 %     v_{0}  &.&.&.&.&.&.&.&t^{2}&.\cr
 %     v_{1}+tv_{0}  &.&.&.&.&.&t&.&.&.\cr
 %     v_{2}+v_{1}  &.&.&.&.&1&.&.&.&.\cr
 %     v_{3}  &.&.&.&.&.&.&.&1&.\cr
 %     v_{12} &.&.&.&.&.&.&.&.&t^{2}\cr
-%     v_{20} &.&.&.&.&.&.&.&.&t\cr
+%     v_{02} &.&.&.&.&.&.&.&.&t\cr
 %     v_{01} &.&.&.&.&.&.&.&.&t\cr
 %     v_{03} &.&.&.&.&.&.&.&.&.\cr
-%     v_{120}&.&.&.&.&.&.&.&.&.
+%     v_{012}&.&.&.&.&.&.&.&.&.
 %     }
 %   \]
 % \[
 % \bordermatrix{
-%     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{20}+tv_{12} & v_{01}+v_{20}+tv_{12} & v_{03} & v_{120}\cr
+%     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{02}+tv_{12} & v_{01}+v_{02}+tv_{12} & v_{03} & v_{012}\cr
 %     v_{0}  &.&.&.&.&.&.&.&.&.\cr
 %     v_{1}+tv_{0}  &.&.&.&.&.&t&.&.&.\cr
 %     v_{2}+v_{1}  &.&.&.&.&1&.&.&.&.\cr
 %     v_{3}+t^{2}v_{0}  &.&.&.&.&.&.&.&1&.\cr
 %     v_{12} &.&.&.&.&.&.&.&.&t^{2}\cr
-%     v_{20} &.&.&.&.&.&.&.&.&t\cr
+%     v_{02} &.&.&.&.&.&.&.&.&t\cr
 %     v_{01} &.&.&.&.&.&.&.&.&t\cr
 %     v_{03} &.&.&.&.&.&.&.&.&.\cr
-%     v_{120}&.&.&.&.&.&.&.&.&.
+%     v_{012}&.&.&.&.&.&.&.&.&.
 %     }
 %   \]
 %     \[
 % \bordermatrix{
-%     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{20}+tv_{12} & v_{01}+v_{20}+tv_{12} & v_{03} & v_{120}\cr
+%     & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{02}+tv_{12} & v_{01}+v_{02}+tv_{12} & v_{03} & v_{012}\cr
 %     v_{0}  &.&.&.&.&.&.&.&.&.\cr
 %     v_{1}+tv_{0}  &.&.&.&.&.&t&.&.&.\cr
 %     v_{2}+v_{1}  &.&.&.&.&1&.&.&.&.\cr
 %     v_{3}+t^{2}v_{0}  &.&.&.&.&.&.&.&1&.\cr
 %     v_{12} &.&.&.&.&.&.&.&.&.\cr
-%     v_{20} &.&.&.&.&.&.&.&.&t\cr
+%     v_{02} &.&.&.&.&.&.&.&.&t\cr
 %     v_{01}+tv_{12} &.&.&.&.&.&.&.&.&t\cr
 %     v_{03} &.&.&.&.&.&.&.&.&.\cr
-%     v_{120}&.&.&.&.&.&.&.&.&.
+%     v_{012}&.&.&.&.&.&.&.&.&.
 %     }
 %   \]
 
     \[
 \bordermatrix{
-    & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{20}+tv_{12} & v_{01}+v_{20}+tv_{12} & v_{03} & v_{120}\cr
+    & v_{0} & v_{1} & v_{2} & v_{3} & v_{12} & v_{02}+tv_{12} & v_{01}+v_{02}+tv_{12} & v_{03} & v_{012}\cr
     v_{0}  &.&.&.&.&.&.&.&.&.\cr
     v_{1}+tv_{0}  &.&.&.&.&.&t&.&.&.\cr
     v_{2}+v_{1}  &.&.&.&.&1&.&.&.&.\cr
     v_{3}+t^{2}v_{0}  &.&.&.&.&.&.&.&1&.\cr
     v_{12} &.&.&.&.&.&.&.&.&.\cr
-    v_{20} &.&.&.&.&.&.&.&.&.\cr
-    v_{01}+tv_{12}+v_{20} &.&.&.&.&.&.&.&.&t\cr
+    v_{02} &.&.&.&.&.&.&.&.&.\cr
+    v_{01}+tv_{12}+v_{02} &.&.&.&.&.&.&.&.&t\cr
     v_{03} &.&.&.&.&.&.&.&.&.\cr
-    v_{120}&.&.&.&.&.&.&.&.&.
+    v_{012}&.&.&.&.&.&.&.&.&.
     }
   \]
   From the reduction to normal form we can read off a basis for $Z$ given by the zero columns and the basis of $B$ given by the non-zero rows together with their non-zero entry. This gives us a presentation matrix of $H$ from the inclusion $B \hookrightarrow Z$
 
   \[
-    \bordermatrix{& v_{2}+v_{1} & tv_{1}+t^{2}v_{0} & v_{3}+t^{2}v_{0} & tv_{01}+t^{2}v_{12}+tv_{20} \cr
+    \bordermatrix{& v_{2}+v_{1} & tv_{1}+t^{2}v_{0} & v_{3}+t^{2}v_{0} & tv_{01}+t^{2}v_{12}+tv_{02} \cr
       v_{0} & . & t^{2} & t^{2} & . \cr
       v_{1} & 1 & t & . & .     \cr
       v_{2} & 1 & . & . & .     \cr
       v_{3} & . & . & 1 & .     \cr
-      v_{01}+v_{20}+tv_{12}  & . & . & . & t
+      v_{01}+v_{02}+tv_{12}  & . & . & . & t
       }
   \]
 
@@ -533,7 +567,7 @@ In Figure \ref{annulus_barcode} we see a barcode diagram generated from points s
   \begin{definition}
     The \textbf{persistence diagram} $X$ of a persistence module $M$ is a multiset of points in $\mathbb{R}^{2}\cup \{\infty\}$ defined as
     \[
-      X:=\{ (x,y) \in \mathbb{R}^{2} \mid [x,y) \in \mathbf{B}_{M}\} \cup \{ (x,x) \mid | x \in \mathbb{R}\}.
+      X:=\{ (x,y) \in \mathbb{R}^{2}\cup{\infty} \mid [x,y) \in \mathbf{B}_{M}\} \cup \{ (x,x) \mid | x \in \mathbb{R}\}.
     \]
   \end{definition}
 In other words, it is the set of \textit{(birth,death)} pairs given by the intervals associated with the decomposition of $M$ together with all points on the diagonal.
@@ -551,16 +585,18 @@ Just like in the barcode in Figure \ref{annulus_barcode} we can see in Figure \r
   As persistent homology is often used as a topological summary of some data, it can be beneficial to be able to compare two different data samples with respect to their persistent homology. There are two commonly used metrics for doing this, the bottleneck distance and the Wasserstein distance.
   \begin{definition}
     The \textbf{bottleneck distance} between two persistence diagrams $X,Y$ is
-    \[W_{\infty}(X,Y) = \inf_{\beta: X \to Y} \sup_{x \in X} ||x-\beta(x)||_{\infty}\]
+    \[W_{\infty}(X,Y) := \inf_{\beta: X \to Y} \sup_{x \in X} ||x-\beta(x)||_{\infty}\]
     where $\beta$ is a bijection from $X$ to $Y$.
   \end{definition}
 In other words, the bottleneck distance finds a matching, in the space of possible matchings, between the two persistence diagrams such that the largest distance in the matching is the smallest one possible. Since there could be more intervals in one persistence diagram, any point can also be matched with an infinite number of points on the diagonal which are included in the persistence diagram. Its name is derived from the fact that there is only one matching of points that contributes to the actual value of the distance, the largest one, and hence the distance is ``bottlenecked'' by that matching.
 
 One disadvantage of the bottleneck distance is that it is quite coarse, it does not tell us much about the other distances between other matched points. An alternative is the $q$-Wasserstein distance which instead incorporates all distances in the best matching.
   \begin{definition}
-    The q-Wasserstein distance between two persistence diagrams $X,Y$ is
-    \[W_{q}(X,Y) = (\inf_{\beta: X \to Y} \sum_{x \in X}  ||x-\beta(x)||_{\infty}^{q})^{\frac{1}{q}}\]
+    For $q \geq 1$ the q-Wasserstein distance between two persistence diagrams $X,Y$ is defined as
+    \[W_{q}(X,Y) := (\inf_{\beta: X \to Y} \sum_{x \in X}  ||x-\beta(x)||_{\infty}^{q})^{\frac{1}{q}}\]
   \end{definition}
+  As hinted by the notation the bottleneck distance is the limit of the $q$-Wasserstein distance as $q$ goes to infinity.
+
   Both the Wasserstein and bottleneck distance serve a purpose as the bottleneck distance can be considered more robust to noise since small changes in the matchings are ignored in favor of the largest matching.
 
   A desired quality of these metrics are stability, ideally we want the metrics to reflect differences in the underlying spaces. There are stability theorems that under varying conditions fulfill a meta-theorem which guarantee this.

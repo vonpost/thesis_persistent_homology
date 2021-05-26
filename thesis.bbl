@@ -908,6 +908,31 @@
       \endverb
       \keyw{allometry,computational biology,computational geometry,eyes,MicroCT,neuroscience,optical model,systems biology,vision}
     \endentry
+    \entry{itw}{article}{}
+      \name{author}{1}{}{%
+        {{hash=9bda28d21901ec94ceb99ba4f68c0dd1}{%
+           family={Cane},
+           familyi={C\bibinitperiod},
+           given={Jim},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{9bda28d21901ec94ceb99ba4f68c0dd1}
+      \strng{fullhash}{9bda28d21901ec94ceb99ba4f68c0dd1}
+      \strng{bibnamehash}{9bda28d21901ec94ceb99ba4f68c0dd1}
+      \strng{authorbibnamehash}{9bda28d21901ec94ceb99ba4f68c0dd1}
+      \strng{authornamehash}{9bda28d21901ec94ceb99ba4f68c0dd1}
+      \strng{authorfullhash}{9bda28d21901ec94ceb99ba4f68c0dd1}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the Kansas Entomological Society}
+      \field{title}{Estimation of bee size using intertegular span (Apoidea)}
+      \field{volume}{60}
+      \field{year}{1987}
+      \field{pages}{145\bibrangedash 147}
+      \range{pages}{3}
+    \endentry
     \entry{mantel}{book}{}
       \name{author}{2}{}{%
         {{hash=d97fe0cfa1798ad6a2f0196ff95cf74e}{%
@@ -1048,8 +1073,8 @@
       \strng{authorbibnamehash}{20a31bf2ade3cac6d4124574d1622043}
       \strng{authornamehash}{20a31bf2ade3cac6d4124574d1622043}
       \strng{authorfullhash}{20a31bf2ade3cac6d4124574d1622043}
-      \field{sortinit}{5}
-      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{sortinit}{6}
+      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Publications of the Mathematical Institute of the Hungarian Academy of Sciences}

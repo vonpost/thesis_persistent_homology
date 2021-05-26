@@ -70,11 +70,12 @@ Every abstract simplicial complex of dimension $n$ has a geometric realization i
 While there are many different possible geometric realizations for a given abstract simplicial complex, any two realizations of the same abstract simplicial complex are homeomorphic \cite[Theorem 3.1, p. ~15]{munkres}. Hence, Theorem \ref{geometricthm} guarantees the existence of a geometric realization unique up to topological equivalence.
 
 It is helpful to be able to talk about a specific face of a simplex, but to do so we need some notion of order between the vertices. This motivates the following definition.
-\begin{definition}
-An \textbf{ordered} simplicial complex $K$ is an abstract simplicial complex together with a total order on the set of vertices of $K$.
+\begin{definition} \label{defordsimcomp}
+An \textbf{ordered} simplicial complex $K$ is an abstract simplicial complex together with a partial order on the set of vertices of $K$, which restricts to a total order on each simplex.
 \end{definition}
-The total order on the set of vertices in an ordered simplicial complex induces orderings on each simplex such that the simplex $\sigma$ can be written as an ordered set $[v_{0},\dots,v_{n}]$. Therefore, the notion of the $i$th face of $\sigma$ is well-defined and is given by $[v_{0},\dots,\hat v_{i},\dots,v_{n}]$ where $\hat v_{i}$ denotes the exclusion of this particular vertex.
+The restriction of the partial order on the vertices to a total order on  $\sigma$ means that $\sigma$ can be seen as an ordered set $[v_{0},\dots,v_{n}]$. Therefore, the notion of the $i$th face of $\sigma$ is well-defined and is given by $[v_{0},\dots,\hat v_{i},\dots,v_{n}]$ where $\hat v_{i}$ denotes the exclusion of this particular vertex.
 
+Note that by enumerating the vertices of an abstract simplicial complex we get a total order on its vertices, which turns any abstract simplicial complex into an ordered simplicial complex.
 
 From here on we will refer to an ordered simplicial complex as a simplicial complex unless stated otherwise. This allows us to state our definitions and work with simplices solely as combinatorial objects.
 \section{Simplicial Homology}
@@ -134,7 +135,7 @@ Then $C_{*}$ is a chain complex, or equivalently $\partial_{k-1}\partial_{k}=0$ 
     =& 0.
   \end{align*}
   The first sum comes from when $j<i$ since when removing $v_{i}$ the position of $v_{j}$ is unchanged in the resulting simplex, whereas the second sum comes from the other possible case where $i<j$ and so removing $v_{i}$ causes the position of $v_{j}$ to shift by one. Hence, the sums cancel out and so $\partial \partial = 0$. \end{proof}
-Note that the differential $\partial$ is well-defined since $\sigma$ comes from an ordered simplicial complex in which the notion of the $i$th face of $\sigma$ is well-defined.
+Note that the differential $\partial$ on a simplicial chain module is well-defined since the presence of a simplex in an ordered simplicial complex in which the notion of the $i$th face of simplex is well-defined.
 \begin{example}
 Given a simplicial complex $K$ consisting of a triangle without interior as in Figure \ref{trichain}, a chain in $C_{1}(K)$ would be a linear combination of edges. For example, an element of $C_{1}(K)$ is $[v_{0},v_{1}]+[v_{1},v_{2}]$ which is highlighted in green.
 \begin{figure}[ht]
@@ -145,7 +146,18 @@ Given a simplicial complex $K$ consisting of a triangle without interior as in F
 \end{example}
 
 \begin{example}
-Given a $2$-simplex as in Figure \ref{2simplex} we get the differential of the interior of the simplex as \[\partial_{2}([v_{0},v_{1},v_{2}])=[v_{1},v_{2}]-[v_{0},v_{2}]+[v_{1},v_{2}]\] which geometrically is the boundary of the simplex. For this reason we also refer to the differential of a chain complex as the \textbf{boundary map} or \textbf{boundary operator}.
+  Consider the chain complex on the simplicial complex given by the $2$-simplex in Figure \ref{2simplex}.
+\begin{center}
+\begin{tabular}{*3l}
+  Module & Generators \\ \midrule
+  $C_{0}$ & $[v_{0}],[v_{1}],[v_{2}]$ \\
+  $C_{1}$ & $[v_{0},v_{1}],[v_{1},v_{2}],[v_{0},v_{2}]$ \\
+  $C_{2}$ & $[v_{0},v_{1},v_{2}]$
+\end{tabular}
+\end{center}
+Then the differential on the sole generator of $C_{2}$ is given by
+\[\partial_{2}([v_{0},v_{1},v_{2}])=[v_{1},v_{2}]-[v_{0},v_{2}]+[v_{1},v_{2}]\]
+which geometrically, as seen in Figure \ref{2simplex}, is the boundary of the simplex. For this reason we also refer to the differential of a chain complex as the \textbf{boundary map} or \textbf{boundary operator}.
 \begin{figure}[ht]
   \centering
   \includegraphics[scale=2]{partialtri.pdf}
@@ -159,7 +171,7 @@ The notion of the differential being a map from a simplex to its boundary motiva
   \[ B_{k} := \textrm{im } \partial_{k+1}.\]
   Just as for a chain complex we will sometimes refer to the collection of $Z_{k}$ and $B_{k}$ as $Z_{*}$ or $B_{*}$ respectively.
 \end{definition}
-Our overarching goal is to characterize $k$-cycles which are not $k$-boundaries. Hence, a vital result is this corollary to Theorem \ref{simpchainthm}.
+Our overarching goal is to characterize $k$-cycles modulo $k$-boundaries. Hence, a vital result is this corollary to Theorem \ref{simpchainthm}.
 
 \begin{corollary} \label{submodulecycle}
   The $k$-boundaries are a submodule of the $k$-cycles.
@@ -206,7 +218,7 @@ An elementary interval is a unit interval $[k,k+1]$ or a degenerate interval $[k
 The \textbf{dimension} $dim(Q)$ of an elementary cube $Q$ is the number of non-degenerate intervals in the product of elementary intervals that make up $Q$.
 \end{definition}
 
-Under this definition a $0$-dimensional cube is a degenerate elementary interval and a $1$-dimensional cube is a non-degenerate elementary interval which corresponds to our notion of vertices and edges in simplicial complexes.
+Under this definition a degenerate elementary interval is a $0$-dimensional cube and a non-degenerate elementary interval is a $1$-dimensional cube, which corresponds to our notion of vertices and edges in simplicial complexes.
 
 We let $\mathcal{K}^{n}$ denote the set of all elementary cubes in $\mathbb{R}^{n}$. The set of all possible elementary cubes is then denote $\mathcal{K}$ defined as
 \[ \mathcal{K}:= \bigcup^{\infty}_{n=1} \mathcal{K}^{n} \]

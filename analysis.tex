@@ -27,7 +27,10 @@ Our questions we wish to investigate in this case study are
 
 \end{enumerate}
 \subsection{Data}
-The data consists of binary 3-dimensional volumes (see Figure \ref{corneas} for renderings of some of the samples) of the corneas acquired by micro-CT scans of the samples described in Table \ref{bees}. The main focus of the analysis will be on samples from the bumblebee \textit{Bombus terrestris}, but in total there are 20 samples belonging to 8 different species of insects. We use the additional samples from other species to verify our topological findings.
+The data consists of binary 3-dimensional volumes (see Figure \ref{corneas} for renderings of some of the samples) of the corneas acquired by micro-CT scans of the samples as well as their intertegular width (ITW) described in Table \ref{bees}. The ITW of a bee is known to be an accurate estimator of its size \cite{itw}.
+
+The main focus of the analysis will be on samples from the bumblebee \textit{Bombus terrestris}, but in total there are 20 samples belonging to 8 different species of insects. We use the additional samples from other species to verify our topological findings.
+
 \begin{figure}[h]
   \centering
   \begin{subfigure}{.3 \linewidth}
@@ -88,7 +91,7 @@ In order to compute persistent homology we need a filtration which defines subco
    where $\partial Y$ is the boundary of $Y$.
 \end{definition}
 
-Our filtration is a sequence of cubical complexes $K_{i}$ given by including voxels of at most value $\epsilon_{i}$ as degenerate intervals. Higher dimensional cubes such as edges, squares and geometric cubes are, similarly to the Vietoris-Rips complex, included whenever there is a sufficient amount of pairwise adjacent voxels.
+Our filtration is a sequence of cubical complexes $K_{i}$ given by including voxels whose EDT is at most $\epsilon_{i}$ as degenerate intervals. Higher dimensional cubes such as edges, squares and geometric cubes are, similarly to the Vietoris-Rips complex, included whenever there is a sufficient amount of pairwise adjacent voxels.
 
 \begin{example}
   To calculate the EDT of the binary image in Figure \ref{edt} we simply calculate the difference vector from a pixel of value $1$ to the closest pixel with value $0$. For example, to get $\sqrt 5$ in the top left corner we need to walk one step in to the left and two steps upwards which translates to the vector $(-1,2)$ which has Euclidean norm $\sqrt{1+4}=\sqrt{5}$. We then compute the filtration of the transformed image, which gives us cubical complexes for each value of $\epsilon$. Since there are five distinct values of the pixels, we find  five subsequent cubical complexes ordered by inclusion.
@@ -120,12 +123,14 @@ Our filtration on the volumes will describe the structure of the cornea starting
   \includegraphics[scale=0.2]{eps100.png}
   \caption{$\epsilon < 100$}
   \end{subfigure}
-  \caption{\label{thresh} EDT thresholding of BT\_77976. Cooler colors indicate denser parts of the volume relative to the rest of the volume.}
+  \caption{\label{thresh} EDT thresholding of BT\_77976. The pictures are rendered using by maximum projections, meaning that the value at each pixel is given by the maximum value in any of the voxels that a ray passes through. The colors are then mapped so that cooler colors indicate larger values relative to the other values in the rendering.}
 \end{figure}
 
-The resulting topological summaries we get are persistence diagrams. While these are in themselves interesting, in order to answer whether there is any relation between the size of an individual and the persistent homology of its cornea, we compute a distance matrix giving the distance of each sample to another. Since we have a number of dimensions of homology to compare and two different distance metrics between persistent homology we get a total of 6 distance matrices. For each of these distance matrices, we divide them into two submatrices, one group consisting of the submatrix with entries from \textit{Bombus terrestris} and the other group consisting of all the other samples to act as a control group on the first.
+The resulting topological summaries we get are persistence diagrams. While these are in themselves interesting, in order to answer whether there is any relation between the size of an individual and the persistent homology of its cornea, we compute a distance matrix giving the distance of each sample to another.
 
-Our hypothesis is that there is some relationship between the distances given by the absolute difference in ITW and their persistent homologies. But since different homology dimensions and metrics provide different summaries of the objects we first need to figure out which one of them is most suited for our applications.
+Since we have a number of dimensions of homology to compare and two different distance metrics between persistence diagrams we get a total of 6 distance matrices. For each of these distance matrices, we divide them into two submatrices, one group consisting of the submatrix with entries from \textit{Bombus terrestris} and the other group consisting of all the other samples to act as a control group on the first.
+
+Our hypothesis is that there is some relationship between the absolute difference in ITW between samples and the difference in persistent homology between the filtrations of cubical complexes constructed from the EDT of cornea volumes. But since different homology dimensions and metrics provide different summaries of the objects, we first need to figure out which one of them is most suited for our applications.
 
 We determine which metric we will rely on by doing a so called \textbf{Mantel test} \cite[p. ~813]{mantel} of the distance matrix with respect to homology and the distance matrix with respect to ITW. A Mantel test is a non-parametric test of distance matrices, in which we compute the Spearman rank correlation of the two matrices under the null hypothesis that the matrices are uncorrelated. We can then derive a test statistic by permuting one of the matrices in both rows and columns and computing correlations for each such permutation.  The results of a Mantel test is a correlation coefficient indicating the strength of the correlation and $p$-value indicating how likely it is  that this coefficient would appear in a random permutation of one of the matrices.
 
@@ -212,7 +217,7 @@ In this analysis we follow \cite{reimann} by observing the high-dimensional simp
 Recall that a directed graph $G=\{V,E\}$ consists of a set of \textbf{vertices} $V$ and a set of \textbf{edges} $E$, where an edge is an ordered set $(v_{i},v_{j})$ for some vertices $v_{i},v_{j} \in V$. The \textbf{degree} of a vertex in a directed graph is the sum of the number of outgoing and incoming edges from and to the vertex.
 
 
-In this case analysis our main object of study is a synthetic network of generated based on empirical findings regarding the micro-circuitry of the striatum realized as a directed graph, see \cite{Hjorth202000671} for further details. We compare this network to a three different models of directed graphs that all have different qualities common to networks of the brain.
+In this case analysis our main object of study is a synthetic network based on the micro-circuitry of the striatum realized as a directed graph. The network is generated using empirical findings regarding connectivity between neurons, the morphology of cells and electrophysical properties, see \cite{Hjorth202000671} for further details. We compare this network to a three different models of directed graphs that all have different qualities common to networks of the brain.
 
 \begin{definition}[{\cite{erdos}}]
 The \textbf{Erdős–Rényi (ER) model} generates a directed graph through the choice of two parameters: the number of vertices $n$ and the number of edges $m$. The graph is then selected uniformly from the set of all graphs with $n$ vertices and $m$ edges.
@@ -223,7 +228,7 @@ The \textbf{Watts-Strogatz (WS)} model is parameterized by the number of vertice
 \end{definition}
 
 \begin{definition}[{\cite{barabasi}}]
-  The \textbf{Barabási–Albert (BA) model} is parameterized by the number of vertices $n$ and $m$, the average out-degree of each vertex. It is constructed by first adding $m$ vertices and successively adding vertices until there are $n$ vertices. For each new vertex $v_{i}$ we add an edge $\{v_{i},v_{j}\}$  with a probability of
+  The \textbf{Barabási–Albert (BA) model} is parameterized by the number of vertices $n$ and $m$, the average out-degree of each vertex. It is constructed by starting with the complete directed graph on $m$ vertices and successively adding vertices until there are $n$ vertices. For each new vertex $v_{i}$ we add an edge $\{v_{i},v_{j}\}$  with a probability of
   \[
     \frac{\deg(v_{j})}{\sum_{k} \deg(v_{k})}
   \]
@@ -231,7 +236,7 @@ The \textbf{Watts-Strogatz (WS)} model is parameterized by the number of vertice
 \end{definition}
 ER can be considered the baseline model, since it is an arbitrary random graph among all possible graphs. WS is said to have \textbf{small-world properties}, which means that there are clusters of highly connected nodes and that the average path between two vertices is short. BA is said to be \textbf{scale-free} which means that most vertices have a low degree, but some ``hubs'' have a high degree. Both scale-free and small-world properties have been observed in brain networks \cite{SPORNS2004418}. Figure \ref{graphexamples} gives an example of each model generated with $100$ vertices.
 
-In this analysis we compare we will compare the three models above with the synthetic network generated from the striatum, which we will refer to as ST. In Table \ref{graphmodels} we can see our choice parameters for the models and the resulting number of edges and vertices. For ER and WS our parameter choices were made to match the number of edges in ST. However, for the BA model we instead choose parameters in order to match the number of dimensions in the simplicial complex on ST as seen in Figure \ref{count50k}.
+In this analysis we compare the three models above with the synthetic network generated from the striatum, which we will refer to as ST. In Table \ref{graphmodels} we can see our choice parameters for the models and the resulting number of edges and vertices. For ER and WS our parameter choices were made to match the number of edges in ST. However, for the BA model we instead choose parameters in order to match the number of dimensions in the simplicial complex on ST as seen in Figure \ref{count50k}.
 \begin{figure}[ht]
   \centering
   \begin{subfigure}{.33 \linewidth}
@@ -267,21 +272,25 @@ In this analysis we compare we will compare the three models above with the synt
 \end{table}
 
 \subsection{Methodology}
-It is not entirely clear how we should define a simplicial complex on a \textit{directed} graph. The asymmetry is important as connections between neurons in the brain do not necessarily go both ways. While we could simply consider the network as a undirected graph by adding missing edges it is likely that important qualities of the network might be lost. There are a number of different ways to go about defining a similar complex on a directed graph . In our case we follow \cite{reimann} and construct something called the \textbf{directed flag complex} of a directed graph.
+It is not entirely clear how we should define a simplicial complex on a \textit{directed} graph. The asymmetry is important as connections between neurons in the brain do not necessarily go both ways. While we could simply consider the network as a undirected graph by adding missing edges it is likely that important qualities of the network might be lost. There are a number of different ways to go about defining a similar complex on a directed graph. In our case we follow \cite{reimann} and construct something called the \textbf{directed flag complex} of a directed graph.
 
 \begin{definition}[\cite{luetdigraph}]
   A \textbf{directed clique} is a directed graph $G=(V,E)$ such that every vertex has at least an outgoing or incoming edge to every other vertex in the graph. \end{definition}
 
-Recall that an abstract simplicial complex as in Definition \ref{defabstractsimcomp} is given by ordered sets such that each subset of is also part of the entire complex. Hence, by taking a directed graph and introducing a partial order on the vertices we can construct an an abstract simplicial complex.
+Recall that an ordered simplicial complex as in Definition \ref{defordsimcomp} is given by an abstract simplicial complex together with a partial order that is total on each simplex. Hence, by taking a directed graph and introducing such a partial order on the vertices induced by the direction of each edge we can construct an ordered simplicial complex.
 
 \begin{definition}[\cite{luetdigraph}]
   Let G=\{V,E\} be a directed graph. The \textbf{directed flag complex} dFl(G) is defined to be the simplicial complex whose $k$-simplices are all directed cliques with vertices $v_{0},\dots,v_{k}$ such that $\forall i: v_{i} \in V$
   and $\forall i,j: i < j \implies (v_{i}, v_{j}) \in E$. The vertices $v_{0}, v_{k}$ are called the source and the sink of a $k$-simplex.
 \end{definition}
 
-The directed flag complex is essentially the same construction given by the Vietoris-Rips complex where pairwise intersection is given by an edge. However, there are some notable difference due to the fact that the underlying graph is directed. One difference is that we only create a simplex from cliques of simplices whose edges flow ``upwards'' in the order. In Figure \ref{disimplex} we see how the left clique has a source and sink and thus defines a $3$-simplex in the directed flag complex, but the right clique has one edge going in the wrong direction hence it is not a $3$-simplex.
+The directed flag complex is essentially the same construction given by the Vietoris-Rips complex where pairwise intersection is given by an edge. However, there are some notable difference due to the fact that the underlying graph is directed. The main difference is that we only create a simplex from cliques of simplices whose edges flow ``upwards'' in the order. This is because the total order on each simplex has to be respected in each of its faces. If we allowed for arbitrary directed cliques to be simplices the ordering would not be consistent. To see this, suppose that we have the directed simplices $[v_{0},v_{1}],[v_1,v_2],[v_{2},v_{0}]$ and $[v_{0},v_{1},v_{2}]$. Then the partial order of the vertices necessitates that both $v_{2} < v_{1}$ and $v_{1} > v_{2}$ which is a contradiction.
 
-The $k$th chain module on a directed flag complex is defined in the exact same way as in Definition \ref{chainmodulesimp} with the exception that we do not have equivalences between simplices that are permutations of the same vertices. As a result of this the chain complex has certain oddities like $[v_{0},v_{1}]+[v_{1},v_{0}]$ being a cycle whereas in the case of simplicial homology it would be a trivial chain due to the equivalence. In the context of a directed graph derived from the brain this makes sense: a connection between neurons is only one-way and the presence of a reciprocal edge indicates two different connections in both directions and thus is a cycle in its own right.
+Since the directed flag complex is a simplicial complex homology is well-defined. However, when the partial order on the vertices of is \textit{not} a total order there are certain oddities to be aware of. For example, a reciprocal edge $v_{0} \leftrightarrow v_{1}$ in the underlying directed graph yields a generator of $H_{1}$ since the $1$-cycle $[v_{0},v_{1}]+[v_{1},v_{0}]$ cannot be the boundary of a $2$-simplex.
+
+In Figure \ref{disimplex} we see how the left clique has a source and sink and thus defines a $3$-simplex in the directed flag complex, but the right clique has one edge going in the wrong direction, hence it is not a $3$-simplex.
+
+% The $k$th chain module on a directed flag complex is defined in the exact same way as in Definition \ref{chainmodulesimp}. However, when the simplicial complex is constructed from a directed graph the partial order on the vertices is not necessarily total. As a result of this the chain complex has certain oddities like $[v_{0},v_{1}]+[v_{1},v_{0}]$ being a cycle whereas in the case of simplicial homology it would be a trivial chain TODO FIX THIS. In the context of a directed graph derived from the brain this makes sense: a connection between neurons is only one-way and the presence of a reciprocal edge indicates two different connections in both directions and thus is a cycle in its own right.
 
 \begin{figure}[ht]
   \centering
@@ -298,7 +307,7 @@ We use a simple filtration function
     -\deg(\sigma) & \text{if } \dim(\sigma) = 0 \\
     \max_{\tau \text{ is a face of } \sigma} \{ f(\tau) \} & \text{if } \dim(\sigma) > 0
   \end{cases}
-\] where we add vertices in ascending order of degrees and their resulting higher-dimensional simplices whenever all their vertices have been included in the complex. The degree of the vertex indicates how central a vertex is to the graph, which means that the filtration will describe the network in its most basic building blocks and then add less and less important vertices.
+\] where we add vertices in descending order of degrees and their resulting higher-dimensional simplices whenever all their vertices have been included in the complex. The degree of the vertex indicates how central a vertex is to the graph, which means that the filtration will describe the network in its most basic building blocks and then add less and less important vertices.
 \subsection{Results}
 First we note the large number of simplices in ST as seen in Figure \ref{count50k}, where we find as much as over a hundred billion simplices in dimension $7,8$ and $9$. This phenomena was also observed in \cite{reimann}, however not of the same magnitude.  Furthermore, we see that the number of dimensions is significantly larger in ST compared to ER and WS. The graph BA was chosen so that its directed flag complex had the same dimension as ST's, but we see that the number of simplices in each dimension is notably lower. So while the BA model seems to capture the complexity of connectivity in ST it does not capture the magnitude. ER and WS present a lot fewer simplices and a lot fewer dimensions than ST. In this sense ER is the simplest model, but this is to be expected since it is a random graph we expect there to be less of simplicial complexity.
 
